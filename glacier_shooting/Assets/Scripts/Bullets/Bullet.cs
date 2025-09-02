@@ -13,10 +13,9 @@ public class Bullet : MonoBehaviour
     {
         transform.Translate(Vector3.down * speed * Time.deltaTime);
     }
-
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Border")
+        if (collision.CompareTag("Border"))
         {
             Destroy(gameObject);
         }

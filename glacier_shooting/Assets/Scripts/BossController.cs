@@ -16,7 +16,7 @@ public class BossController : MonoBehaviour
     public int spreadBulletCount; // 부채꼴 탄막의 라인 개수
     public float spreadAngleStep; // 부채꼴 탄막의 라인 간격
     public float spreadFireInterval; // 탄막 발사 시간 간격
-    private float spreadFireTimer = 0f; // 발사 시간 간격 체크에 사용될 타이머
+    [SerializeField] private float spreadFireTimer = 0f; // 발사 시간 간격 체크에 사용될 타이머
     public float spreadRotationStep; // 발사마다 회전할 각도
     private float spreadOffsetAngle = 0f; // 현재 회전 오프셋
     public int spreadBurstCount; // 1회 발사 할 때 발사되는 총알 개수 
@@ -74,6 +74,8 @@ public class BossController : MonoBehaviour
                         spreadCurrentBurst = 0;
                         spreadBurstTimer = 0f;
                     }
+
+                    StartCoroutine(SetCoolDown());
                 }
             }
             else if (spreadFireTimer >= spreadBurstCoolDownTime)
@@ -121,6 +123,16 @@ public class BossController : MonoBehaviour
             Instantiate(spreadBulletPrefab, firePoint.position, rotation);
         }
     }
+
+    public IEnumerator SetCoolDown()
+    {
+        while (spreadFireTimer < spreadBurstCoolDownTime)
+        {
+            spreadFireTimer += Time.deltaTime;
+            yield return null;
+        }
+    }
+
 
     public void HomingShot()
     {
