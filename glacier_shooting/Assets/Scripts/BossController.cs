@@ -1,11 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class BossController : MonoBehaviour
 {
+    #region 변수
     public Transform firePoint;
 
-    [Header("Spread")]
+    [Header ("Bullet Prefab")]
     public GameObject spreadBulletPrefab; // 부채꼴 탄막에 사용될 총알 프리팹
+    public GameObject homingBulletPrefab;
+
+    [Header("Spread")]
     public int spreadBulletCount; // 부채꼴 탄막의 라인 개수
     public float spreadAngleStep; // 부채꼴 탄막의 라인 간격
     public float spreadFireInterval; // 탄막 발사 시간 간격
@@ -19,13 +26,19 @@ public class BossController : MonoBehaviour
     private float spreadBurstTimer; // 
 
     [Header("Homing")]
-    public GameObject homingBulletPrefab;
+    [SerializeField] private float homingCoolDown;
 
-
+    [Header("Boss Stat")]
     public float moveSpeed = 2f;
     public float hp = 100f;
+    [SerializeField] private int phase = 1;
 
-    private int phase = 1;
+    #endregion
+
+    private void Start()
+    {
+        StartCoroutine(Homing());
+    }
 
     void Update()
     {
@@ -69,7 +82,7 @@ public class BossController : MonoBehaviour
                 spreadBurstTimer = 0f;
             }
 
-            HomingShot();
+            //HomingShot();
         }
         else if (phase == 2)
         {
@@ -112,5 +125,14 @@ public class BossController : MonoBehaviour
     public void HomingShot()
     {
         Instantiate(homingBulletPrefab, firePoint.position, firePoint.rotation);
+    }
+
+    public IEnumerator Homing()
+    {
+        while (phase == 1)
+        {
+            yield return new WaitForSeconds(homingCoolDown);
+            Instantiate(homingBulletPrefab, firePoint.position, firePoint.rotation);
+        }
     }
 }

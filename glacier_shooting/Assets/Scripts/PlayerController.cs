@@ -5,13 +5,7 @@ public class PlayerController : MonoBehaviour
 
     public float speed;
     public float detailSpeed;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         float h = Input.GetAxisRaw("Horizontal");
