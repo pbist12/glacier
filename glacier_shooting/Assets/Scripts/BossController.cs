@@ -18,7 +18,8 @@ public class BossController : MonoBehaviour
     private int spreadCurrentBurst = 0; // 현재 버스트 횟수 카운트용 변수 
     private float spreadBurstTimer; // 
 
-
+    [Header("Homing")]
+    public GameObject homingBulletPrefab;
 
 
     public float moveSpeed = 2f;
@@ -68,7 +69,7 @@ public class BossController : MonoBehaviour
                 spreadBurstTimer = 0f;
             }
 
-
+            HomingShot();
         }
         else if (phase == 2)
         {
@@ -106,5 +107,10 @@ public class BossController : MonoBehaviour
             Quaternion rotation = Quaternion.Euler(0, 0, angle);
             Instantiate(spreadBulletPrefab, firePoint.position, rotation);
         }
+    }
+
+    public void HomingShot()
+    {
+        Instantiate(homingBulletPrefab, firePoint.position, firePoint.rotation);
     }
 }
