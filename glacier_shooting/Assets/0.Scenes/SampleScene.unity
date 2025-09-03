@@ -463,6 +463,9 @@ MonoBehaviour:
   moveSpeed: 2
   hp: 100
   phase: 1
+  pool: {fileID: 700667418}
+  bulletSpeed: 8
+  bulletLifetime: 5
 --- !u!212 &402521734
 SpriteRenderer:
   m_ObjectHideFlags: 0

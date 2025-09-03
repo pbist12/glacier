@@ -1,19 +1,17 @@
-using Unity.VisualScripting;
+// File: Bullet.cs
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [HideInInspector] public BulletPool pool; // 되돌아갈 풀
-    [HideInInspector] public Vector2 velocity; // 초당 이동 벡터
-    [HideInInspector] public float lifetime;   // 초 단위 수명
-    public float speed = 5f;
+    public BulletPool pool; // 되돌아갈 풀
+    public Vector2 velocity; // 초당 이동 벡터
+    public float lifetime;   // 초 단위 수명
 
     float _age;
     Transform _tf;
 
     void Awake()
     {
-        pool = GameObject.FindFirstObjectByType<BulletPool>();
         _tf = transform;
     }
 
@@ -24,8 +22,10 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(Vector3.down * speed * Time.deltaTime);
+        // 이동
+        _tf.position += (Vector3)(velocity * Time.deltaTime);
 
+        // 수명 체크
         _age += Time.deltaTime;
         if (_age >= lifetime)
         {
@@ -33,16 +33,20 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    // 화면/월드 바깥으로 나갈 때도 제거하고 싶다면 외부에서 호출
     public void Despawn()
     {
         if (!gameObject.activeSelf) return;
         pool.Despawn(this);
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    // 플레이어와 충돌 시 외부에서 이걸 호출하도록 해도 됨(트리거/오버랩 등)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.CompareTag("Border"))
+        // 태그/레이어로 필터
+        if (other.CompareTag("Player"))
         {
+            // TODO: 플레이어 데미지 처리
             Despawn();
         }
     }
