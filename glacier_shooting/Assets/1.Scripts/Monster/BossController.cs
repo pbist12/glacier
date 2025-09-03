@@ -47,7 +47,7 @@ public class BossController : MonoBehaviour
 
     void Update()
     {
-        //MovePattern();
+        MovePattern();
         AttackPattern();
         PhaseCheck();
     }

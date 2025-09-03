@@ -297,7 +297,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.4, y: 0.4}
+  m_Size: {x: 0.2, y: 0.2}
   m_EdgeRadius: 0
 --- !u!114 &44620073
 MonoBehaviour:
@@ -332,7 +332,7 @@ MonoBehaviour:
   autoFireOnStart: 1
   holdToFire: 1
   fireAction: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  fireRate: 10
+  fireRate: 40
   bulletSpeed: 20
   bulletLifetime: 5
   directionMode: 0
@@ -489,7 +489,7 @@ MonoBehaviour:
   spreadFireTimer: 0
   spreadRotationStep: 5
   spreadBurstCount: 5
-  spreadBurstCoolDownTime: 5
+  spreadBurstCoolDownTime: 1
   homingCoolDown: 0.5
   moveSpeed: 2
   hp: 100
