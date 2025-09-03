@@ -4,12 +4,18 @@ using VFolders.Libs;
 
 public class PlayerStatus : MonoBehaviour
 {
+    public PlayerData player;
+
     [SerializeField] private int playerHealth;
     [SerializeField] private int playerMaxHealth;
 
     [SerializeField] private int bomb;
 
-    public PlayerData player;
+    public int PlayerHealth 
+    {
+        get { return playerHealth; }
+        set { playerHealth = value; }
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
