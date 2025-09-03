@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4219509961788777410}
   - component: {fileID: 5152623889253937992}
-  - component: {fileID: 1440800000158747969}
-  - component: {fileID: -8547361955056781368}
+  - component: {fileID: -5129335844961035740}
+  - component: {fileID: -5888773751301852713}
   m_Layer: 0
-  m_Name: Bullet_test 1
-  m_TagString: Untagged
+  m_Name: Bullet_Base
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,8 +78,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
-  m_Color: {r: 0.9622642, g: 0.19517623, b: 0.19517623, a: 1}
+  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -89,7 +89,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1440800000158747969
+--- !u!114 &-5129335844961035740
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -98,15 +98,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 7421345306522132913}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d747e2a4baaee0042bb7319a1f24e59d, type: 3}
+  m_Script: {fileID: 11500000, guid: f956b3c1024a01d40812e1f6c8d8390b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
-  rotateSpeed: 50
-  homingDelay: 0.1
-  homingDuration: 0.5
---- !u!70 &-8547361955056781368
-CapsuleCollider2D:
+  pool: {fileID: 0}
+  velocity: {x: 0, y: 0}
+  lifetime: 0
+  speed: 2
+--- !u!58 &-5888773751301852713
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -140,5 +140,4 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 1}
-  m_Direction: 0
+  m_Radius: 0.5

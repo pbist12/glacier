@@ -33,6 +33,11 @@ public class BossController : MonoBehaviour
     public float hp = 100f;
     [SerializeField] private int phase = 1;
 
+    [Header("Bullet (Pool)")]
+    public BulletPool pool;
+    public float bulletSpeed = 8f;
+    public float bulletLifetime = 5f;
+
     #endregion
 
     private void Start()
@@ -60,28 +65,44 @@ public class BossController : MonoBehaviour
         {
             if (!spreadBurstCoolDown)
             {
+                // 버스트 내부: 일정 간격으로 여러 번 발사
                 spreadBurstTimer += Time.deltaTime;
+
                 if (spreadBurstTimer >= spreadFireInterval)
                 {
-                    SpreadShot(spreadBulletCount, spreadAngleStep);
-                    spreadOffsetAngle += spreadRotationStep; // 발사 각도 오프셋을 변경 
-                    spreadFireTimer = 0f;
+                    spreadBurstTimer = 0f;
+
+                    // 부채꼴 한 번 발사 (pool 사용)
+                    SpreadShot(spreadBulletCount, spreadAngleStep, spreadOffsetAngle);
+
+                    // 매 발사마다 회전 오프셋 누적
+                    spreadOffsetAngle += spreadRotationStep;
+
+                    // 이번 버스트에서 몇 번 발사했는지 카운트
                     spreadCurrentBurst++;
 
-                    if(spreadCurrentBurst >= spreadBurstCount)
+                    // 버스트 끝 → 쿨다운 진입
+                    if (spreadCurrentBurst >= spreadBurstCount)
                     {
                         spreadBurstCoolDown = true;
                         spreadCurrentBurst = 0;
                         spreadBurstTimer = 0f;
+                        spreadFireTimer = 0f; // 쿨다운 타이머 초기화
                     }
-
-                    StartCoroutine(SetCoolDown());
                 }
             }
-            else if (spreadFireTimer >= spreadBurstCoolDownTime)
+            else
             {
-                spreadBurstCoolDown = false;
-                spreadBurstTimer = 0f;
+                // 버스트 사이 쿨다운
+                spreadFireTimer += Time.deltaTime;
+                if (spreadFireTimer >= spreadBurstCoolDownTime)
+                {
+                    spreadBurstCoolDown = false;
+                    spreadFireTimer = 0f;
+                    spreadBurstTimer = 0f;
+                    // 필요하면 회전 누적 초기화:
+                    // spreadOffsetAngle = 0f;
+                }
             }
 
             //HomingShot();
@@ -114,7 +135,7 @@ public class BossController : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void SpreadShot(int bulletCount, float angleStep)
+/*    void SpreadShot(int bulletCount, float angleStep)
     {
         for (int i = 0; i < bulletCount; i++)
         {
@@ -122,7 +143,7 @@ public class BossController : MonoBehaviour
             Quaternion rotation = Quaternion.Euler(0, 0, angle);
             Instantiate(spreadBulletPrefab, firePoint.position, rotation);
         }
-    }
+    }*/
 
     public IEnumerator SetCoolDown()
     {
@@ -133,6 +154,40 @@ public class BossController : MonoBehaviour
         }
     }
 
+    void SpreadShot(int count, float angleStep, float offsetDeg)
+    {
+        if (pool == null) return;
+
+        // 발사 원점
+        Vector2 origin;
+
+        if (firePoint != null)
+        {
+            // firePoint가 할당되어 있으면, 그 위치를 발사 원점으로 사용
+            origin = (Vector2)firePoint.position;
+        }
+        else
+        {
+            // firePoint가 비어 있으면, 자기 자신(Transform)의 위치를 발사 원점으로 사용
+            origin = (Vector2)transform.position;
+        }
+
+        // 기준 각도: 월드 위(+Y) = 90도. 
+        // 오브젝트 회전 기준으로 하고 싶으면 baseDeg = transform.eulerAngles.z; 로 바꿔도 됨.
+        float baseDeg = 90f;
+
+        // 가운데 정렬로 좌우 분포
+        float half = (count - 1) * 0.5f;
+        for (int i = 0; i < count; i++)
+        {
+            float idx = i - half;
+            float deg = baseDeg + offsetDeg + idx * angleStep;
+            float rad = deg * Mathf.Deg2Rad;
+
+            Vector2 dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)).normalized;
+            pool.Spawn(origin, dir * bulletSpeed, bulletLifetime, zRotationDeg: deg);
+        }
+    }
 
     public void HomingShot()
     {
