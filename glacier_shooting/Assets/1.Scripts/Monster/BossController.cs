@@ -30,7 +30,8 @@ public class BossController : MonoBehaviour
 
     [Header("Boss Stat")]
     public float moveSpeed = 2f;
-    public float hp = 100f;
+    public float maxHP;
+    public float hp;
     [SerializeField] private int phase = 1;
 
     [Header("Bullet (Pool)")]
@@ -42,12 +43,13 @@ public class BossController : MonoBehaviour
 
     private void Start()
     {
+        hp = maxHP;
         StartCoroutine(Homing());
     }
 
     void Update()
     {
-        MovePattern();
+        //MovePattern();
         AttackPattern();
         PhaseCheck();
     }
@@ -119,8 +121,8 @@ public class BossController : MonoBehaviour
 
     void PhaseCheck()
     {
-        if (hp < 70 && phase == 1) phase = 2;
-        if (hp < 30 && phase == 2) phase = 3;
+        if (hp / maxHP < 0.7f && phase == 1) phase = 2;
+        if (hp / maxHP < 0.3f && phase == 2) phase = 3;
     }
 
     public void TakeDamage(float damage)
@@ -134,16 +136,6 @@ public class BossController : MonoBehaviour
         Debug.Log("Boss Defeated!");
         Destroy(gameObject);
     }
-
-/*    void SpreadShot(int bulletCount, float angleStep)
-    {
-        for (int i = 0; i < bulletCount; i++)
-        {
-            float angle = spreadOffsetAngle + (-angleStep * (bulletCount - 1) / 2 + angleStep * i);
-            Quaternion rotation = Quaternion.Euler(0, 0, angle);
-            Instantiate(spreadBulletPrefab, firePoint.position, rotation);
-        }
-    }*/
 
     public IEnumerator SetCoolDown()
     {
@@ -200,6 +192,19 @@ public class BossController : MonoBehaviour
         {
             yield return new WaitForSeconds(homingCoolDown);
             Instantiate(homingBulletPrefab, firePoint.position, firePoint.rotation);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Bullet"))
+        {
+            hp--;
+
+            if (hp < 0)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
