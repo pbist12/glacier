@@ -7,12 +7,13 @@ public class TelegraphAOE : MonoBehaviour
     [Header("Shape / Visual")]
     public SpriteRenderer sr;            // 원형 표시 스프라이트
     public float maxRadius = 2.5f;       // 최종 반경 (로컬 스케일로 반영)
-    public Color warnColor = new Color(1f, 0.4f, 0.2f, 0.4f);
-    public Color activeColor = new Color(1f, 0.0f, 0.0f, 0.6f);
+    public Color warnColor = new Color();
+    public Color activeColor = new Color();
     public float pulseSpeed = 6f;        // 경고 중 깜빡임 속도
 
     [Header("Timings")]
-    public float warnTime = 1.2f;        // 경고(무적) 시간
+    public float warnTime = 1.2f;        // 경고 시간
+    public float homingStopTime = 1.0f;
     public float activeTime = 1.6f;      // 실제 피해 시간
     public float fadeOutTime = 0.25f;    // 종료 페이드
 
@@ -21,13 +22,10 @@ public class TelegraphAOE : MonoBehaviour
     public float trackLerp = 10f;              // 추적 보간 속도
 
     [Header("Damage")]
-    public float damagePerTick = 10f;
-    public float tickInterval = 0.2f;    // 피해 간격
     public string playerTag = "Player";
 
     private CircleCollider2D col;
     private Transform player;
-    private Dictionary<Collider2D, float> lastHitTime = new Dictionary<Collider2D, float>();
 
     void Awake()
     {
@@ -63,7 +61,7 @@ public class TelegraphAOE : MonoBehaviour
             sr.color = c;
 
             // 경고 중 추적
-            if (trackPlayerDuringWarn && player != null)
+            if (trackPlayerDuringWarn && player != null && t <= homingStopTime)
             {
                 transform.position = Vector3.Lerp(transform.position, player.position, trackLerp * Time.deltaTime);
             }
@@ -81,7 +79,7 @@ public class TelegraphAOE : MonoBehaviour
             yield return null;
         }
 
-        // 3) FADE OUT: 충돌 끄고 서서히 사라짐
+        // FADE OUT: 충돌 끄고 서서히 사라짐
         col.enabled = false;
 
         float startA = sr.color.a;
@@ -97,10 +95,4 @@ public class TelegraphAOE : MonoBehaviour
         Destroy(gameObject);
     }
 
-    // 화면 밖 안전 제거(선택)
-    void OnBecameInvisible()
-    {
-        // 필요 시 주석 해제
-        // Destroy(gameObject);
-    }
 }
