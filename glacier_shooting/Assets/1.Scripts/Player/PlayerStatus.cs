@@ -48,12 +48,6 @@ public class PlayerStatus : MonoBehaviour
     private void OnDamaged()
     {
         playerHealth--;
-
-        if (playerHealth <= 0)
-        {
-            //여기에 플레이어 사망 이벤트
-            this.gameObject.Destroy();
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -19,7 +19,7 @@ MonoBehaviour:
   moveSpeed: 5
   focusSpeed: 2.5
   hitboxRadius: 0.1
-  fireRate: 10
+  fireRate: 1
   bulletSpeed: 8
   bulletLifetime: 3
   bombDuration: 2

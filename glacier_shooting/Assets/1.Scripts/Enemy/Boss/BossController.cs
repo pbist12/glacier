@@ -41,15 +41,16 @@ public class BossController : MonoBehaviour
 
     #endregion
 
-    private void Start()
+    private void OnEnable()
     {
+        pool = GameObject.FindFirstObjectByType<BulletPool>();
         hp = maxHP;
         StartCoroutine(Homing());
     }
 
     void Update()
     {
-        //MovePattern();
+        MovePattern();
         AttackPattern();
         PhaseCheck();
     }
@@ -106,8 +107,6 @@ public class BossController : MonoBehaviour
                     // spreadOffsetAngle = 0f;
                 }
             }
-
-            //HomingShot();
         }
         else if (phase == 2)
         {
