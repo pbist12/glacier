@@ -104,7 +104,7 @@ public class EnemySpawner : MonoBehaviour
         Instantiate(prefab, pos, Quaternion.identity);
 
         // 보스가 등장하면 일반 스폰을 멈추고 싶다면, 여기서 playOnStart를 꺼도 됨:
-        playOnStart = false;
+        // playOnStart = false;
     }
 
     Vector3 GetRandomPointInRect()
