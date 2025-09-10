@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7323046611198930752}
   - component: {fileID: 822752236351559224}
+  - component: {fileID: 3594462672435707539}
   - component: {fileID: 425799903279579339}
   - component: {fileID: 3659103923836047353}
   - component: {fileID: 6229834534302774436}
@@ -84,6 +85,21 @@ MonoBehaviour:
   maxHP: 3
   useBoundsDespawn: 1
   bounds: {x: 20, y: 12}
+  enemyDrop: {fileID: 3594462672435707539}
+--- !u!114 &3594462672435707539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6956107430802199566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d9038c53b63a7f48809433458137ee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropPrefab:
+  - {fileID: 3564688787768738211, guid: 61a132dd8b48f264b86c6a5dae680e2c, type: 3}
 --- !u!114 &425799903279579339
 MonoBehaviour:
   m_ObjectHideFlags: 0

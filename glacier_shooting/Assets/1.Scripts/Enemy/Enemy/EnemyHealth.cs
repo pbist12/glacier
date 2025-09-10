@@ -10,6 +10,9 @@ public class EnemyHealth : MonoBehaviour
     public bool useBoundsDespawn = true;
     public Vector2 bounds = new Vector2(20f, 12f);
 
+    [Header("DropItem")]
+    public EnemyDrop enemyDrop;
+
     void OnEnable() => hp = maxHP;
 
     public void TakeDamage(float dmg)
@@ -29,6 +32,7 @@ public class EnemyHealth : MonoBehaviour
     void Die()
     {
         GameManager.Instance.AddScore(10);
+        enemyDrop.DropItem();
         Destroy(gameObject);
     }
 
