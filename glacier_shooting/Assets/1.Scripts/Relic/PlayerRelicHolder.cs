@@ -14,11 +14,8 @@ public class PlayerRelicHolder : MonoBehaviour
         }
     }
 
-    public void AddRelic()
+    public void AddRelic(RelicData relic)
     {
-        RelicData relic = null;
-        relic = allRelic[Random.Range(0, allRelic.Length)];
-
         playerRelics.Add(relic);
         PlayerStatus.Instance.AddStat(relic);
     }
