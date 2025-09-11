@@ -55,7 +55,7 @@ public class PlayerShoot : MonoBehaviour
         Vector2 dir = transform.up;
         if (dir.sqrMagnitude < 0.0001f) dir = Vector2.up;
 
-        float deg = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        float deg = Mathf.Atan2(dir.y, dir.x); //* Mathf.Rad2Deg; // 로테이션 z값이 90으로 나오는 문제 땜빵
 
         var b = pool.Spawn(poolKey, origin, dir.normalized * bulletSpeed, bulletLifetime, bulletDamage, deg);
     }
