@@ -132,6 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pool: {fileID: 0}
+  poolKey: 1
   firePoint: {fileID: 1814801441830826978}
   bulletSpeed: 7
   bulletLifetime: 5

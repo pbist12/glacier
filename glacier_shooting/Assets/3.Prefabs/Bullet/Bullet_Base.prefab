@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -5888773751301852713}
   m_Layer: 0
   m_Name: Bullet_Base
-  m_TagString: Bullet
+  m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,7 +101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f956b3c1024a01d40812e1f6c8d8390b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pool: {fileID: 0}
+  hub: {fileID: 0}
+  poolKey: 0
   velocity: {x: 0, y: 0}
   lifetime: 0
 --- !u!58 &-5888773751301852713

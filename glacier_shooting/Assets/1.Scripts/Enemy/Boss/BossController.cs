@@ -1,215 +1,102 @@
+// File: BossController.cs
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
+[DisallowMultipleComponent]
 public class BossController : MonoBehaviour
 {
-    #region 변수
-    public Transform firePoint;
+    [Header("Refs")]
+    [SerializeField] private BossHealth health;                 // 체력/사망 이벤트
+    [SerializeField] private BossSpreadShooter spread;          // 부채꼴 탄막
+    [SerializeField] private BossHomingShooter homing;          // 유도탄
 
-    [Header ("Bullet Prefab")]
-    public GameObject spreadBulletPrefab; // 부채꼴 탄막에 사용될 총알 프리팹
-    public GameObject homingBulletPrefab;
-
-    [Header("Spread")]
-    public int spreadBulletCount; // 부채꼴 탄막의 라인 개수
-    public float spreadAngleStep; // 부채꼴 탄막의 라인 간격
-    public float spreadFireInterval; // 탄막 발사 시간 간격
-    [SerializeField] private float spreadFireTimer = 0f; // 발사 시간 간격 체크에 사용될 타이머
-    public float spreadRotationStep; // 발사마다 회전할 각도
-    private float spreadOffsetAngle = 0f; // 현재 회전 오프셋
-    public int spreadBurstCount; // 1회 발사 할 때 발사되는 총알 개수 
-    public float spreadBurstCoolDownTime; // 1회 발사 후 공격 정지되는 쿨다운 시간
-    private bool spreadBurstCoolDown = false; // 쿨다운 체크용 변수 
-    private int spreadCurrentBurst = 0; // 현재 버스트 횟수 카운트용 변수 
-    private float spreadBurstTimer; // 
-
-    [Header("Homing")]
-    [SerializeField] private float homingCoolDown;
-
-    [Header("Boss Stat")]
+    [Header("Move")]
+    public bool enableMove = false;
     public float moveSpeed = 2f;
-    public float maxHP;
-    public float hp;
+    public float moveRange = 2.5f;
+
+    [Header("Phase")]
+    [Tooltip("시작 페이즈")]
     [SerializeField] private int phase = 1;
 
-    [Header("Bullet (Pool)")]
-    public BulletPool pool;
-    public float bulletSpeed = 8f;
-    public float bulletLifetime = 5f;
-
-    [Header("BossUI")]
-    private BossUI BossUI;
-
-    #endregion
-
-    private void OnEnable()
+    void Reset()
     {
-        BossUI = GameObject.FindFirstObjectByType<BossUI>();
-        pool = GameObject.FindFirstObjectByType<BulletPool>();
-        hp = maxHP;
+        health = GetComponent<BossHealth>();
+        spread = GetComponent<BossSpreadShooter>();
+        homing = GetComponent<BossHomingShooter>();
+    }
 
-        BossUI.BindBoss(this);
-        StartCoroutine(Homing());
+    void OnEnable()
+    {
+        if (!health) health = GetComponent<BossHealth>();
+        if (health)
+        {
+            health.onDeath += HandleDeath;
+            health.onHpChanged += HandleHpChanged;
+        }
+
+        // 초기 페이즈 세팅
+        ApplyPhase(phase);
+
+        // 유도탄 루프(페이즈 1에서만 예시)
+        if (homing) StartCoroutine(HomingLoop());
+    }
+
+    void OnDisable()
+    {
+        if (health)
+        {
+            health.onDeath -= HandleDeath;
+            health.onHpChanged -= HandleHpChanged;
+        }
     }
 
     void Update()
     {
-        //MovePattern();
-        AttackPattern();
-        PhaseCheck();
-    }
-
-    void MovePattern()
-    {
-        // 단순 좌우 이동
-        float x = Mathf.PingPong(Time.time * moveSpeed, 5f) - 2.5f;
-        transform.position = new Vector3(x, transform.position.y, transform.position.z);
-    }
-
-    void AttackPattern()
-    {
-        if (phase == 1)
+        if (enableMove)
         {
-            if (!spreadBurstCoolDown)
-            {
-                // 버스트 내부: 일정 간격으로 여러 번 발사
-                spreadBurstTimer += Time.deltaTime;
-
-                if (spreadBurstTimer >= spreadFireInterval)
-                {
-                    spreadBurstTimer = 0f;
-
-                    // 부채꼴 한 번 발사 (pool 사용)
-                    SpreadShot(spreadBulletCount, spreadAngleStep, spreadOffsetAngle);
-
-                    // 매 발사마다 회전 오프셋 누적
-                    spreadOffsetAngle += spreadRotationStep;
-
-                    // 이번 버스트에서 몇 번 발사했는지 카운트
-                    spreadCurrentBurst++;
-
-                    // 버스트 끝 → 쿨다운 진입
-                    if (spreadCurrentBurst >= spreadBurstCount)
-                    {
-                        spreadBurstCoolDown = true;
-                        spreadCurrentBurst = 0;
-                        spreadBurstTimer = 0f;
-                        spreadFireTimer = 0f; // 쿨다운 타이머 초기화
-                    }
-                }
-            }
-            else
-            {
-                // 버스트 사이 쿨다운
-                spreadFireTimer += Time.deltaTime;
-                if (spreadFireTimer >= spreadBurstCoolDownTime)
-                {
-                    spreadBurstCoolDown = false;
-                    spreadFireTimer = 0f;
-                    spreadBurstTimer = 0f;
-                    // 필요하면 회전 누적 초기화:
-                    // spreadOffsetAngle = 0f;
-                }
-            }
-        }
-        else if (phase == 2)
-        {
-
-        }
-        else if (phase == 3)
-        {
-
+            float x = Mathf.PingPong(Time.time * moveSpeed, moveRange * 2f) - moveRange;
+            transform.position = new Vector3(x, transform.position.y, transform.position.z);
         }
     }
 
-    void PhaseCheck()
+    void HandleHpChanged(float hp, float max)
     {
-        if (hp / maxHP < 0.7f && phase == 1) phase = 2;
-        if (hp / maxHP < 0.3f && phase == 2) phase = 3;
+        float r = hp / Mathf.Max(1f, max);
+        if (phase == 1 && r < 0.7f) ApplyPhase(2);
+        else if (phase == 2 && r < 0.3f) ApplyPhase(3);
     }
 
-    public void TakeDamage(float damage)
+    void ApplyPhase(int newPhase)
     {
-        hp -= damage;
-        if (hp <= 0) Die();
+        phase = newPhase;
+
+        switch (phase)
+        {
+            case 1:
+                spread.isFire = true;
+                break;
+            case 2:
+                spread.isFire = false;
+                break;
+            case 3:
+                break;
+        }
     }
 
-    void Die()
+    IEnumerator HomingLoop()
     {
-        Debug.Log("Boss Defeated!");
+        while (phase == 1) // 예: 페이즈1에서만 주기적 발사
+        {
+            if (homing) homing.FireOnce();
+            yield return new WaitForSeconds(homing ? homing.coolDown : 2f);
+        }
+    }
+
+    void HandleDeath()
+    {
+        // 연출/드랍 등
+        Debug.Log("[BossController] Boss Defeated!");
         Destroy(gameObject);
-    }
-
-    public IEnumerator SetCoolDown()
-    {
-        while (spreadFireTimer < spreadBurstCoolDownTime)
-        {
-            spreadFireTimer += Time.deltaTime;
-            yield return null;
-        }
-    }
-
-    void SpreadShot(int count, float angleStep, float offsetDeg)
-    {
-        if (pool == null) return;
-
-        // 발사 원점
-        Vector2 origin;
-
-        if (firePoint != null)
-        {
-            // firePoint가 할당되어 있으면, 그 위치를 발사 원점으로 사용
-            origin = (Vector2)firePoint.position;
-        }
-        else
-        {
-            // firePoint가 비어 있으면, 자기 자신(Transform)의 위치를 발사 원점으로 사용
-            origin = (Vector2)transform.position;
-        }
-
-        // 기준 각도: 월드 위(+Y) = 90도. 
-        // 오브젝트 회전 기준으로 하고 싶으면 baseDeg = transform.eulerAngles.z; 로 바꿔도 됨.
-        float baseDeg = 90f;
-
-        // 가운데 정렬로 좌우 분포
-        float half = (count - 1) * 0.5f;
-        for (int i = 0; i < count; i++)
-        {
-            float idx = i - half;
-            float deg = baseDeg + offsetDeg + idx * angleStep;
-            float rad = deg * Mathf.Deg2Rad;
-
-            Vector2 dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)).normalized;
-            pool.Spawn(origin, dir * bulletSpeed, bulletLifetime, zRotationDeg: deg);
-        }
-    }
-
-    public void HomingShot()
-    {
-        Instantiate(homingBulletPrefab, firePoint.position, firePoint.rotation);
-    }
-
-    public IEnumerator Homing()
-    {
-        while (phase == 1)
-        {
-            yield return new WaitForSeconds(homingCoolDown);
-            Instantiate(homingBulletPrefab, firePoint.position, firePoint.rotation);
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Bullet"))
-        {
-            hp--;
-
-            if (hp < 0)
-            {
-                Destroy(gameObject);
-            }
-        }
     }
 }

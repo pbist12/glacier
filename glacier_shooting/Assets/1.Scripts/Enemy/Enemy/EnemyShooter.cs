@@ -3,7 +3,8 @@ using UnityEngine;
 public class EnemyShooter_Linear : MonoBehaviour
 {
     [Header("Pool / FirePoint")]
-    public BulletPool pool;         // 반드시 할당 (네 BulletPool과 동일 API)
+    [SerializeField] BulletPoolHub pool;
+    [SerializeField] BulletPoolKey poolKey = BulletPoolKey.Player; // 인스펙터에서 Player/Enemy 선택
     public Transform firePoint;     // 없으면 transform.position 사용
 
     [Header("Bullet")]
@@ -20,7 +21,7 @@ public class EnemyShooter_Linear : MonoBehaviour
     void OnEnable()
     {
         // 시작 템포 살짝 가볍게
-        pool = GameObject.FindFirstObjectByType<BulletPool>();
+        pool = GameObject.FindFirstObjectByType<BulletPoolHub>();
         _nextFireAt = Time.time + fireInterval * Mathf.Clamp01(firstShotDelayFactor);
     }
 
@@ -35,7 +36,7 @@ public class EnemyShooter_Linear : MonoBehaviour
         Vector2 dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)).normalized;
 
         // 네 BulletPool 시그니처에 정확히 맞춤
-        pool.Spawn(origin, dir * bulletSpeed, bulletLifetime, zRotationDeg: fireAngleDeg);
+        pool.Spawn(poolKey, origin, dir * bulletSpeed, bulletLifetime, fireAngleDeg);
     }
 
     // 씬에서 발사 방향 미리보기

@@ -24,7 +24,7 @@ public class BulletPool : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             var b = Instantiate(bulletPrefab, _root);
-            b.pool = this;
+            //b.pool = this;
             b.gameObject.SetActive(false);
             _pool.Push(b);
         }

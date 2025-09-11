@@ -38,7 +38,7 @@ public class EnemyHealth : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("Bullet"))
+        if (col.CompareTag("PlayerBullet"))
             TakeDamage(1f);
     }
 }

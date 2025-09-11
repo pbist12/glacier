@@ -5,7 +5,7 @@ public class BossUI : MonoBehaviour
 {
     [Header("References")]
     [Tooltip("보스 컨트롤러. 비워두면 자동으로 씬에서 첫 번째 BossController를 찾습니다.")]
-    [SerializeField] private BossController boss;
+    [SerializeField] private BossHealth boss;
 
     [Tooltip("UI Slider 참조")]
     [SerializeField] private Slider slider;
@@ -50,7 +50,7 @@ public class BossUI : MonoBehaviour
     /// <summary>
     /// 외부에서 동적으로 보스를 바인딩할 때 사용
     /// </summary>
-    public void BindBoss(BossController newBoss)
+    public void BindBoss(BossHealth newBoss)
     {
         boss = newBoss;
         InitializeFromBoss();

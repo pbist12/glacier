@@ -52,7 +52,10 @@ public class PlayerStatus : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        OnDamaged();
+        if (collision.CompareTag("EnemyBullet"))
+        {
+            OnDamaged();
+        }
     }
     #endregion
 
