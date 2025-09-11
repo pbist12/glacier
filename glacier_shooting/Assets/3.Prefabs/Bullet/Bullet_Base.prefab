@@ -103,8 +103,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hub: {fileID: 0}
   poolKey: 0
+  damage: 1
   velocity: {x: 0, y: 0}
   lifetime: 0
+  despawnOnBorderExit: 1
+  homingEnabled: 1
+  speed: 5
+  rotateSpeed: 200
+  homingDelay: 0.6
+  homingDuration: 1.8
+  targetTag: Player
 --- !u!58 &-5888773751301852713
 CircleCollider2D:
   m_ObjectHideFlags: 0

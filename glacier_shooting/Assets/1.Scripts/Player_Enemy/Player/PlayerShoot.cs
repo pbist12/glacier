@@ -15,6 +15,7 @@ public class PlayerShoot : MonoBehaviour
     public float fireRate = 10f;              // 초당 발사 수
     public float bulletSpeed = 12f;
     public float bulletLifetime = 5f;
+    public float bulletDamage;
 
     [Header("Direction")]
     public DirectionMode directionMode = DirectionMode.UseTransformUp;
@@ -56,7 +57,7 @@ public class PlayerShoot : MonoBehaviour
 
         float deg = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
-        var b = pool.Spawn(poolKey, origin, dir.normalized * bulletSpeed, bulletLifetime, deg);
+        var b = pool.Spawn(poolKey, origin, dir.normalized * bulletSpeed, bulletLifetime, bulletDamage, deg);
     }
 
     // 외부에서 토글하고 싶다면:

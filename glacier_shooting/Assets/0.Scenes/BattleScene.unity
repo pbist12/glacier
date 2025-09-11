@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 44620069}
   - component: {fileID: 44620073}
   - component: {fileID: 44620074}
+  - component: {fileID: 44620075}
   - component: {fileID: 44620071}
   - component: {fileID: 44620072}
   m_Layer: 0
@@ -321,6 +322,7 @@ MonoBehaviour:
   addFireRate: 0
   addBulletSpeed: 0
   addBulletLifeTime: 0
+  addBulletDamage: 0
 --- !u!114 &44620074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,8 +341,31 @@ MonoBehaviour:
   fireRate: 40
   bulletSpeed: 20
   bulletLifetime: 5
+  bulletDamage: 0
   directionMode: 0
   spawnOffset: {x: 0, y: 0}
+--- !u!114 &44620075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44620066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d00776aec04412b4f81d9656ad9c577b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hub: {fileID: 1457151810}
+  includePlayerBullets: 1
+  useRadius: 0
+  radius: 6
+  center: {fileID: 0}
+  maxCharges: -1
+  cooldown: 1.5
+  onBombFired:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &69904363
 GameObject:
   m_ObjectHideFlags: 0
@@ -1050,7 +1075,8 @@ PrefabInstance:
       propertyPath: status
       value: 
       objectReference: {fileID: 44620073}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8008076576821709506, guid: 4619a82fe7c95b445a459798be86e204, type: 3}
     m_RemovedGameObjects:
     - {fileID: 3322594886806203039, guid: 4619a82fe7c95b445a459798be86e204, type: 3}
     - {fileID: 5109375779664235036, guid: 4619a82fe7c95b445a459798be86e204, type: 3}
@@ -1851,6 +1877,15 @@ MonoBehaviour:
   - key: 1
     bulletPrefab: {fileID: -5129335844961035740, guid: b1daca99753be9949a465d7c8126d537, type: 3}
     initialCount: 2000
+    expandable: 1
+    expandBlock: 10
+    sortingLayerName: 
+    orderInLayer: 1
+    tagOverride: EnemyBullet
+    layerOverride: 0
+  - key: 2
+    bulletPrefab: {fileID: 4520500554785040942, guid: 2463c729f81b83740982b6b7c5d48d70, type: 3}
+    initialCount: 1000
     expandable: 1
     expandBlock: 10
     sortingLayerName: 

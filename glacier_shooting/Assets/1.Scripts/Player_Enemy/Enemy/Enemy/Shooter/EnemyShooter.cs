@@ -36,7 +36,7 @@ public class EnemyShooter_Linear : MonoBehaviour
         Vector2 dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)).normalized;
 
         // 네 BulletPool 시그니처에 정확히 맞춤
-        pool.Spawn(poolKey, origin, dir * bulletSpeed, bulletLifetime, fireAngleDeg);
+        pool.Spawn(poolKey, origin, dir * bulletSpeed, bulletLifetime,1f, fireAngleDeg);
     }
 
     // 씬에서 발사 방향 미리보기

@@ -95,7 +95,7 @@ public class BossSpreadShooter : MonoBehaviour
             Vector2 dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)).normalized;
             Vector2 spawnPos = origin + dir * spawnForwardOffset;
 
-            hub.Spawn(poolKey, spawnPos, dir * bulletSpeed, bulletLifetime, deg);
+            hub.Spawn(poolKey, spawnPos, dir * bulletSpeed, bulletLifetime,1f, deg);
 #if UNITY_EDITOR
             Debug.DrawRay(spawnPos, dir * 1.2f, Color.green, 0.2f);
 #endif

@@ -148,8 +148,8 @@ MonoBehaviour:
   bulletLifetime: 5
   isFire: 0
   spreadBulletCount: 20
-  spreadAngleStep: 20
-  spreadFireInterval: 0.15
+  spreadAngleStep: 5
+  spreadFireInterval: 0.01
   spreadBurstCount: 5
   spreadBurstCoolDownTime: 1
   spreadRotationStep: 5
@@ -165,8 +165,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd7aaeaff5031c747a4eaf86b06a2867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  homingBulletPrefab: {fileID: 7421345306522132913, guid: 2463c729f81b83740982b6b7c5d48d70, type: 3}
+  hub: {fileID: 0}
+  poolKey: 2
   firePoint: {fileID: 1877511086918872406}
+  speed: 5
+  lifetime: 5
+  damage: 1
   coolDown: 0.5
 --- !u!61 &4244608273170110137
 BoxCollider2D:

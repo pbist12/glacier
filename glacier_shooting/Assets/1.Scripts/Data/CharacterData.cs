@@ -15,6 +15,7 @@ public class CharacterData : ScriptableObject
     public float hitboxRadius = 0.1f; // 피격 판정 반경
 
     [Header("공격")]
+    public float damage = 1f;         // 공격력
     public float fireRate = 10f;      // 초당 발사 수
     public float bulletSpeed = 8f;    // 탄 속도
     public float bulletLifetime = 3f; // 탄 생존 시간

@@ -45,7 +45,7 @@ public class BossHealth : MonoBehaviour
             var bullet = col.GetComponent<Bullet>();
             if (bullet)
             {
-                TakeDamage(1f);   // 필요 시 탄마다 데미지 값을 Bullet에 두고 참조
+                TakeDamage(bullet.damage);   // 필요 시 탄마다 데미지 값을 Bullet에 두고 참조
                 bullet.Despawn(); // 풀 복귀
             }
         }

@@ -18,6 +18,7 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField] private float addFireRate;
     [SerializeField] private float addBulletSpeed;
     [SerializeField] private float addBulletLifeTime;
+    [SerializeField] private float addBulletDamage;
 
     public int PlayerHealth 
     {
@@ -56,6 +57,7 @@ public class PlayerStatus : MonoBehaviour
         if (collision.CompareTag("EnemyBullet"))
         {
             OnDamaged();
+            collision.GetComponent<Bullet>().Despawn();
         }
     }
     #endregion
@@ -65,6 +67,7 @@ public class PlayerStatus : MonoBehaviour
         playerShoot.fireRate = player.fireRate + addFireRate;
         playerShoot.bulletSpeed = player.bulletSpeed + addBulletSpeed;
         playerShoot.bulletLifetime = player.bulletLifetime + addBulletLifeTime;
+        playerShoot.bulletDamage = player.damage + addBulletDamage;
 
         playerMaxHealth = player.maxLife;
 

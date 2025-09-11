@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4219509961788777410}
   - component: {fileID: 5152623889253937992}
-  - component: {fileID: 1440800000158747969}
   - component: {fileID: -8547361955056781368}
+  - component: {fileID: 4520500554785040942}
   m_Layer: 0
   m_Name: Bullet_Homing
   m_TagString: EnemyBullet
@@ -89,22 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1440800000158747969
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7421345306522132913}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d747e2a4baaee0042bb7319a1f24e59d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 4
-  rotateSpeed: 50
-  homingDelay: 0.1
-  homingDuration: 0.5
 --- !u!70 &-8547361955056781368
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -142,3 +126,27 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 1}
   m_Direction: 0
+--- !u!114 &4520500554785040942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7421345306522132913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f956b3c1024a01d40812e1f6c8d8390b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hub: {fileID: 0}
+  poolKey: 0
+  damage: 1
+  velocity: {x: 0, y: 0}
+  lifetime: 4
+  despawnOnBorderExit: 1
+  homingEnabled: 1
+  speed: 5
+  rotateSpeed: 40
+  homingDelay: 0.6
+  homingDuration: 1
+  targetTag: Player
