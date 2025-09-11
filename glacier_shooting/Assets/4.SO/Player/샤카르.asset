@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9822e99ee74c9ff4c98661f22923fee2, type: 3}
-  m_Name: "\uB098\uBBF8"
+  m_Name: "\uC0E4\uCE74\uB974"
   m_EditorClassIdentifier: 
-  playerName: nami
+  playerName: Shakarh
   portrait: {fileID: 21300000, guid: c0478f4485c85c64789c514d85aed494, type: 3}
   maxLife: 30
   maxBombs: 2

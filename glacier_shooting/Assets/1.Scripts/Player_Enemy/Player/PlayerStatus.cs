@@ -1,7 +1,6 @@
 using DG.Tweening.Core.Easing;
 using Unity.VisualScripting;
 using UnityEngine;
-using VFolders.Libs;
 
 public class PlayerStatus : MonoBehaviour
 {
@@ -37,7 +36,7 @@ public class PlayerStatus : MonoBehaviour
         // 인스턴스 등록
         Instance = this;
 
-        player = PlayerData.Instance.characterData;
+        if(PlayerData.Instance != null)player = PlayerData.Instance.characterData;
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
