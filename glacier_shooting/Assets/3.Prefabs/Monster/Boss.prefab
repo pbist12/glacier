@@ -115,7 +115,7 @@ MonoBehaviour:
   spreadBurstCoolDownTime: 1
   homingCoolDown: 0.5
   moveSpeed: 2
-  maxHP: 10000
+  maxHP: 4000
   hp: 1000
   phase: 1
   pool: {fileID: 0}

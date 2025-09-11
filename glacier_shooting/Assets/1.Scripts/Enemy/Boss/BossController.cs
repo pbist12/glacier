@@ -39,18 +39,24 @@ public class BossController : MonoBehaviour
     public float bulletSpeed = 8f;
     public float bulletLifetime = 5f;
 
+    [Header("BossUI")]
+    private BossUI BossUI;
+
     #endregion
 
     private void OnEnable()
     {
+        BossUI = GameObject.FindFirstObjectByType<BossUI>();
         pool = GameObject.FindFirstObjectByType<BulletPool>();
         hp = maxHP;
+
+        BossUI.BindBoss(this);
         StartCoroutine(Homing());
     }
 
     void Update()
     {
-        MovePattern();
+        //MovePattern();
         AttackPattern();
         PhaseCheck();
     }
