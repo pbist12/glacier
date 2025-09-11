@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9822e99ee74c9ff4c98661f22923fee2, type: 3}
   m_Name: "\uB098\uBBF8"
   m_EditorClassIdentifier: 
-  playerName: Irene
-  portrait: {fileID: 0}
-  maxLife: 3
+  playerName: nami
+  portrait: {fileID: 21300000, guid: c0478f4485c85c64789c514d85aed494, type: 3}
+  maxLife: 30
   maxBombs: 2
   moveSpeed: 5
   focusSpeed: 2.5
   hitboxRadius: 0.1
-  fireRate: 1
+  fireRate: 5
   bulletSpeed: 8
   bulletLifetime: 3
   bombDuration: 2

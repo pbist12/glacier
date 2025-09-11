@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: "\uC544\uC774\uB9B0"
   m_EditorClassIdentifier: 
   playerName: Irene
-  portrait: {fileID: 0}
-  maxLife: 3
+  portrait: {fileID: 21300000, guid: 2c0ac0497e7e5b743ae40d4edab92b8e, type: 3}
+  maxLife: 20
   maxBombs: 2
   moveSpeed: 5
   focusSpeed: 2.5
   hitboxRadius: 0.1
-  fireRate: 1
+  fireRate: 20
   bulletSpeed: 8
   bulletLifetime: 3
   bombDuration: 2

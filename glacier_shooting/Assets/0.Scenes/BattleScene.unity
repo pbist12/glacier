@@ -962,6 +962,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 870755247359877259, guid: 4619a82fe7c95b445a459798be86e204, type: 3}
+      propertyPath: m_Color.b
+      value: 0.3018868
+      objectReference: {fileID: 0}
+    - target: {fileID: 870755247359877259, guid: 4619a82fe7c95b445a459798be86e204, type: 3}
+      propertyPath: m_Color.g
+      value: 0.22071913
+      objectReference: {fileID: 0}
+    - target: {fileID: 870755247359877259, guid: 4619a82fe7c95b445a459798be86e204, type: 3}
+      propertyPath: m_Color.r
+      value: 0.22092213
+      objectReference: {fileID: 0}
     - target: {fileID: 1024780777064794160, guid: 4619a82fe7c95b445a459798be86e204, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -981,6 +993,18 @@ PrefabInstance:
     - target: {fileID: 1024780777064794160, guid: 4619a82fe7c95b445a459798be86e204, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1633463121310916881, guid: 4619a82fe7c95b445a459798be86e204, type: 3}
+      propertyPath: m_Color.b
+      value: 0.3018868
+      objectReference: {fileID: 0}
+    - target: {fileID: 1633463121310916881, guid: 4619a82fe7c95b445a459798be86e204, type: 3}
+      propertyPath: m_Color.g
+      value: 0.22071913
+      objectReference: {fileID: 0}
+    - target: {fileID: 1633463121310916881, guid: 4619a82fe7c95b445a459798be86e204, type: 3}
+      propertyPath: m_Color.r
+      value: 0.22092213
       objectReference: {fileID: 0}
     - target: {fileID: 1760817441278947585, guid: 4619a82fe7c95b445a459798be86e204, type: 3}
       propertyPath: m_Name
@@ -1821,7 +1845,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1457151809}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.7196023, y: 0.13000652, z: 0.5794485}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1932,7 +1956,7 @@ SceneRoots:
   - {fileID: 69904365}
   - {fileID: 455358042}
   - {fileID: 655314698}
+  - {fileID: 1457151811}
   - {fileID: 1652429934}
   - {fileID: 903789852}
   - {fileID: 1834375463}
-  - {fileID: 1457151811}

@@ -6,7 +6,7 @@ using VFolders.Libs;
 public class PlayerStatus : MonoBehaviour
 {
     public static PlayerStatus Instance { get; private set; }
-    public PlayerData player;
+    public CharacterData player;
 
     [SerializeField] private PlayerController controller;
     [SerializeField] private PlayerShoot playerShoot;
@@ -36,6 +36,8 @@ public class PlayerStatus : MonoBehaviour
         }
         // 인스턴스 등록
         Instance = this;
+
+        player = PlayerData.Instance.characterData;
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
