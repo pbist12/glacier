@@ -225,7 +225,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  detailSpeed: 3
+  focusSpeed: 3
+  accel: 35
+  decel: 40
+  turnAccelBonus: 25
+  inputSmooth: 12
+  stopEpsilon: 0.5
+  normalizeDiagonal: 1
+  worldClamp: {x: 999, y: 999}
 --- !u!114 &44620073
 MonoBehaviour:
   m_ObjectHideFlags: 0

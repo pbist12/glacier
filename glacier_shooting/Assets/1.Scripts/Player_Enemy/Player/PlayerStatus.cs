@@ -67,7 +67,7 @@ public class PlayerStatus : MonoBehaviour
         playerMaxHealth = player.maxLife;
 
         controller.speed = player.moveSpeed;
-        controller.detailSpeed = player.focusSpeed;
+        controller.focusSpeed = player.focusSpeed;
     }
 
     public void AddBome()

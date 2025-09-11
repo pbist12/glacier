@@ -27,7 +27,7 @@ public class BossSpreadShooter : MonoBehaviour
     public float spreadRotationStep = 6f;
 
     // 내부 상태
-    private float _spreadOffsetAngle = 0f;
+    [SerializeField] private float _spreadOffsetAngle = 0f;
     private float _burstTimer = 0f;
     private float _cooldownTimer = 0f;
     private int _burstShots = 0;

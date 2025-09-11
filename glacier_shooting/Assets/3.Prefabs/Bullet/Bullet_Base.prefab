@@ -106,7 +106,7 @@ MonoBehaviour:
   velocity: {x: 0, y: 0}
   lifetime: 0
   despawnOnBorderExit: 0
-  homingEnabled: 1
+  homingEnabled: 0
   speed: 5
   rotateSpeed: 200
   homingDelay: 0.6
