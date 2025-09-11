@@ -20,6 +20,7 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField] private float addBulletSpeed;
     [SerializeField] private float addBulletLifeTime;
     [SerializeField] private float addBulletDamage;
+    public bool invincible = false;
 
     [Header("Collision Debug")]
     public float radius = 0.25f;
@@ -53,6 +54,7 @@ public class PlayerStatus : MonoBehaviour
     #region 플레이어 공격받음
     public void OnDamaged()
     {
+        if (invincible) return;
         playerHealth--;
     }
     #endregion

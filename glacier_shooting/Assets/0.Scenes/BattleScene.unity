@@ -231,6 +231,11 @@ MonoBehaviour:
   inputSmooth: 12
   stopEpsilon: 0.5
   normalizeDiagonal: 1
+  dashKey: 32
+  dashSpeed: 14
+  dashDuration: 0.12
+  dashCooldown: 0.5
+  invincibleExtra: 0.05
   worldClamp: {x: 999, y: 999}
 --- !u!114 &44620073
 MonoBehaviour:
@@ -254,6 +259,7 @@ MonoBehaviour:
   addBulletSpeed: 0
   addBulletLifeTime: 0
   addBulletDamage: 0
+  invincible: 0
   radius: 0.05
   drawDebug: 1
 --- !u!114 &44620074

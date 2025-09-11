@@ -71,6 +71,7 @@ public class BulletCollisionManager : MonoBehaviour
                 float sumR = pRad + b.hitRadius;
                 if (SegmentCircle(b.prevPos, cur, pPos, sumR))
                 {
+                    if (player.invincible) continue;
                     player.OnDamaged();
                     b.Despawn();
                     continue;
