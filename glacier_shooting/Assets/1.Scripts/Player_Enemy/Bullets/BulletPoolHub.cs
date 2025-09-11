@@ -203,4 +203,17 @@ public class BulletPoolHub : MonoBehaviour
         foreach (var x in set) list.Add(x);
         return list;
     }
+
+    public int SnapshotActive(List<Bullet> buffer, bool excludePlayer = false)
+    {
+        buffer.Clear();
+        if (excludePlayer && _activeByKey.TryGetValue(BulletPoolKey.Player, out var playerSet))
+        {
+            foreach (var b in _activeAll) if (b && !playerSet.Contains(b)) buffer.Add(b);
+            return buffer.Count;
+        }
+        foreach (var b in _activeAll) if (b) buffer.Add(b);
+        return buffer.Count;
+    }
+
 }

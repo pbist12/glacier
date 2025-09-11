@@ -1,17 +1,19 @@
-// File: BossHealth.cs
-using System;
+ï»¿using System;
 using UnityEngine;
 
 [DisallowMultipleComponent]
 public class BossHealth : MonoBehaviour
 {
+    // ì „ì—­ ì ‘ê·¼ì„ ìœ„í•´(ë³´ìŠ¤ëŠ” ë³´í†µ 1ì²´) ì¸ìŠ¤í„´ìŠ¤ ë³´ê´€
+    public static BossHealth Instance { get; private set; }
+
     [Header("HP")]
     public float maxHP = 100f;
     public float hp;
 
-    [Header("Hit Filter")]
-    [Tooltip("ÇÃ·¹ÀÌ¾î Åº¸¸ Àû¿ëÇÒ °æ¿ì È°¼ºÈ­ÇÏ°í, ÅÂ±×¸íÀ» ¸ÂÃß¼¼¿ä.")]
-    public string playerBulletTag = "PlayerBullet";
+    [Header("Collision Radius (ì¤‘ì•™ ì¶©ëŒìš©)")]
+    [Tooltip("ë³´ìŠ¤ì˜ íˆíŠ¸ ë°˜ê²½(ì›). í”Œë ˆì´ì–´ íƒ„ê³¼ ì›-ì› ê±°ë¦¬ íŒì •ì— ì‚¬ìš©")]
+    public float radius = 0.6f;
 
     [Header("BossUI")]
     public BossUI BossUI;
@@ -19,12 +21,30 @@ public class BossHealth : MonoBehaviour
     public event Action onDeath;
     public event Action<float, float> onHpChanged; // (hp, max)
 
+    void Awake()
+    {
+        if (Instance && Instance != this)
+            Debug.LogWarning("[BossHealth] ì´ë¯¸ ë‹¤ë¥¸ ì¸ìŠ¤í„´ìŠ¤ê°€ ìˆìŠµë‹ˆë‹¤.", this);
+        Instance = this;
+    }
+
     void OnEnable()
     {
-        BossUI = FindAnyObjectByType<BossUI>();
         hp = maxHP;
+        if (!BossUI) BossUI = FindAnyObjectByType<BossUI>();
         onHpChanged?.Invoke(hp, maxHP);
-        BossUI.BindBoss(this);
+        if (BossUI) BossUI.BindBoss(this);
+    }
+
+    void OnDisable()
+    {
+        if (Instance == this) Instance = null;
+    }
+
+    /// <summary>ì¤‘ì•™ ì¶©ëŒ ë§¤ë‹ˆì €ê°€ í˜¸ì¶œí•˜ëŠ” ë°ë¯¸ì§€ ì…ë ¥</summary>
+    public void Hit(float damage)
+    {
+        TakeDamage(damage);
     }
 
     public void TakeDamage(float damage)
@@ -35,19 +55,8 @@ public class BossHealth : MonoBehaviour
         if (hp <= 0f)
         {
             onDeath?.Invoke();
-        }
-    }
-
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.CompareTag(playerBulletTag))
-        {
-            var bullet = col.GetComponent<Bullet>();
-            if (bullet)
-            {
-                TakeDamage(bullet.damage);   // ÇÊ¿ä ½Ã Åº¸¶´Ù µ¥¹ÌÁö °ªÀ» Bullet¿¡ µÎ°í ÂüÁ¶
-                bullet.Despawn(); // Ç® º¹±Í
-            }
+            // í•„ìš” ì‹œ ë³´ìŠ¤ ì¢…ë£Œ ì²˜ë¦¬(ì˜ˆ: ì—°ì¶œ í›„ ë¹„í™œì„±/íŒŒê´´)
+            gameObject.SetActive(false);
         }
     }
 }

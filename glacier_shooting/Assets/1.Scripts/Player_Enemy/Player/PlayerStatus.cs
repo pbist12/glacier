@@ -1,6 +1,7 @@
-using DG.Tweening.Core.Easing;
-using Unity.VisualScripting;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class PlayerStatus : MonoBehaviour
 {
@@ -20,7 +21,11 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField] private float addBulletLifeTime;
     [SerializeField] private float addBulletDamage;
 
-    public int PlayerHealth 
+    [Header("Collision Debug")]
+    public float radius = 0.25f;
+    public bool drawDebug = true;
+
+    public int PlayerHealth
     {
         get { return playerHealth; }
         set { playerHealth = value; }
@@ -28,18 +33,17 @@ public class PlayerStatus : MonoBehaviour
 
     void Awake()
     {
-        // 이미 인스턴스가 있다면 자신을 파괴
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
-        // 인스턴스 등록
         Instance = this;
 
-        if(PlayerData.Instance != null)player = PlayerData.Instance.characterData;
+        if (PlayerData.Instance != null)
+            player = PlayerData.Instance.characterData;
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         SetStat();
@@ -47,18 +51,9 @@ public class PlayerStatus : MonoBehaviour
     }
 
     #region 플레이어 공격받음
-    private void OnDamaged()
+    public void OnDamaged()
     {
         playerHealth--;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("EnemyBullet"))
-        {
-            OnDamaged();
-            collision.GetComponent<Bullet>().Despawn();
-        }
     }
     #endregion
 
@@ -74,10 +69,12 @@ public class PlayerStatus : MonoBehaviour
         controller.speed = player.moveSpeed;
         controller.detailSpeed = player.focusSpeed;
     }
+
     public void AddBome()
     {
         bomb++;
     }
+
     public void Addlife()
     {
         if (playerHealth < playerMaxHealth)
@@ -85,6 +82,7 @@ public class PlayerStatus : MonoBehaviour
             playerHealth++;
         }
     }
+
     public void AddStat(RelicData relic)
     {
         switch (relic.relicType)
@@ -93,10 +91,24 @@ public class PlayerStatus : MonoBehaviour
                 addFireRate += relic.power;
                 addBulletSpeed += relic.power;
                 addBulletLifeTime += relic.power;
-
                 SetStat();
                 break;
         }
     }
 
+    // ===== 디버그 표시 =====
+    void OnDrawGizmos()
+    {
+        if (!drawDebug) return;
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, radius);
+
+#if UNITY_EDITOR
+        // 체력/폭탄 수를 텍스트로 표시
+        Handles.color = Color.white;
+        string statusText = $"HP: {playerHealth}/{playerMaxHealth}\nBomb: {bomb}";
+        Handles.Label(transform.position + Vector3.up * 0.5f, statusText);
+#endif
+    }
 }

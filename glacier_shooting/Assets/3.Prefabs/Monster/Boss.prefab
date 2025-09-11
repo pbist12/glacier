@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6473080947835505138}
   - component: {fileID: 4244608273170110137}
   - component: {fileID: 1736985480668812768}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,7 +254,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1877511086918872406}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: firePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

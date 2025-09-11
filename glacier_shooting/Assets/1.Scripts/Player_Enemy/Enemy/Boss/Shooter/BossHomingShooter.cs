@@ -38,7 +38,7 @@ public class BossHomingShooter : MonoBehaviour
         Bullet b = hub.Spawn(poolKey, pos, initVel, lifetime, damage, rot.eulerAngles.z);
         if (b)
         {
-            b.SetHomingEnabled(true);
+            //b.SetHomingEnabled(true);
         }
 
         _nextFire = Time.time + coolDown;
