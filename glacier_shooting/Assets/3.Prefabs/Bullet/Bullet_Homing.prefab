@@ -110,7 +110,8 @@ MonoBehaviour:
   speed: 5
   rotateSpeed: 40
   homingDelay: 0.6
-  homingDuration: 1
+  homingDuration: 0.5
   targetTag: Player
   hitRadius: 0.12
+  drawHitRadiusGizmo: 1
   prevPos: {x: 0, y: 0}
