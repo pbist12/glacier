@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerName: Shakarh
   portrait: {fileID: 21300000, guid: c0478f4485c85c64789c514d85aed494, type: 3}
-  maxLife: 30
+  maxLife: 8
   maxBombs: 2
   moveSpeed: 5
   focusSpeed: 2.5
   hitboxRadius: 0.1
   damage: 3
-  fireRate: 5
+  fireRate: 10
   bulletSpeed: 8
-  bulletLifetime: 3
+  bulletLifetime: 1
   bombDuration: 2
   bombDescription: 
   playerColor: {r: 1, g: 1, b: 1, a: 1}
