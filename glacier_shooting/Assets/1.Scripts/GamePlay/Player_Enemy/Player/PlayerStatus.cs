@@ -71,6 +71,11 @@ public class PlayerStatus : MonoBehaviour, IPlayerStats
     {
         if (invincible) return;
         playerHealth = Mathf.Max(0, playerHealth - 1);
+
+        if (playerHealth <= 0)
+        {
+            GameManager.Instance.OnPlayerLifeZero();
+        }
         // 필요 시 사망 처리 등
     }
     #endregion
@@ -97,51 +102,6 @@ public class PlayerStatus : MonoBehaviour, IPlayerStats
         // Move
         controller.speed = (player.moveSpeed + addMoveSpeed) * (1f + mulMoveSpeed);
         controller.focusSpeed = (player.focusSpeed + addFocusSpeed) * (1f + mulFocusSpeed);
-    }
-
-    public void AddBomb() => bomb++;
-
-    public void AddLife()
-    {
-        if (playerHealth < playerMaxHealth)
-            playerHealth++;
-    }
-
-    /// <summary>
-    /// 아이템 적용 (OnUse/Passive/장비 착용 시 등)
-    /// </summary>
-    public void ApplyItem(ItemData item)
-    {
-        var ctx = new ItemContext(
-            owner: gameObject,
-            inventory: playerInventory,
-            stats: this, // IPlayerStats 구현 → StatModifierEffect 등이 이쪽으로 들어옴
-            logger: Debug.Log
-        );
-
-        foreach (var effect in item.effects)
-            effect?.Apply(ctx);
-
-        SetStat();
-    }
-
-    /// <summary>
-    /// 아이템 해제(장비 해제/패시브 오프 등)
-    /// </summary>
-    public void RemoveItem(ItemData item)
-    {
-        var ctx = new ItemContext(
-            owner: gameObject,
-            inventory: playerInventory,
-            stats: this,
-            logger: Debug.Log
-        );
-
-        // 효과 제거 (revertOnRemove=true 인 효과들이 복원)
-        for (int i = item.effects.Count - 1; i >= 0; i--)
-            item.effects[i]?.Remove(ctx);
-
-        SetStat();
     }
 
     // ===== IPlayerStats 구현부 =====
@@ -183,11 +143,14 @@ public class PlayerStatus : MonoBehaviour, IPlayerStats
                 break;
         }
     }
-
     public void Heal(int amount)
     {
         if (amount <= 0) return;
         playerHealth = Mathf.Clamp(playerHealth + amount, 0, playerMaxHealth);
+    }
+    public void AddBomb(int amount)
+    {
+        bomb += amount;
     }
 
     /// <summary>모든 모디파이어 초기화</summary>
@@ -209,11 +172,5 @@ public class PlayerStatus : MonoBehaviour, IPlayerStats
 
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, radius);
-
-#if UNITY_EDITOR
-        Handles.color = Color.white;
-        string statusText = $"HP: {playerHealth}/{playerMaxHealth}\nBomb: {bomb}";
-        Handles.Label(transform.position + Vector3.up * 0.5f, statusText);
-#endif
     }
 }

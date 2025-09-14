@@ -20,18 +20,19 @@ public static class ItemRuntime
         if (data == null) return;
         var list = appliedCache ?? data.effects;
         for (int i = list.Count - 1; i >= 0; i--)
+        {
             list[i]?.Remove(ctx);
+        }
     }
 
     // 사용형(OnUse) 아이템 실행
     public static bool Use(ItemData data, ItemContext ctx)
     {
         if (data == null || data.useMode != UseMode.OnUse) return false;
-
         foreach (var eff in data.effects)
+        {
             eff?.Apply(ctx);
-
-        // 쿨다운 처리/소모 처리 같은 건 호출하는 쪽(인벤토리)에서 담당
+        }
         return true;
     }
 }

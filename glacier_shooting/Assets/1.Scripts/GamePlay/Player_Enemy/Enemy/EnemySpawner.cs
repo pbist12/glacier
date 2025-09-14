@@ -26,6 +26,7 @@ public class EnemySpawner : MonoBehaviour
 
     [Header("Shop Portal")]
     public GameObject shopPortalPrefab;
+    public GameObject spawnedShopPortal;
 
     float _next;
     int _aliveNormal = 0;
@@ -96,7 +97,13 @@ public class EnemySpawner : MonoBehaviour
     {
         if (!shopPortalPrefab) { GameManager.Instance.StartNormalPhase(); return; }
         Vector3 pos = areaCenter ? areaCenter.position : transform.position;
-        Instantiate(shopPortalPrefab, pos, Quaternion.identity);
+        spawnedShopPortal = Instantiate(shopPortalPrefab, pos, Quaternion.identity);
+    }
+
+    public void DeSpawnShopPortal()
+    {
+        if (!shopPortalPrefab) { GameManager.Instance.StartNormalPhase(); return; }
+        if(spawnedShopPortal) Destroy(spawnedShopPortal);
     }
 
     // ===== 내부 =====

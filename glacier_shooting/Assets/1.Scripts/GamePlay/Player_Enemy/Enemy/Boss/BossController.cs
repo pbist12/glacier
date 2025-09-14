@@ -7,7 +7,7 @@ public class BossController : MonoBehaviour
 {
     [Header("Refs")]
     [SerializeField] private EnemyHealth health;                 // √º∑¬/ªÁ∏¡ ¿Ã∫•∆Æ
-    [SerializeField] private BossSpreadShooter spread;          // ∫Œ√§≤√ ≈∫∏∑
+    //[SerializeField] private BossSpreadShooter spread;          // ∫Œ√§≤√ ≈∫∏∑
     [SerializeField] private BossHomingShooter homing;          // ¿Øµµ≈∫
 
     [Header("Move")]
@@ -22,7 +22,7 @@ public class BossController : MonoBehaviour
     void Reset()
     {
         health = GetComponent<EnemyHealth>();
-        spread = GetComponent<BossSpreadShooter>();
+        //spread = GetComponent<BossSpreadShooter>();
         homing = GetComponent<BossHomingShooter>();
     }
 
@@ -74,12 +74,13 @@ public class BossController : MonoBehaviour
         switch (phase)
         {
             case 1:
-                spread.isFire = true;
+                //spread.isFire = true;
                 break;
             case 2:
-                spread.isFire = false;
+                //spread.isFire = true;
                 break;
             case 3:
+                //spread.isFire = true;
                 break;
         }
     }

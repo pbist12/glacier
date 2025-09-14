@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
 
     public enum GameState
     {
-        Title,
         Prologue,
         Normal,        // 일반 몬스터 페이즈
         Elite,         // 엘리트 처리 페이즈(한 번에 1~N마리 스폰)
@@ -44,7 +43,7 @@ public class GameManager : MonoBehaviour
     public DialogueData intro;
 
     // 런타임 상태
-    [SerializeField] private GameState state = GameState.Title;
+    [SerializeField] private GameState state = GameState.Prologue;
     public GameState State
     {
         get { return state; }
@@ -61,7 +60,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        StartFromTitle();
+        Time.timeScale = 1f;
+        SetState(GameState.Prologue); // 스토리 프롤로그 재생(컷신/자막 등)
+        DialogueService.Instance.Play(intro);
     }
 
     void SetState(GameState s)
@@ -70,13 +71,7 @@ public class GameManager : MonoBehaviour
         if (stateText) stateText.text = $"State : {State}";
     }
 
-    // ===== 시작/전환 =====
-    public void StartFromTitle()
-    {
-        SetState(GameState.Prologue); // 스토리 프롤로그 재생(컷신/자막 등)
-        DialogueService.Instance.Play(intro);
-    }
-
+    #region 몬스터 페이즈 변경
     public void StartNormalPhase()
     {
         _normalKills = 0;
@@ -88,7 +83,6 @@ public class GameManager : MonoBehaviour
             spawner.EnableElite(false);
         }
     }
-
     public void RequestElitePhase()
     {
         // 일반 페이즈에서 호출: 목표 처치 수 달성 시
@@ -101,41 +95,8 @@ public class GameManager : MonoBehaviour
             spawner.SpawnElitePack();      // 엘리트 1~N마리 스폰 (스포너에 구현)
         }
     }
-
-    public void OnEliteCleared()
+    public void BackToNormalAfterElite()
     {
-        // 엘리트 전멸 시: 확률로 상점 포탈
-        bool spawnShop = Random.value < shopPortalChance;
-        if (spawnShop && spawner)
-        {
-            spawner.SpawnShopPortal(); // 포탈 프리팹 소환
-            // 포탈에 들어가면 EnterShop()이 호출됨
-        }
-        else
-        {
-            // 포탈 미등장 → 곧바로 일반 페이즈 복귀
-            BackToNormalAfterElite();
-        }
-    }
-
-    public void EnterShop()
-    {
-        if (State == GameState.Shop) return;
-        SetState(GameState.Shop);
-        Time.timeScale = 0f; // 상점 동안 게임 정지(원한다면 정지 안 해도 됨)
-        if (shop) shop.Open();
-    }
-
-    public void ExitShop()
-    {
-        if (shop) shop.Close();
-        Time.timeScale = 1f;
-        BackToNormalAfterElite();
-    }
-
-    void BackToNormalAfterElite()
-    {
-        _eliteClears++;
         if (_eliteClears >= elitesToBoss)
         {
             StartBossPhase();
@@ -145,7 +106,6 @@ public class GameManager : MonoBehaviour
             StartNormalPhase();
         }
     }
-
     public void StartBossPhase()
     {
         SetState(GameState.Boss);
@@ -157,7 +117,43 @@ public class GameManager : MonoBehaviour
             spawner.ArmBossCountdownOrSpawn(); // 연출 후 보스 등장(스포너에 구현)
         }
     }
+    #endregion
 
+    #region 몬스터 사망 이벤트
+    public void OnEnemyKilled(bool isElite, int scoreGain)
+    {
+        Score += scoreGain;
+
+        if (State == GameState.Normal && !isElite)
+        {
+            _normalKills++;
+            if (_normalKills >= killsToElite) RequestElitePhase();
+        }
+    }
+    public void OnEliteUnitKilled(int scoreGain)
+    {
+        Score += scoreGain;
+        // 엘리트 전멸 여부는 스포너가 판단해서 OnEliteCleared() 호출
+    }
+    public void OnEliteCleared()
+    {
+        bool spawnShop = Random.value < shopPortalChance;
+        _eliteClears++;
+
+        if (spawnShop && spawner)
+        {
+            spawner.SpawnShopPortal(); // 포탈 프리팹 소환
+        }
+        else
+        {
+            BackToNormalAfterElite();
+        }
+    }
+    public void OnBossKilled(int scoreGain)
+    {
+        Score += scoreGain;
+        OnBossDefeated();
+    }
     public void OnBossDefeated()
     {
         if (useFinalBoss)
@@ -166,10 +162,6 @@ public class GameManager : MonoBehaviour
             if (spawner)
             {
                 StartNormalPhase();
-                //spawner.EnableNormal(false);
-                //spawner.EnableElite(false);
-                //spawner.EnableBoss(true);
-                //spawner.SpawnFinalBoss();
             }
         }
         else
@@ -177,11 +169,28 @@ public class GameManager : MonoBehaviour
             ShowResult();
         }
     }
-
     public void OnFinalBossDefeated()
     {
         ShowResult();
     }
+    #endregion
+
+    #region 상점
+    public void EnterShop()
+    {
+        if (State == GameState.Shop) return;
+        SetState(GameState.Shop);
+        Time.timeScale = 0f; // 상점 동안 게임 정지(원한다면 정지 안 해도 됨)
+        if (shop) shop.Open();
+    }
+    public void ExitShop()
+    {
+        if (shop) shop.Close();
+        Time.timeScale = 1f;
+        spawner.DeSpawnShopPortal();
+        BackToNormalAfterElite();
+    }
+    #endregion
 
     public void ShowResult()
     {
@@ -197,36 +206,10 @@ public class GameManager : MonoBehaviour
         if (result) result.Show(Score); // 같은 결과창을 재활용
         Debug.Log("Game Over");
     }
-
-    // ===== 이벤트 진입점 =====
-    public void OnEnemyKilled(bool isElite, int scoreGain)
-    {
-        Score += scoreGain;
-
-        if (State == GameState.Normal && !isElite)
-        {
-            _normalKills++;
-            if (_normalKills >= killsToElite) RequestElitePhase();
-        }
-    }
-
-    public void OnEliteUnitKilled(int scoreGain)
-    {
-        Score += scoreGain;
-        // 엘리트 전멸 여부는 스포너가 판단해서 OnEliteCleared() 호출
-    }
-
-    public void OnBossKilled(int scoreGain)
-    {
-        Score += scoreGain;
-        OnBossDefeated();
-    }
-
     public void OnPlayerLifeZero()
     {
         GameOver();
     }
-
     public void AddScore(int amount) => Score += amount; // 호환용
     public void TogglePause() { Paused = !Paused; }
 }

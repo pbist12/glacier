@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4586322202971589040}
   - component: {fileID: 3007806600192813051}
   m_Layer: 0
-  m_Name: Item
+  m_Name: Money_Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 7346423642426575543, guid: 7ba9c856ff8bf95418918e6b3fa810a7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -128,6 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 005dda54f4f19fb4e964145603f3fcbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: b1709661728de3145b287976b00a9871, type: 2}
+  item: {fileID: 11400000, guid: 8072d5dfc7577964882a6ae969e81e30, type: 2}
   moveSpeed: 3
   followRange: 5
+  pickupRange: 0.5

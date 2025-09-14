@@ -11,13 +11,13 @@ public class Item : MonoBehaviour
 
     private Transform player;
 
+    #region 아이템 이동
     private void Awake()
     {
         GameObject p = GameObject.FindGameObjectWithTag("Player");
         if (p != null)
             player = p.transform;
     }
-
     private void Update()
     {
         if (player == null) return;
@@ -40,12 +40,13 @@ public class Item : MonoBehaviour
             Pickup();
         }
     }
+    #endregion
 
+    #region 실제 픽업
     private void Pickup()
     {
-        // 여기서 인벤토리에 추가하거나 consumeOnPickup 처리
-        var status = player.GetComponent<PlayerStatus>();
-        var inventory = player.GetComponent<PlayerInventory>();
+        var status = GameObject.FindFirstObjectByType<PlayerStatus>();
+        var inventory = GameObject.FindFirstObjectByType<PlayerInventory>();
 
         if (item != null)
         {
@@ -57,10 +58,11 @@ public class Item : MonoBehaviour
             }
             else
             {
-                inventory?.Add(item, 1);
+                inventory?.AddToInventory(item, 1);
             }
         }
 
         Destroy(gameObject);
     }
+    #endregion
 }

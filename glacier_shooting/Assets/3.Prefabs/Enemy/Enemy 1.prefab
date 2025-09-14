@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 3659103923836047353}
   - component: {fileID: 6229834534302774436}
   - component: {fileID: -5588009186810469059}
+  - component: {fileID: 1896398800950137729}
   m_Layer: 10
   m_Name: Enemy 1
   m_TagString: Enemy
@@ -83,12 +84,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kind: 0
   owner: {fileID: 0}
-  maxHP: 3
-  scoreOnKill: 10
+  maxHP: 100
+  hp: 0
+  scoreOnKill: 50
   enemyDrop: {fileID: 3594462672435707539}
   useBoundsDespawn: 1
   bounds: {x: 20, y: 12}
-  radius: 0.25
+  radius: 0.5
+  bossUI: {fileID: 0}
 --- !u!114 &3594462672435707539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,6 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropPrefab:
   - {fileID: 3564688787768738211, guid: 61a132dd8b48f264b86c6a5dae680e2c, type: 3}
+  - {fileID: 3564688787768738211, guid: 61a132dd8b48f264b86c6a5dae680e2c, type: 3}
 --- !u!114 &425799903279579339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,13 +119,104 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d3a79c16db50c34091207e5708d8e23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveMode: 0
+  useEntry: 1
   entryTargetY: 2.8
   entrySpeed: 6
+  entryEase:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   lockCenterOnSpawn: 1
   centerX: 0
+  useBanking: 1
+  maxBankDeg: 18
+  bankLerp: 8
+  verticalDrift: 0
+  autoDespawnBelow: 1
+  despawnY: -6
+  onEntryComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  onTurnLeft:
+    m_PersistentCalls:
+      m_Calls: []
+  onTurnRight:
+    m_PersistentCalls:
+      m_Calls: []
+  onReachWaypoint:
+    m_PersistentCalls:
+      m_Calls: []
+  onPathLoop:
+    m_PersistentCalls:
+      m_Calls: []
   patrolHalfWidth: 2.8
   patrolSpeed: 2.2
   startRight: 1
+  edgeEaseRatio: 0.2
+  sineDownSpeed: 1.5
+  sineAmplitude: 2
+  sineFrequency: 1.2
+  zigDownSpeed: 1.8
+  zigHSpeed: 3.5
+  zigInterval: 0.5
+  zigStartRight: 1
+  orbitCenter: {fileID: 0}
+  centerOffset: {x: 0, y: 0}
+  radius: 2
+  angularSpeedDeg: 90
+  dashDownSpeed: 1.2
+  dashSpeed: 7
+  dashDuration: 0.35
+  pauseDuration: 0.25
+  dashStartRight: 1
+  pathSpace: 1
+  pathLoop: 1
+  pathEase:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  waypoints: []
 --- !u!114 &3659103923836047353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,3 +338,28 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.984375, y: 0.984375}
   m_EdgeRadius: 0
+--- !u!114 &1896398800950137729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6956107430802199566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35cd05567a29adb4ba39b0f0089fc674, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hub: {fileID: 0}
+  poolKey: 1
+  firePoint: {fileID: 1814801441830826978}
+  bulletSpeed: 2
+  bulletLifetime: 5
+  isFire: 1
+  spreadBulletCount: 18
+  spreadAngleStep: 20
+  spreadFireInterval: 1
+  spreadBurstCount: 5
+  spreadBurstCoolDownTime: 1
+  spreadRotationStep: 5
+  _spreadOffsetAngle: 0

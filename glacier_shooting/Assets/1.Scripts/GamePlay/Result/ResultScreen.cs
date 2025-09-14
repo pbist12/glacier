@@ -8,7 +8,7 @@ public class ResultScreen : MonoBehaviour
 
     public void Show(int score)
     {
-        if (scoreLabel) scoreLabel.text = $"Final Score : {score}";
         if (root) root.SetActive(true);
+        if (scoreLabel) scoreLabel.text = $"Final Score : {score}";
     }
 }

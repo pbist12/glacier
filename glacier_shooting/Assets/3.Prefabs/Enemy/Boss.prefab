@@ -132,7 +132,7 @@ MonoBehaviour:
   isFire: 0
   spreadBulletCount: 18
   spreadAngleStep: 20
-  spreadFireInterval: 1
+  spreadFireInterval: 0.15
   spreadBurstCount: 5
   spreadBurstCoolDownTime: 1
   spreadRotationStep: 5
@@ -216,7 +216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kind: 2
   owner: {fileID: 0}
-  maxHP: 200
+  maxHP: 1000
   hp: 0
   scoreOnKill: 200
   enemyDrop: {fileID: 0}

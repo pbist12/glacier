@@ -105,6 +105,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropPrefab:
   - {fileID: 3564688787768738211, guid: 61a132dd8b48f264b86c6a5dae680e2c, type: 3}
+  - {fileID: 3564688787768738211, guid: 2b740021c0c42524eab136daeb0ea32e, type: 3}
+  - {fileID: 3564688787768738211, guid: ea7eec5b3a341684d9435853fa5f78b6, type: 3}
 --- !u!114 &425799903279579339
 MonoBehaviour:
   m_ObjectHideFlags: 0
