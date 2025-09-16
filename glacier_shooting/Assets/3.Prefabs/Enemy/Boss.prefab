@@ -105,13 +105,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abaf13704c079a14394f8c511441a9fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: {fileID: 0}
+  health: {fileID: -8678950268506363154}
   spread: {fileID: 2885137794404894790}
   homing: {fileID: 6473080947835505138}
   enableMove: 0
   moveSpeed: 2
   moveRange: 2.5
   phase: 1
+  BulletPool: {fileID: 0}
 --- !u!114 &2885137794404894790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,16 +128,24 @@ MonoBehaviour:
   hub: {fileID: 0}
   poolKey: 1
   firePoint: {fileID: 1877511086918872406}
+  totalBulletArrays: 3
+  bulletsPerArray: 3
+  spreadBetweenArrays: 120
+  spreadWithinArrays: 1
+  startingAngle: 0
+  spinRate: 0
+  spinModifier: 0
+  invertSpin: 0
+  maxSpinRate: 360
+  fireRate: 6
+  fireOffset: {x: 0, y: 0}
   bulletSpeed: 2
-  bulletLifetime: 5
+  bulletTTL: 5
+  bulletAcceleration: 0
+  bulletCurve: 0
+  bulletColor: {r: 1, g: 1, b: 1, a: 1}
+  spawnForwardOffset: 0.2
   isFire: 0
-  spreadBulletCount: 18
-  spreadAngleStep: 20
-  spreadFireInterval: 0.15
-  spreadBurstCount: 5
-  spreadBurstCoolDownTime: 1
-  spreadRotationStep: 5
-  _spreadOffsetAngle: 0
 --- !u!114 &6473080947835505138
 MonoBehaviour:
   m_ObjectHideFlags: 0

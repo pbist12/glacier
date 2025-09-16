@@ -23,8 +23,11 @@ public class PlayerController : MonoBehaviour
     public float dashCooldown = 0.5f;
     public float invincibleExtra = 0.05f; // 대시 끝나고 약간 더 무적
 
-    [Header("Clamp (optional)")]
-    public Vector2 worldClamp = new Vector2(999, 999);
+    [Header("Bounds (Manual Rect)")]
+    [Tooltip("경계 중심(비우면 (0,0) 기준)")]
+    public Transform areaCenter;
+    [Tooltip("경계 크기 (가로, 세로)")]
+    public Vector2 rectSize = new Vector2(10, 6);
 
     // 내부
     Vector2 _vel;
@@ -37,26 +40,20 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
-        _status = PlayerStatus.Instance; // 있으면 자동
+        _status = PlayerStatus.Instance;
         if (!_status) _status = GetComponent<PlayerStatus>();
     }
 
     void Update()
     {
+        if (GameManager.Instance.Paused) return;
         // ── 대시 입력 체크 (이동보다 우선)
         if (Input.GetKeyDown(dashKey))
             TryDash();
 
         if (_isDashing)
         {
-            // 대시 중엔 이동 갱신 안 함(코루틴에서 속도 설정)
-            if (worldClamp.x < 900f)
-            {
-                Vector3 p = transform.position;
-                p.x = Mathf.Clamp(p.x, -worldClamp.x, worldClamp.x);
-                p.y = Mathf.Clamp(p.y, -worldClamp.y, worldClamp.y);
-                transform.position = p;
-            }
+            transform.position = ClampToBounds(transform.position);
             return;
         }
 
@@ -85,17 +82,9 @@ public class PlayerController : MonoBehaviour
         if (_vel.sqrMagnitude < stopEpsilon * stopEpsilon && desiredVel == Vector2.zero)
             _vel = Vector2.zero;
 
-        // 이동
-        transform.position += (Vector3)(_vel * Time.deltaTime);
-
-        // 경계
-        if (worldClamp.x < 900f)
-        {
-            Vector3 p = transform.position;
-            p.x = Mathf.Clamp(p.x, -worldClamp.x, worldClamp.x);
-            p.y = Mathf.Clamp(p.y, -worldClamp.y, worldClamp.y);
-            transform.position = p;
-        }
+        // 이동 + 클램프
+        Vector3 next = transform.position + (Vector3)(_vel * Time.deltaTime);
+        transform.position = ClampToBounds(next);
     }
 
     void TryDash()
@@ -114,38 +103,45 @@ public class PlayerController : MonoBehaviour
         _isDashing = true;
         _dashOnCooldown = true;
 
-        // 무적 ON
         if (_status) _status.invincible = true;
 
         float t = 0f;
         while (t < dashDuration)
         {
             t += Time.deltaTime;
-            transform.position += (Vector3)(dir * dashSpeed * Time.deltaTime);
-
-            // (선택) 대시 도중에도 경계 유지
-            if (worldClamp.x < 900f)
-            {
-                Vector3 p = transform.position;
-                p.x = Mathf.Clamp(p.x, -worldClamp.x, worldClamp.x);
-                p.y = Mathf.Clamp(p.y, -worldClamp.y, worldClamp.y);
-                transform.position = p;
-            }
-
+            Vector3 next = transform.position + (Vector3)(dir * dashSpeed * Time.deltaTime);
+            transform.position = ClampToBounds(next);
             yield return null;
         }
 
-        // 약간 더 무적 유지(히트 판정 여유)
         if (invincibleExtra > 0f)
             yield return new WaitForSeconds(invincibleExtra);
 
-        // 무적 OFF
         if (_status) _status.invincible = false;
-
         _isDashing = false;
 
-        // 쿨다운
         yield return new WaitForSeconds(dashCooldown);
         _dashOnCooldown = false;
     }
+
+    // ───────────────────────────────────────────────────────────────
+    Vector3 ClampToBounds(Vector3 pos)
+    {
+        Vector2 half = rectSize * 0.5f;
+        Vector3 c = areaCenter ? areaCenter.position : Vector3.zero;
+        pos.x = Mathf.Clamp(pos.x, c.x - half.x, c.x + half.x);
+        pos.y = Mathf.Clamp(pos.y, c.y - half.y, c.y + half.y);
+        return pos;
+    }
+
+#if UNITY_EDITOR
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = new Color(0.2f, 0.8f, 1f, 0.35f);
+        Vector3 c = areaCenter ? areaCenter.position : Vector3.zero;
+        Gizmos.DrawCube(c, new Vector3(rectSize.x, rectSize.y, 0.01f));
+        Gizmos.color = new Color(0.2f, 0.8f, 1f, 1f);
+        Gizmos.DrawWireCube(c, new Vector3(rectSize.x, rectSize.y, 0.01f));
+    }
+#endif
 }

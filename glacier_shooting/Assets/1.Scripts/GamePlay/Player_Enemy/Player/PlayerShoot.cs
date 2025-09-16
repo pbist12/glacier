@@ -33,6 +33,7 @@ public class PlayerShoot : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance.Paused) return;
         if (pool == null) return;
         if (!_wantsFire) return;
 

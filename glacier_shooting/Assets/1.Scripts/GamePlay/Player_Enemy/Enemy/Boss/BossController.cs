@@ -7,7 +7,7 @@ public class BossController : MonoBehaviour
 {
     [Header("Refs")]
     [SerializeField] private EnemyHealth health;                 // 체력/사망 이벤트
-    //[SerializeField] private BossSpreadShooter spread;          // 부채꼴 탄막
+    [SerializeField] private BossPatternShooter spread;          // 부채꼴 탄막
     [SerializeField] private BossHomingShooter homing;          // 유도탄
 
     [Header("Move")]
@@ -19,16 +19,20 @@ public class BossController : MonoBehaviour
     [Tooltip("시작 페이즈")]
     [SerializeField] private int phase = 1;
 
+    [Header("불릿 전체 삭제")]
+    public BulletPoolHub BulletPool;
+
     void Reset()
     {
         health = GetComponent<EnemyHealth>();
-        //spread = GetComponent<BossSpreadShooter>();
+        spread = GetComponent<BossPatternShooter>();
         homing = GetComponent<BossHomingShooter>();
+        BulletPool = GameObject.FindFirstObjectByType<BulletPoolHub>();
     }
 
     void OnEnable()
     {
-        if (!health) health = GetComponent<EnemyHealth>();
+        Reset();
         if (health)
         {
             health.onDeath += HandleDeath;
@@ -74,13 +78,16 @@ public class BossController : MonoBehaviour
         switch (phase)
         {
             case 1:
-                //spread.isFire = true;
+                BulletPool.BombClearAll();
+                spread.isFire = true;
                 break;
             case 2:
-                //spread.isFire = true;
+                BulletPool.BombClearAll();
+                spread.isFire = true;
                 break;
             case 3:
-                //spread.isFire = true;
+                BulletPool.BombClearAll();
+                spread.isFire = true;
                 break;
         }
     }

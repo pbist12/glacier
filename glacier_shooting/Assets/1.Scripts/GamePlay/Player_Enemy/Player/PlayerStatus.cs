@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -34,7 +36,12 @@ public class PlayerStatus : MonoBehaviour, IPlayerStats
     private float mulFocusSpeed;
     private float mulMaxHP;
 
+    [Header("무적")]
     public bool invincible = false;
+    public float invincibleDuration;
+    [SerializeField] private float flashInterval = 0.1f;   // 깜빡임 주기
+
+    private SpriteRenderer playerSprite;
 
     [Header("Collision Debug")]
     public float radius = 0.25f;
@@ -57,6 +64,8 @@ public class PlayerStatus : MonoBehaviour, IPlayerStats
 
         if (PlayerData.Instance != null)
             player = PlayerData.Instance.characterData;
+
+        playerSprite = GetComponent<SpriteRenderer>();
     }
 
     void Start()
@@ -76,8 +85,32 @@ public class PlayerStatus : MonoBehaviour, IPlayerStats
         {
             GameManager.Instance.OnPlayerLifeZero();
         }
+        else
+        {
+            StartCoroutine(SetInvincibleForSeconds(invincibleDuration));
+        }
         // 필요 시 사망 처리 등
     }
+
+    private IEnumerator SetInvincibleForSeconds(float duration)
+    {
+        invincible = true;
+
+        float elapsed = 0f;
+        while (elapsed < invincibleDuration)
+        {
+            // 스프라이트 깜빡이기
+            playerSprite.enabled = !playerSprite.enabled;
+
+            yield return new WaitForSeconds(flashInterval);
+            elapsed += flashInterval;
+        }
+
+        // 끝날 때 스프라이트는 다시 켜줌
+        playerSprite.enabled = true;
+        invincible = false;
+    }
+
     #endregion
 
     /// <summary>

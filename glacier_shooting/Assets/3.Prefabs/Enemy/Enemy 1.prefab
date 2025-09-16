@@ -104,9 +104,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d9038c53b63a7f48809433458137ee0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropPrefab:
-  - {fileID: 3564688787768738211, guid: 61a132dd8b48f264b86c6a5dae680e2c, type: 3}
-  - {fileID: 3564688787768738211, guid: 61a132dd8b48f264b86c6a5dae680e2c, type: 3}
+  dropChance: 0.7
+  dropTable:
+  - prefab: {fileID: 3564688787768738211, guid: ea7eec5b3a341684d9435853fa5f78b6, type: 3}
+    weight: 1
 --- !u!114 &425799903279579339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,13 +354,21 @@ MonoBehaviour:
   hub: {fileID: 0}
   poolKey: 1
   firePoint: {fileID: 1814801441830826978}
+  totalBulletArrays: 3
+  bulletsPerArray: 3
+  spreadBetweenArrays: 120
+  spreadWithinArrays: 1
+  startingAngle: 0
+  spinRate: 0
+  spinModifier: 0
+  invertSpin: 0
+  maxSpinRate: 360
+  fireRate: 6
+  fireOffset: {x: 0, y: 0}
   bulletSpeed: 2
-  bulletLifetime: 5
+  bulletTTL: 5
+  bulletAcceleration: 0
+  bulletCurve: 0
+  bulletColor: {r: 1, g: 1, b: 1, a: 1}
+  spawnForwardOffset: 0.2
   isFire: 1
-  spreadBulletCount: 18
-  spreadAngleStep: 20
-  spreadFireInterval: 1
-  spreadBurstCount: 5
-  spreadBurstCoolDownTime: 1
-  spreadRotationStep: 5
-  _spreadOffsetAngle: 0

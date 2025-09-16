@@ -5,7 +5,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-
     public enum GameState
     {
         Prologue,
@@ -26,7 +25,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int score;
     [SerializeField] private bool paused;
     public int Score { get => score; set { score = value; if (scoreText) scoreText.text = $"Score : {score}"; } }
-    public bool Paused { get => paused; set { paused = value; Time.timeScale = paused ? 0f : 1f; } }
+    public bool Paused { get => paused; set { paused = value;} }
 
     [Header("Flow Tunables")]
     public int killsToElite = 25;          // 일반 페이즈에서 이 킬 수 달성 시 엘리트 페이즈로

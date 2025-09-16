@@ -178,6 +178,7 @@ public class DialogueRunner : MonoBehaviour
             ui.ShowPanel(false);
         }
 
+        GameManager.Instance.Paused = false;
         onDialogueEnd?.Invoke();
     }
 

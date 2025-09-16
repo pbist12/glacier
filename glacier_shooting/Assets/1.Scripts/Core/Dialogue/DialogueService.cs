@@ -28,6 +28,7 @@ public class DialogueService : MonoBehaviour
         runner.onDialogueEnd.RemoveListener(HandleRunnerEnd);
         runner.onDialogueEnd.AddListener(HandleRunnerEnd);
 
+        GameManager.Instance.Paused = true;
         runner.StartDialogue(data);
     }
 
@@ -37,14 +38,15 @@ public class DialogueService : MonoBehaviour
     {
         if (runner != null) return;
         runner = Instantiate(runnerPrefab, transform);
-        // runner 내부에서 UI를 필요 시 생성하도록 하거나,
-        // 여기서 UI 프리팹을 runner.SetUI(Instantiate(uiPrefab))로 주입해도 됨
     }
 
     public void Stop()
     {
         if (runner != null && runner.IsPlaying())
+        {
             runner.EndDialogue();
+            GameManager.Instance.Paused = false;
+        }
     }
 
     private void HandleRunnerEnd()
