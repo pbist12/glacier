@@ -9,7 +9,6 @@ public class Select_Character : MonoBehaviour
     public CharacterData characterData;
     public TextMeshProUGUI CharacterName;
     
-    public Image mainImage;
     public TextMeshProUGUI info1;
     public TextMeshProUGUI info2;
     public TextMeshProUGUI info3;
@@ -24,7 +23,6 @@ public class Select_Character : MonoBehaviour
     public void SelectCharacter()
     {
         GameStatus.Instance.characterData = characterData;
-        mainImage.sprite = characterData.portrait;
 
         info1.text = "Player Health : " + characterData.maxLife;
         info2.text = "Player Speed : " + characterData.moveSpeed;
