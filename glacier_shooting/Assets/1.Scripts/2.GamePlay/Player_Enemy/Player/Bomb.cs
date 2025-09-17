@@ -24,7 +24,7 @@ public class Bomb : MonoBehaviour
 
     void Awake()
     {
-        if (!hub) hub = FindObjectOfType<BulletPoolHub>();
+        if (!hub) hub = FindFirstObjectByType<BulletPoolHub>();
         if (!center) center = transform;
     }
 
