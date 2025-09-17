@@ -21,11 +21,6 @@ public class Select_Character : MonoBehaviour
         CharacterName.text = characterData.playerName;
     }
 
-    public void Load()
-    {
-        SceneManager.LoadScene(sceneName);
-    }
-
     public void SelectCharacter()
     {
         GameStatus.Instance.characterData = characterData;
