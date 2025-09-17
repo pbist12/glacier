@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: -5588009186810469059}
   - component: {fileID: 1896398800950137729}
   m_Layer: 10
-  m_Name: Enemy 1
+  m_Name: Elite
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -82,7 +82,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03b0063004cf9134ca8b1d410acc40c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kind: 0
+  kind: 1
   owner: {fileID: 0}
   maxHP: 100
   hp: 0

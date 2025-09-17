@@ -1,7 +1,13 @@
-﻿using UnityEngine;
+﻿// File: EnemySpawner.cs (수정본)
+using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    [Header("Pool")]
+    [Tooltip("적/보스/포털을 풀링하고 싶다면 할당")]
+    public EnemyPoolHub hub;
+    public bool usePooling = true;
+
     [Header("Normal Spawn")]
     public bool normalEnabled = false;
     public float interval = 1.0f;
@@ -42,6 +48,7 @@ public class EnemySpawner : MonoBehaviour
         if (normalEnabled && Time.time >= _next)
         {
             _next = Time.time + interval;
+            // 성능 최적: 태그 스캔 대신 내부 카운터 사용 권장(아래 주석 참고)
             if (CountAllAlive() < maxAlive)
                 for (int i = 0; i < spawnPerTick; i++) SpawnNormalOne();
         }
@@ -53,8 +60,9 @@ public class EnemySpawner : MonoBehaviour
     public void EnableBoss(bool on) { bossEnabled = on; }
     public void ResetTick()
     {
-        _next = Time.time + interval; // 과거에 멈춰 있던 타이머를 현재 기준으로 초기화
+        _next = Time.time + interval;
     }
+
     public void SpawnElitePack()
     {
         if (!eliteEnabled || elitePrefabs == null || elitePrefabs.Length == 0) return;
@@ -64,12 +72,12 @@ public class EnemySpawner : MonoBehaviour
         {
             var pf = elitePrefabs[Random.Range(0, elitePrefabs.Length)];
             var pos = GetRandomPointInRect();
-            var go = Instantiate(pf, pos, Quaternion.identity);
+            var go = Spawn(pf, pos, Quaternion.identity);
             var eh = go.GetComponent<EnemyHealth>();
             if (eh) eh.Init(this, EnemyHealth.EnemyKind.Elite);
             _aliveElite++;
         }
-    }   
+    }
 
     public void NotifyEliteUnitDead()
     {
@@ -83,27 +91,31 @@ public class EnemySpawner : MonoBehaviour
     public void ArmBossCountdownOrSpawn()
     {
         if (!bossEnabled) return;
-        Invoke(nameof(SpawnBoss), bossSpawnDelay); // 간단히 지연 스폰(연출)
+        Invoke(nameof(SpawnBoss), bossSpawnDelay);
     }
 
     public void SpawnFinalBoss()
     {
         if (!bossEnabled || !finalBossPrefab) return;
         Vector3 pos = areaCenter ? areaCenter.position : transform.position;
-        Instantiate(finalBossPrefab, pos, Quaternion.identity);
+        Spawn(finalBossPrefab, pos, Quaternion.identity);
     }
 
     public void SpawnShopPortal()
     {
         if (!shopPortalPrefab) { GameManager.Instance.StartNormalPhase(); return; }
         Vector3 pos = areaCenter ? areaCenter.position : transform.position;
-        spawnedShopPortal = Instantiate(shopPortalPrefab, pos, Quaternion.identity);
+        spawnedShopPortal = Spawn(shopPortalPrefab, pos, Quaternion.identity);
     }
 
     public void DeSpawnShopPortal()
     {
         if (!shopPortalPrefab) { GameManager.Instance.StartNormalPhase(); return; }
-        if(spawnedShopPortal) Destroy(spawnedShopPortal);
+        if (spawnedShopPortal)
+        {
+            Despawn(spawnedShopPortal);
+            spawnedShopPortal = null;
+        }
     }
 
     // ===== 내부 =====
@@ -112,7 +124,7 @@ public class EnemySpawner : MonoBehaviour
         if (enemyPrefabs == null || enemyPrefabs.Length == 0) return;
         var pf = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
         var pos = GetRandomPointInRect();
-        var go = Instantiate(pf, pos, Quaternion.identity);
+        var go = Spawn(pf, pos, Quaternion.identity);
         var eh = go.GetComponent<EnemyHealth>();
         if (eh) eh.Init(this, EnemyHealth.EnemyKind.Normal);
         _aliveNormal++;
@@ -122,12 +134,32 @@ public class EnemySpawner : MonoBehaviour
     {
         if (bossPrefabs == null || bossPrefabs.Length == 0) return;
         Vector3 pos = areaCenter ? areaCenter.position : transform.position;
-        Instantiate(bossPrefabs[Random.Range(0, bossPrefabs.Length)], pos, Quaternion.identity);
+        Spawn(bossPrefabs[Random.Range(0, bossPrefabs.Length)], pos, Quaternion.identity);
+    }
+
+    // 풀/일반 공용 스폰 헬퍼
+    GameObject Spawn(GameObject prefab, Vector3 pos, Quaternion rot)
+    {
+        if (usePooling && hub != null)
+            return hub.Spawn(prefab, pos, rot);
+        else
+            return Instantiate(prefab, pos, rot);
+    }
+
+    void Despawn(GameObject instance)
+    {
+        if (instance == null) return;
+        if (usePooling && hub != null)
+            hub.Despawn(instance);
+        else
+            Destroy(instance);
     }
 
     int CountAllAlive()
     {
-        // 간단히 태그 기반(필요시 레지스트리로 개선)
+        // 권장) 내부 카운터로 대체:
+        // return _aliveNormal + _aliveElite; // + 보스 카운트
+        // 간단 호환 유지용(성능 낮음):
         return GameObject.FindGameObjectsWithTag("Enemy").Length;
     }
 
@@ -144,5 +176,12 @@ public class EnemySpawner : MonoBehaviour
         var pivot = areaCenter ? areaCenter.position : transform.position;
         Gizmos.color = new Color(0.2f, 1f, 0.6f, 0.5f);
         Gizmos.DrawWireCube(pivot, new Vector3(rectSize.x, rectSize.y, 0.1f));
+    }
+
+    // 적이 죽거나 사라질 때 스포너가 호출하도록 만들면 카운트 정확해짐
+    public void NotifyEnemyDespawned(EnemyHealth.EnemyKind kind)
+    {
+        if (kind == EnemyHealth.EnemyKind.Normal) _aliveNormal = Mathf.Max(0, _aliveNormal - 1);
+        else if (kind == EnemyHealth.EnemyKind.Elite) _aliveElite = Mathf.Max(0, _aliveElite - 1);
     }
 }

@@ -1,4 +1,4 @@
-﻿// File: EnemyHealth.cs (Unified: Enemy + Boss)
+﻿// File: EnemyHealth.cs (Unified: Enemy + Boss) — Pooling 연동 버전
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -74,7 +74,7 @@ public class EnemyHealth : MonoBehaviour
     void OnEnable()
     {
         hp = maxHP;
-
+        owner = GameObject.FindFirstObjectByType<EnemySpawner>();
         if (!All.Contains(this)) All.Add(this);
 
         // 보스면 전역 포인터/보스UI 바인딩
@@ -148,12 +148,11 @@ public class EnemyHealth : MonoBehaviour
     // ====== 내부 처리 ======
     void Die()
     {
-        // 보스 UI 언바인딩(보스인 경우)
+        // 보스 UI 언바인딩(보스인 경우) + 스폰 타이머 리셋을 "소유 스포너"에만 통지
         if (IsBossLike && bossUI)
         {
             bossUI.UnbindBoss();
-            var spawner = FindFirstObjectByType<EnemySpawner>();
-            spawner.ResetTick();  // ← 핵심 한 줄
+            owner?.ResetTick();  // FindFirstObjectByType 대신 오너 참조 사용
         }
 
         // 점수 및 게임 진행 이벤트
@@ -188,16 +187,31 @@ public class EnemyHealth : MonoBehaviour
         // 이벤트 통지(보스/일반 공통)
         onDeath?.Invoke();
 
+        // 스포너 카운터(내부 관리 시 권장)
+        owner?.NotifyEnemyDespawned(kind);
+
         // 제거(오브젝트 풀 사용 시 SetActive(false)로 교체)
-        Destroy(gameObject);
+        var hub = owner ? owner.hub : null;
+        if (owner && owner.usePooling && hub != null)
+            hub.Despawn(gameObject);
+        else
+            Destroy(gameObject);
     }
 
     // 화면 밖 이탈 등 “보상 없는 제거”
     void DespawnWithoutReward()
     {
-        // 보스 UI는 굳이 언바인드(보스일 때만) — 보상 없는 제거에서도 UI가 남지 않도록 처리
+        // 보스 UI는 언바인드(보스일 때만) — 보상 없는 제거에서도 UI가 남지 않도록 처리
         if (IsBossLike && bossUI) bossUI.UnbindBoss();
 
-        Destroy(gameObject);
+        // 스포너 카운터는 ‘보상 없는 제거’지만, 현재 장면의 활성 수 관리에는 도움이 됨
+        owner?.NotifyEnemyDespawned(kind);
+
+        // 풀 반납(없으면 Destroy)
+        var hub = owner ? owner.hub : null;
+        if (owner && owner.usePooling && hub != null)
+            hub.Despawn(gameObject);
+        else
+            Destroy(gameObject);
     }
 }

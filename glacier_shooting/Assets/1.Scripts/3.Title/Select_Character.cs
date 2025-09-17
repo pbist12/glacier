@@ -28,7 +28,7 @@ public class Select_Character : MonoBehaviour
 
     public void SelectCharacter()
     {
-        PlayerData.Instance.characterData = characterData;
+        GameStatus.Instance.characterData = characterData;
         mainImage.sprite = characterData.portrait;
 
         info1.text = "Player Health : " + characterData.maxLife;

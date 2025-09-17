@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class PlayerData : MonoBehaviour
+public class GameStatus : MonoBehaviour
 {
-    public static PlayerData Instance { get; private set; }
+    public static GameStatus Instance { get; private set; }
 
     public CharacterData characterData;
 

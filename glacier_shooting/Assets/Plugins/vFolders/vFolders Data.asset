@@ -19,7 +19,39 @@ MonoBehaviour:
     - d56de8cc39a901e40a082a3e44198ad0
     - 5e03f3c5f326af74493f6f8e9faa4bc0
     - 74c5a7e9f4e4be148b2af828c4684e5d
+    - 3cdc69ba529b1d440ad5965bb0fa9e09
+    - 7810e9b2e2afa1e4b8d8707d1aa62ea6
+    - 76462e4231576e142be541050d215ae2
+    - 59dc4a3abd1f25846a6e40cd2c362975
+    - d72d8dfac95a5764895921fa08f46f52
+    - 234e1e2a8a011b74ca3a9645be60b82a
+    - 20793799e46277040bd6225241732378
+    - 18a254a3f453f264a8e5f94a21c1c194
     values:
+    - iconNameOrGuid: SceneAsset Icon
+      colorIndex: 1
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: cs Script Icon
+      colorIndex: 2
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: Prefab Icon
+      colorIndex: 3
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: 
+      colorIndex: 8
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: ScriptableObject Icon
+      colorIndex: 4
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: 
+      colorIndex: 1
+      isIconRecursive: 0
+      isColorRecursive: 0
     - iconNameOrGuid: 
       colorIndex: 1
       isIconRecursive: 0
@@ -33,11 +65,19 @@ MonoBehaviour:
       isIconRecursive: 0
       isColorRecursive: 0
     - iconNameOrGuid: 
-      colorIndex: 8
+      colorIndex: 4
       isIconRecursive: 0
       isColorRecursive: 0
     - iconNameOrGuid: 
-      colorIndex: 4
+      colorIndex: 1
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: 
+      colorIndex: 1
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: 
+      colorIndex: 1
       isIconRecursive: 0
       isColorRecursive: 0
   bookmarks: []

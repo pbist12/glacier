@@ -62,8 +62,8 @@ public class PlayerStatus : MonoBehaviour, IPlayerStats
         }
         Instance = this;
 
-        if (PlayerData.Instance != null)
-            player = PlayerData.Instance.characterData;
+        if (GameStatus.Instance != null)
+            player = GameStatus.Instance.characterData;
 
         playerSprite = GetComponent<SpriteRenderer>();
     }
