@@ -266,7 +266,7 @@ MonoBehaviour:
   addFocusSpeed: 0
   addMaxHP: 0
   invincible: 0
-  invincibleDuration: 0
+  invincibleDuration: 1
   flashInterval: 0.1
   radius: 0.05
   drawDebug: 1
