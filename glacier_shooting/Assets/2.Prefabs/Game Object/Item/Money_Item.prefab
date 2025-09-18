@@ -128,7 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 005dda54f4f19fb4e964145603f3fcbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 8072d5dfc7577964882a6ae969e81e30, type: 2}
+  database: {fileID: 11400000, guid: b436bab34ce2d544b992a1f871360d6b, type: 2}
+  data: {fileID: 0}
   moveSpeed: 3
   followRange: 5
   pickupRange: 0.5

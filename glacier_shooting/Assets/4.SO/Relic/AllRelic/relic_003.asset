@@ -10,25 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b235dbcae78ef874aa0321336728ad09, type: 3}
-  m_Name: ATK
+  m_Name: relic_003
   m_EditorClassIdentifier: 
-  itemName: ATK
-  description: 
+  RelicName: "\uAC70\uC778\uC758 \uBC1C\uC790\uAD6D \uD654\uC11D"
+  description: "\uD50C\uB808\uC774\uC5B4\uC758 \uAE30\uBCF8 \uACF5\uACA9\uC758 \uD06C\uAE30\uB97C
+    n%\uB9CC\uD07C \uB298\uB824\uC900\uB2E4."
   icon: {fileID: 0}
-  itemType: 2
-  rarity: 1
-  price: 100
-  stackLimit: 1
-  unique: 1
-  useMode: 0
+  rarity: 2
+  price: 120
   cooldown: 0
-  consumeOnPickup: 0
   effects:
-  - rid: 6734827898037076039
+  - rid: 6734827990933569616
   references:
     version: 2
     RefIds:
-    - rid: 6734827898037076039
+    - rid: 6734827990933569616
       type: {class: StatModifierEffect, ns: , asm: Assembly-CSharp}
       data:
         note: 

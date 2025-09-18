@@ -115,61 +115,6 @@ public class StatModifierEffect : ItemEffect
 }
 
 /// <summary>
-/// 즉시 힐.
-/// </summary>
-[Serializable]
-public class HealInstantEffect : ItemEffect
-{
-    [Min(1)] public int amount = 30;
-
-    public override void Apply(ItemContext ctx)
-    {
-        if (ctx?.stats == null) return;
-        ctx.stats.Heal(amount);
-        Log(ctx, $"Heal +{amount}");
-    }
-
-    public override string Summary() => $"Heal +{amount}";
-}
-
-/// <summary>
-/// 골드 지급.
-/// </summary>
-[Serializable]
-public class AddGoldEffect : ItemEffect
-{
-    public int amount = 10;
-
-    public override void Apply(ItemContext ctx)
-    {
-        if (ctx?.inventory == null) return;
-        ctx.inventory.gold += amount;
-        Log(ctx, $"Gold +{amount} (Total: {ctx.inventory.gold})");
-    }
-
-    public override string Summary() => $"Gold +{amount}";
-}
-
-/// <summary>
-/// 아이템 지급. (ItemData SO를 참조)
-/// </summary>
-[Serializable]
-public class GiveItemEffect : ItemEffect
-{
-    public ItemData item;      // 프로젝트의 ItemData SO
-    [Min(1)] public int amount = 1;
-
-    public override void Apply(ItemContext ctx)
-    {
-        if (ctx?.inventory == null || item == null) return;
-        ctx.inventory.AddToInventory(item, amount);
-        Log(ctx, $"Give {item.itemName} x{amount}");
-    }
-
-    public override string Summary() => $"Get {item?.itemName ?? "Unknown"} x{amount}";
-}
-
-/// <summary>
 /// 커스텀 키-값 플래그. 게임 로직에서 자유롭게 해석.
 /// 예: key=double_drop, value=1 -> 드랍 2배 on
 /// </summary>

@@ -8,7 +8,7 @@ public class ShopManager : MonoBehaviour
     [System.Serializable]
     public class Stock
     {
-        public ItemData item;
+        public RelicData item;
         [Min(0)] public int priceOverride = 0;  // 0이면 item.price 사용
     }
 
@@ -106,31 +106,6 @@ public class ShopManager : MonoBehaviour
 
         // 결제
         playerInventory.gold -= total;
-
-        // 구매 즉시 사용 처리 (옵션)
-        bool consumedAll = false;
-        if (useOnPurchaseForOnUse && s.item.useMode == UseMode.OnUse)
-        {
-            var ctx = new ItemContext(
-                owner: playerStatus.gameObject,
-                inventory: playerInventory,
-                stats: playerStatus,
-                logger: Debug.Log
-            );
-
-            for (int i = 0; i < amount; i++)
-                ItemRuntime.Use(s.item, ctx);
-
-            playerStatus?.SetStat();
-            consumedAll = true;
-        }
-
-        if (!consumedAll)
-        {
-            // 인벤토리에 추가
-            playerInventory.AddToInventory(s.item, amount);
-        }
-
 
         RefreshUI();
         return true;

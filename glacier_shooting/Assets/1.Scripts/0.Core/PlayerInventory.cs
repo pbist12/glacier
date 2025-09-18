@@ -14,12 +14,12 @@ public class PlayerInventory : MonoBehaviour
     [System.Serializable]
     public class Entry
     {
-        public ItemData item;
-        [Min(0)] public int amount = 1;
+        public RelicData item;
     }
 
     [Header("아이템 보유 목록")]
-    public List<Entry> items = new(); // 초간단: 중복 허용 X, 같은 아이템은 수량 합침
+    public List<Entry> playerRelics = new(); // 초간단: 중복 허용 X, 같은 아이템은 수량 합침
+
     private void Awake()
     {
         if (!playerUI) playerUI = FindFirstObjectByType<PlayerUI>();
@@ -30,43 +30,34 @@ public class PlayerInventory : MonoBehaviour
         playerUI.RefreshItem(gold,bomb);
     }
 
-    public void AddToInventory(ItemData item, int amount)
+
+    #region Relic
+    public void AddRelicToInventory(RelicData item)
     {
-        if (item == null || amount <= 0) return;
-        var e = items.Find(x => x.item == item);
+        if (item == null) return;
+        var e = playerRelics.Find(x => x.item == item);
         if (e == null)
         {
-            items.Add(new Entry { item = item, amount = amount });
-            ApplyItem(item);
-        }
-        else
-        {
-            e.amount += amount;
+            playerRelics.Add(new Entry { item = item});
+            ApplyRelic(item);
         }
     }
-
-    public bool RemoveFromInventory(ItemData item, int amount)
+    public bool RemoveFromInventory(RelicData item)
     {
-        if (item == null || amount <= 0) return false;
+        if (item == null) return false;
 
-        var e = items.Find(x => x.item == item);
-        if (e == null || e.amount < amount) return false;
+        var e = playerRelics.Find(x => x.item == item);
+        if (e == null) return false;
 
-        e.amount -= amount;
-        if (e.amount <= 0) items.Remove(e);
+        playerRelics.Remove(e);
         return true;
     }
 
-    public int Count(ItemData item)
-    {
-        var e = items.Find(x => x.item == item);
-        return e == null ? 0 : e.amount;
-    }
 
     /// <summary>
     /// 아이템 적용 (OnUse/Passive/장비 착용 시 등)
     /// </summary>
-    public void ApplyItem(ItemData item)
+    public void ApplyRelic(RelicData item)
     {
         var ctx = new ItemContext(
             owner: PlayerStatus.Instance.gameObject,
@@ -86,7 +77,7 @@ public class PlayerInventory : MonoBehaviour
     /// <summary>
     /// 아이템 해제(장비 해제/패시브 오프 등)
     /// </summary>
-    public void RemoveItem(ItemData item)
+    public void RemoveRelic(RelicData item)
     {
         var ctx = new ItemContext(
             owner: PlayerStatus.Instance.gameObject,
@@ -101,4 +92,5 @@ public class PlayerInventory : MonoBehaviour
 
         PlayerStatus.Instance.SetStat();
     }
+    #endregion
 }

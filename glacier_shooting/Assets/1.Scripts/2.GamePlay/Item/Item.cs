@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    public ItemData item;
+    public RelicDatabase database;
+    public RelicData data;
 
     [Header("Fallback Move Settings (플레이어 마그넷 없을 때만 사용)")]
     public float moveSpeed = 3f;   // 기본 끌림 속도
@@ -28,6 +29,8 @@ public class Item : MonoBehaviour
         // 싱글톤/전역 인스턴스를 쓰는 프로젝트라면 아래 캐시도 선택적으로:
         if (!statusCached) statusCached = GameObject.FindFirstObjectByType<PlayerStatus>();
         if (!inventoryCached) inventoryCached = GameObject.FindFirstObjectByType<PlayerInventory>();
+
+        data = database.relics[Random.Range(0, database.relics.Count)];
     }
 
     void Update()
@@ -86,18 +89,9 @@ public class Item : MonoBehaviour
         var status = statusCached ? statusCached : GameObject.FindFirstObjectByType<PlayerStatus>();
         var inventory = inventoryCached ? inventoryCached : GameObject.FindFirstObjectByType<PlayerInventory>();
 
-        if (item != null)
+        if (data != null)
         {
-            if (item.useMode == UseMode.OnUse && item.consumeOnPickup)
-            {
-                var ctx = new ItemContext(player.gameObject, inventory, status, Debug.Log);
-                ItemRuntime.Use(item, ctx);
-                status?.SetStat();
-            }
-            else
-            {
-                inventory?.AddToInventory(item, 1);
-            }
+            inventory?.AddRelicToInventory(data);
         }
 
         Destroy(gameObject);

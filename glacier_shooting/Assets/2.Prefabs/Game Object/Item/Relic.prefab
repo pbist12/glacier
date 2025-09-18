@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4586322202971589040}
   - component: {fileID: 3007806600192813051}
   m_Layer: 0
-  m_Name: ATK_Item
+  m_Name: Relic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,7 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 005dda54f4f19fb4e964145603f3fcbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: c516ffb3bdb7d9e4b8b190930c96e2a0, type: 2}
+  database: {fileID: 11400000, guid: b436bab34ce2d544b992a1f871360d6b, type: 2}
+  data: {fileID: 0}
   moveSpeed: 3
   followRange: 5
   pickupRange: 0.5

@@ -1,0 +1,5 @@
+﻿ID,RelicName,Description,Rarity,Price,Cooldown,Effects,IconPath
+relic_001,불사의 심장,죽어도 1회 부활한다,Legendary,500,0,StatModifier:MaxHP:1:0;,Icons/Relics/heart_icon
+relic_002,가벼운 신발,이동 속도가 빨라진다,Uncommon,120,0,StatModifier:MoveSpeed:0:0.15,Icons/Relics/boots_icon
+relic_003,거인의 발자국 화석,플레이어의 기본 공격의 크기를 n%만큼 늘려준다.,Uncommon,120,0,StatModifier:FireRate:10:0;,Icons/Relics/boots_icon
+relic_004,날카로운 손톱 화석,플레이어의 기본 공격의 피해량이 n%만큼 증가한다.,Uncommon,120,0,StatModifier:BulletDamage:2:0;,Icons/Relics/boots_icon

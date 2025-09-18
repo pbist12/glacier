@@ -41,7 +41,7 @@ public class ShopItemButton : MonoBehaviour
         if (s.item == null) return;
 
         if (icon && s.item.icon) icon.sprite = s.item.icon;
-        if (nameText) nameText.text = s.item.itemName;
+        if (nameText) nameText.text = s.item.RelicName;
 
         int price = _shop.GetPrice(s);
         if (priceText) priceText.text = $"{price} G";

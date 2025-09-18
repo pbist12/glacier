@@ -4,7 +4,7 @@ using UnityEngine;
 public static class ItemRuntime
 {
     // 장착/패시브 발동
-    public static void Activate(ItemData data, ItemContext ctx, List<ItemEffect> appliedCache = null)
+    public static void Activate(RelicData data, ItemContext ctx, List<ItemEffect> appliedCache = null)
     {
         if (data == null) return;
         foreach (var eff in data.effects)
@@ -15,7 +15,7 @@ public static class ItemRuntime
     }
 
     // 장착 해제/패시브 비활성화
-    public static void Deactivate(ItemData data, ItemContext ctx, List<ItemEffect> appliedCache = null)
+    public static void Deactivate(RelicData data, ItemContext ctx, List<ItemEffect> appliedCache = null)
     {
         if (data == null) return;
         var list = appliedCache ?? data.effects;
@@ -23,16 +23,5 @@ public static class ItemRuntime
         {
             list[i]?.Remove(ctx);
         }
-    }
-
-    // 사용형(OnUse) 아이템 실행
-    public static bool Use(ItemData data, ItemContext ctx)
-    {
-        if (data == null || data.useMode != UseMode.OnUse) return false;
-        foreach (var eff in data.effects)
-        {
-            eff?.Apply(ctx);
-        }
-        return true;
     }
 }

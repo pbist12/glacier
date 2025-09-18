@@ -10,26 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b235dbcae78ef874aa0321336728ad09, type: 3}
-  m_Name: Money_01
+  m_Name: relic_001
   m_EditorClassIdentifier: 
-  itemName: Money
-  description: 
+  RelicName: "\uBD88\uC0AC\uC758 \uC2EC\uC7A5"
+  description: "\uC8FD\uC5B4\uB3C4 1\uD68C \uBD80\uD65C\uD55C\uB2E4"
   icon: {fileID: 0}
-  itemType: 0
-  rarity: 1
-  price: 10
-  stackLimit: 99
-  unique: 0
-  useMode: 1
+  rarity: 5
+  price: 500
   cooldown: 0
-  consumeOnPickup: 1
   effects:
-  - rid: 6734827898037076038
+  - rid: 6734827990933569618
   references:
     version: 2
     RefIds:
-    - rid: 6734827898037076038
-      type: {class: AddGoldEffect, ns: , asm: Assembly-CSharp}
+    - rid: 6734827990933569618
+      type: {class: StatModifierEffect, ns: , asm: Assembly-CSharp}
       data:
         note: 
-        amount: 10
+        stat: 0
+        flat: 1
+        percent: 0
+        revertOnRemove: 1
