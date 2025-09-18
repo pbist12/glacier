@@ -21,7 +21,6 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private GameObject shopCanvasRoot;         // 상점 전체 UI 루트
     [SerializeField] private Transform content;                 // 아이템 버튼 부모(스크롤뷰 Content)
     [SerializeField] private Button itemButtonPrefab;           // 버튼 프리팹
-    [SerializeField] private TMP_Text goldText;                 // 플레이어 골드 표시
     [SerializeField] private Button exitButton;                 // 닫기 버튼
 
     [Header("옵션")]
@@ -62,10 +61,6 @@ public class ShopManager : MonoBehaviour
 
     public void RefreshUI()
     {
-        // 골드 표시
-        if (goldText && playerInventory != null)
-            goldText.text = $"Gold : {playerInventory.gold}";
-
         // 기존 버튼 제거
         if (content != null)
         {

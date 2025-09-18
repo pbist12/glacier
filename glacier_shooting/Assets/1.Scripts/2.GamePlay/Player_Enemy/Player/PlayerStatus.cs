@@ -9,6 +9,7 @@ public class PlayerStatus : MonoBehaviour, IPlayerStats
 {
     public static PlayerStatus Instance { get; private set; }
     public CharacterData player;
+    public PlayerUI playerUI;
 
     [SerializeField] private PlayerController controller;
     [SerializeField] private PlayerShoot playerShoot;
@@ -16,7 +17,6 @@ public class PlayerStatus : MonoBehaviour, IPlayerStats
 
     [SerializeField] private int playerHealth;
     [SerializeField] private int playerMaxHealth;
-    [SerializeField] private int bomb;
 
     // === 가산(mod add) ===
     [SerializeField] private float addFireRate;
@@ -66,6 +66,8 @@ public class PlayerStatus : MonoBehaviour, IPlayerStats
             player = GameStatus.Instance.characterData;
 
         playerSprite = GetComponent<SpriteRenderer>();
+        playerUI = GameObject.FindFirstObjectByType<PlayerUI>();
+        playerUI.RefreshStats(controller.speed, playerMaxHealth, playerShoot.bulletDamage, playerShoot.fireRate, 10);
     }
 
     void Start()
@@ -135,6 +137,8 @@ public class PlayerStatus : MonoBehaviour, IPlayerStats
         // Move
         controller.speed = (player.moveSpeed + addMoveSpeed) * (1f + mulMoveSpeed);
         controller.focusSpeed = (player.focusSpeed + addFocusSpeed) * (1f + mulFocusSpeed);
+
+        playerUI.RefreshStats(controller.speed, playerMaxHealth, playerShoot.bulletDamage, playerShoot.fireRate, 10);
     }
 
     // ===== IPlayerStats 구현부 =====
@@ -180,10 +184,6 @@ public class PlayerStatus : MonoBehaviour, IPlayerStats
     {
         if (amount <= 0) return;
         playerHealth = Mathf.Clamp(playerHealth + amount, 0, playerMaxHealth);
-    }
-    public void AddBomb(int amount)
-    {
-        bomb += amount;
     }
 
     /// <summary>모든 모디파이어 초기화</summary>

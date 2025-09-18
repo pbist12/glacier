@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     public EnemySpawner spawner;     // 씬의 스포너 할당
     public ShopManager shop;         // 상점 매니저(아래 스텁)
     public ResultScreen result;      // 결과 화면(아래 스텁)
+    public VerticalScrollerSimple vssample;
 
     [Header("임시 다이얼로그 데이터")]
     public DialogueData intro;
@@ -178,14 +179,12 @@ public class GameManager : MonoBehaviour
     public void EnterShop()
     {
         if (State == GameState.Shop) return;
-        SetState(GameState.Shop);
-        Time.timeScale = 0f; // 상점 동안 게임 정지(원한다면 정지 안 해도 됨)
+        SetState(GameState.Shop);     
         if (shop) shop.Open();
     }
     public void ExitShop()
     {
         if (shop) shop.Close();
-        Time.timeScale = 1f;
         spawner.DeSpawnShopPortal();
         BackToNormalAfterElite();
     }

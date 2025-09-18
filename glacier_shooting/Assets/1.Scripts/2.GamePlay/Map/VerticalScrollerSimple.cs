@@ -6,6 +6,10 @@ public class VerticalScrollerSimple : MonoBehaviour
 {
     [Tooltip("스크롤 속도(+ = 아래)")]
     public float speed = 2f;
+    public float maxspeed;
+    public float minspeed;
+    [SerializeField] float lerpRate = 6f;   // 클수록 목표 속도로 빨리 붙음
+    [SerializeField] bool useUnscaledTime = false;
 
     [Header("Sprites to Cycle")]
     public List<Sprite> sprites = new List<Sprite>(); // 순서대로 사용할 스프라이트 목록
@@ -14,6 +18,13 @@ public class VerticalScrollerSimple : MonoBehaviour
     private Transform a, b;
     private SpriteRenderer srA, srB;
     private float spanY;
+
+    public float currentSpeed; // 실제 적용 속도
+
+    void OnEnable()
+    {
+        currentSpeed = speed; // 시작 시 동기화
+    }
 
     void Start()
     {
@@ -61,20 +72,26 @@ public class VerticalScrollerSimple : MonoBehaviour
 
     void Update()
     {
-        Vector3 delta = Vector3.down * (speed * Time.deltaTime);
+        float dt = useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
+
+        // 목표 속도(speed)를 향해 부드럽게 수렴
+        currentSpeed = Mathf.Lerp(currentSpeed, speed, dt * lerpRate);
+
+        Vector3 delta = Vector3.down * (currentSpeed * dt);
         a.localPosition += delta;
         b.localPosition += delta;
 
-        // 래핑 처리
-        if (a.localPosition.y <= -spanY)
+        // 래핑 (고속에서도 안전하게 while 권장)
+        Wrap(ref a, srA);
+        Wrap(ref b, srB);
+    }
+
+    void Wrap(ref Transform t, SpriteRenderer sr)
+    {
+        while (t.localPosition.y <= -spanY)
         {
-            a.localPosition += new Vector3(0f, spanY * 2f, 0f);
-            NextSprite(srA); // 스프라이트 교체
-        }
-        if (b.localPosition.y <= -spanY)
-        {
-            b.localPosition += new Vector3(0f, spanY * 2f, 0f);
-            NextSprite(srB);
+            t.localPosition += new Vector3(0f, spanY * 2f, 0f);
+            NextSprite(sr);
         }
     }
 

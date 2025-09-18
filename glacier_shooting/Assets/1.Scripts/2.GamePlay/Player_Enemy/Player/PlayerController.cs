@@ -29,6 +29,9 @@ public class PlayerController : MonoBehaviour
     [Tooltip("경계 크기 (가로, 세로)")]
     public Vector2 rectSize = new Vector2(10, 6);
 
+    [Header("Refs")]
+    public VerticalScrollerSimple vsSample;
+
     // 내부
     Vector2 _vel;
     Vector2 _inSm;

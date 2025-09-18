@@ -5,6 +5,7 @@ public class Bomb : MonoBehaviour
 {
     [Header("Refs")]
     public BulletPoolHub hub;                 // 비워두면 자동 탐색
+    public PlayerInventory playerInventory;
 
     [Header("Bomb Options")]
     public bool includePlayerBullets = false; // true면 플레이어 탄도 삭제
@@ -13,18 +14,17 @@ public class Bomb : MonoBehaviour
     public Transform center;                  // 기준점(비우면 본인 위치)
 
     [Header("Limits")]
-    public int maxCharges = 3;                // -1 이면 무제한
     public float cooldown = 1.5f;             // 폭탄 재사용 대기(초)
 
     [Header("Events")]
     public UnityEvent onBombFired;            // 연출 훅(플래시/사운드 등)
 
     float _nextUseTime = 0f;
-    int _used = 0;
 
     void Awake()
     {
         if (!hub) hub = FindFirstObjectByType<BulletPoolHub>();
+        if (!playerInventory) playerInventory = FindFirstObjectByType<PlayerInventory>();
         if (!center) center = transform;
     }
 
@@ -38,7 +38,7 @@ public class Bomb : MonoBehaviour
     {
         if (!hub) { Debug.LogWarning("[BombTrigger] hub가 없습니다."); return false; }
         if (Time.time < _nextUseTime) return false;
-        if (maxCharges >= 0 && _used >= maxCharges) return false;
+        if (playerInventory.bomb <= 0) return false;
 
         if (useRadius)
         {
@@ -51,7 +51,7 @@ public class Bomb : MonoBehaviour
             hub.BombClearAll(includePlayerBullets);
         }
 
-        _used++;
+        playerInventory.bomb--;
         _nextUseTime = Time.time + cooldown;
         onBombFired?.Invoke();
         return true;

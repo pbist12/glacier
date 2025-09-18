@@ -1,4 +1,5 @@
 ﻿// File: EnemySpawner.cs (수정본)
+using UnityEditor.PackageManager.UI;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -38,9 +39,13 @@ public class EnemySpawner : MonoBehaviour
     int _aliveNormal = 0;
     int _aliveElite = 0;
 
+    [Header("Refs")]
+    public VerticalScrollerSimple vssample;
+
     void Start()
     {
         _next = Time.time + interval;
+        vssample = FindFirstObjectByType<VerticalScrollerSimple>();
     }
 
     void Update()
@@ -71,7 +76,7 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < Mathf.Max(1, eliteCount); i++)
         {
             var pf = elitePrefabs[Random.Range(0, elitePrefabs.Length)];
-            var pos = GetRandomPointInRect();
+            var pos = areaCenter.transform.position;
             var go = Spawn(pf, pos, Quaternion.identity);
             var eh = go.GetComponent<EnemyHealth>();
             if (eh) eh.Init(this, EnemyHealth.EnemyKind.Elite);
@@ -105,6 +110,7 @@ public class EnemySpawner : MonoBehaviour
     {
         if (!shopPortalPrefab) { GameManager.Instance.StartNormalPhase(); return; }
         Vector3 pos = areaCenter ? areaCenter.position : transform.position;
+        vssample.speed = vssample.minspeed;
         spawnedShopPortal = Spawn(shopPortalPrefab, pos, Quaternion.identity);
     }
 
@@ -114,6 +120,7 @@ public class EnemySpawner : MonoBehaviour
         if (spawnedShopPortal)
         {
             Despawn(spawnedShopPortal);
+            vssample.speed = vssample.maxspeed;
             spawnedShopPortal = null;
         }
     }

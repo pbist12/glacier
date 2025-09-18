@@ -5,6 +5,11 @@ public class PlayerInventory : MonoBehaviour
 {
     [Header("돈")]
     [Min(0)] public int gold = 100;
+    [Header("폭탄")]
+    [Min(0)] public int bomb = 10;
+
+    [Header("플레이어 UI")]
+    public PlayerUI playerUI;
 
     [System.Serializable]
     public class Entry
@@ -15,6 +20,15 @@ public class PlayerInventory : MonoBehaviour
 
     [Header("아이템 보유 목록")]
     public List<Entry> items = new(); // 초간단: 중복 허용 X, 같은 아이템은 수량 합침
+    private void Awake()
+    {
+        if (!playerUI) playerUI = FindFirstObjectByType<PlayerUI>();
+    }
+
+    private void Update()
+    {
+        playerUI.RefreshItem(gold,bomb);
+    }
 
     public void AddToInventory(ItemData item, int amount)
     {
