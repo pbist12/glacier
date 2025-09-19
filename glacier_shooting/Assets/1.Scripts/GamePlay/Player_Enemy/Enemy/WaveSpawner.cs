@@ -72,29 +72,29 @@ public class WaveSpawner : MonoBehaviour
         if (g == null || g.enemyPrefab == null) yield break;
         if (g.startDelay > 0f) yield return new WaitForSeconds(g.startDelay);
 
-        int spLen = (g.spawnPoints != null && g.spawnPoints.Length > 0) ? g.spawnPoints.Length : 0;
-        int spIdx = 0;
+        int spawnLen = (g.spawnPoints != null && g.spawnPoints.Length > 0) ? g.spawnPoints.Length : 0;
+        int spawnIdx = 0;
 
         for (int i = 0; i < g.count; i++)
         {
             Transform spawnPoint = defaultSpawnPoint;
-            if (spLen > 0)
+            if (spawnLen > 0)
             {
                 if (g.cycleSpawnPoints)
                 {
-                    spawnPoint = g.spawnPoints[spIdx % spLen];
-                    spIdx++;
+                    spawnPoint = g.spawnPoints[spawnIdx % spawnLen];
+                    spawnIdx++;
                 }
                 else
                 {
-                    spawnPoint = g.spawnPoints[Random.Range(0, spLen)];
+                    spawnPoint = g.spawnPoints[Random.Range(0, spawnLen)];
                 }
             }
 
             Vector3 pos = spawnPoint != null ? spawnPoint.position : Vector3.zero;
             Quaternion rot = spawnPoint != null ? spawnPoint.rotation : Quaternion.identity;
 
-            // TODO: 풀링 사용 권장
+            //TODO. 오브젝트 풀?
             Instantiate(g.enemyPrefab, pos, rot);
 
             if (g.interval > 0f) yield return new WaitForSeconds(g.interval);
