@@ -10,12 +10,14 @@ public class CharacterData : ScriptableObject
     [Header("능력치")]
     public int maxLife = 3;           // 목숨 수
     public int maxBombs = 2;          // 폭탄 수
+    public int maxMana;
     public float moveSpeed = 5f;      // 이동 속도
     public float focusSpeed = 2.5f;   // 집중 모드 속도
     public float hitboxRadius = 0.1f; // 피격 판정 반경
 
     [Header("공격")]
     public float damage = 1f;         // 공격력
+    public float bulletSize = 1f;
     public float fireRate = 10f;      // 초당 발사 수
     public float bulletSpeed = 8f;    // 탄 속도
     public float bulletLifetime = 3f; // 탄 생존 시간
@@ -23,6 +25,9 @@ public class CharacterData : ScriptableObject
     [Header("폭탄/특수")]
     public float bombDuration = 2f;   // 폭탄 무적 시간
     public string bombDescription;    // 폭탄 설명
+
+    [Header("자석")]
+    public float magnetRange = 1f;
 
     [Header("기타")]
     public Color playerColor = Color.white;   // UI, 기체 색 등

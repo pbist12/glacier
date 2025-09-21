@@ -16,14 +16,18 @@ MonoBehaviour:
   portrait: {fileID: 0}
   maxLife: 10000
   maxBombs: 2
+  maxMana: 0
   moveSpeed: 5
   focusSpeed: 2.5
   hitboxRadius: 0.1
-  fireRate: 10
+  damage: 20
+  bulletSize: 1
+  fireRate: 20
   bulletSpeed: 8
   bulletLifetime: 3
   bombDuration: 2
   bombDescription: 
+  magnetRange: 1
   playerColor: {r: 1, g: 1, b: 1, a: 1}
   shotSfx: {fileID: 0}
   bombSfx: {fileID: 0}

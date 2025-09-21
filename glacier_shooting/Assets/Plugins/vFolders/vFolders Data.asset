@@ -25,7 +25,6 @@ MonoBehaviour:
     - 59dc4a3abd1f25846a6e40cd2c362975
     - d72d8dfac95a5764895921fa08f46f52
     - 234e1e2a8a011b74ca3a9645be60b82a
-    - 20793799e46277040bd6225241732378
     - 18a254a3f453f264a8e5f94a21c1c194
     - dad7168433abcb04caf1df1ff261f976
     - 9125cada8f5f4814883f56531caf01b9
@@ -71,15 +70,11 @@ MonoBehaviour:
       isIconRecursive: 0
       isColorRecursive: 0
     - iconNameOrGuid: 
-      colorIndex: 1
+      colorIndex: 3
       isIconRecursive: 0
       isColorRecursive: 0
     - iconNameOrGuid: 
-      colorIndex: 1
-      isIconRecursive: 0
-      isColorRecursive: 0
-    - iconNameOrGuid: 
-      colorIndex: 1
+      colorIndex: 8
       isIconRecursive: 0
       isColorRecursive: 0
     - iconNameOrGuid: PrefabModel Icon

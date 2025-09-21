@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1be19fc3858e524fa17a5518e8c4d39, type: 3}
-  m_Name: Read Me v8.1.1
+  m_Script: {fileID: 11500000, guid: bae7f01c51d8e2544914a7deca7b1057, type: 3}
+  m_Name: Boss_02
   m_EditorClassIdentifier: 
-  _DontShowOnStartup: 1
+  bossName: Fire
+  bossPrefab: {fileID: 5255976911480987639, guid: d9211224382fc54499209d464f2a850d, type: 3}
