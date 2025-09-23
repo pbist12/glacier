@@ -289,7 +289,9 @@ public class EnemySpawner : MonoBehaviour
         // 여러 마리 관리가 필요하면 별도 집계로 확장
         _eliteActive = false;
         if (!_eliteActive)
+        {
             GameManager.Instance?.OnEliteCleared();
+        }
     }
 
     private void SpawnBoss()

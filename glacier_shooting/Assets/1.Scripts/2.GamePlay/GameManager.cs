@@ -36,8 +36,8 @@ public class GameManager : MonoBehaviour
     [Header("Flow Tunables")]
     public int killsToElite = 25;          // 일반 페이즈에서 이 킬 수 달성 시 엘리트 페이즈로
     public int elitesToBoss = 2;           // 엘리트 페이즈 N번 완료 후 보스전 진입
-    private int _normalKills = 0;
-    private int _eliteClears = 0;
+    [SerializeField] private int _normalKills = 0;
+    [SerializeField] private int _eliteClears = 0;
 
     public float shopPortalChance = 0.35f; // 엘리트 처치 후 포탈 등장 확률
 
@@ -69,6 +69,7 @@ public class GameManager : MonoBehaviour
     void SetState(GameState s)
     {
         State = s;
+        Debug.Log("State :" + s);
     }
 
     #region 몬스터 페이즈 변경
@@ -146,16 +147,19 @@ public class GameManager : MonoBehaviour
     {
         bool spawnShop = Random.value < shopPortalChance;
         _eliteClears++;
+        Debug.Log($"spawnShop: {spawnShop}, spawner is null: {spawner == null}");
 
         if (spawnShop && spawner)
         {
+            Debug.Log("Spawning shop portal and returning");
             spawner.SpawnShopPortal(); // 포탈 프리팹 소환
             return;
         }
-        
-        if(!spawnShop)
+
+        if (!spawnShop)
         {
             BackToNormalAfterElite();
+            Debug.Log("리턴 X 실행");
         }
     }
     public void OnBossKilled(int scoreGain)
@@ -193,6 +197,7 @@ public class GameManager : MonoBehaviour
     public void ExitShop()
     {
         if (shop) shop.Close();
+        Debug.Log($"spawner is null: {spawner == null}");
         spawner.DeSpawnShopPortal();
         paused = false;
         BackToNormalAfterElite();
