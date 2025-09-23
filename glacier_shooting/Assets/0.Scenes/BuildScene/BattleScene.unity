@@ -439,7 +439,7 @@ MonoBehaviour:
   score: 0
   paused: 0
   killsToElite: 2
-  elitesToBoss: 10
+  elitesToBoss: 2
   _normalKills: 0
   _eliteClears: 0
   shopPortalChance: 0.8

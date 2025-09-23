@@ -18,8 +18,18 @@ public class SelfDestroyOnScene : MonoBehaviour
 
     void Awake()
     {
-        if (registerAsDontDestroyOnLoad)
+        var a = GameObject.Find(gameObject.name);
+        if (a != null && a != gameObject)  // 현재 오브젝트와 다른 인스턴스를 비교
+        {
+            Destroy(gameObject);  // 중복 오브젝트를 파괴
+            return;
+        }
+
+        // DontDestroyOnLoad 처리
+        if (registerAsDontDestroyOnLoad && !gameObject.scene.isLoaded)  // 씬에 로드된 오브젝트가 아닐 때
+        {
             DontDestroyOnLoad(gameObject);
+        }
     }
 
     void OnEnable()

@@ -237,4 +237,9 @@ public class PlayerStatus : MonoBehaviour, IPlayerStats
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, radius);
     }
+
+    public void UpdateStatus()
+    {
+        playerUI.RefreshStats(controller.speed, playerMaxHealth, playerShoot.bulletDamage, playerShoot.fireRate, 10);
+    }
 }

@@ -70,6 +70,12 @@ public class PlayerUI : MonoBehaviour
         {
             playerScore.text = $"Score : {GameManager.Instance.Score}";
         }
+
+        if (PlayerStatus.Instance != null)
+        {
+            Debug.Log($"PlayerStatus.Instance is null: {PlayerStatus.Instance == null}");
+            PlayerStatus.Instance.UpdateStatus();
+        }
     }
 
     /// <summary>
