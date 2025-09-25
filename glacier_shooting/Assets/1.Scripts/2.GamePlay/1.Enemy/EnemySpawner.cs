@@ -133,20 +133,20 @@ public class EnemySpawner : MonoBehaviour
         if (stage != null)
         {
             // Normal (weights)
-            if (stage.mobs != null)
+            if (stage.waves != null)
             {
                 // 균등 풀(폴백용)
-                enemyPrefabs = stage.mobs
-                    .Where(m => m != null && m.prefab != null)
-                    .Select(m => m.prefab)
+                enemyPrefabs = stage.waves.groups
+                    .Where(m => m != null && m.monster.prefab != null)
+                    .Select(m => m.monster.prefab)
                     .Distinct()
                     .ToArray();
 
-                foreach (var m in stage.mobs)
+                foreach (var m in stage.waves.groups)
                 {
-                    if (m == null || m.prefab == null) continue;
-                    int weight = Mathf.Max(1, m.spawnCount); // 최소 1
-                    _weighted.Add(new WeightedEntry { prefab = m.prefab, weight = weight });
+                    if (m == null || m.monster.prefab == null) continue;
+                    int weight = Mathf.Max(1, m.monster.spawnCount); // 최소 1
+                    _weighted.Add(new WeightedEntry { prefab = m.monster.prefab, weight = weight });
                 }
             }
 

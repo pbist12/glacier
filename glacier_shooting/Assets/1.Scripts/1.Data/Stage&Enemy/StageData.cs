@@ -1,28 +1,41 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "StageData", menuName = "GameMini/StageData")]
 public class StageData : ScriptableObject
 {
+    public enum SpawnPoints { None, Right, Left, Up }
+
+    [Min(0.1f)] public float periodN = 10f;   // N초(웨이브 한 바퀴)
+    public bool loop;                          // 현재 규칙: 한 바퀴 후 Elite→Boss로 진행
+
     [Header("Mobs: 숫자만큼 Pool 에서 스폰")]
-    public List<MobEntry> mobs = new();
+    public WaveDef waves = new();
 
-    [Header("Elite")]
-    public List<EliteEntry> elites = new();
+    [Header("Elite (후보들, 1마리 랜덤 사용)")]
+    public List<EliteAsset> elites = new();
 
-    [Header("Bosses: 순서대로 진행")]
+    [Header("Bosses (목록 중 1마리 랜덤 선택)")]
     public List<BossAsset> bosses = new();
 }
 
-[System.Serializable]
-public class MobEntry
+#region Normal Monster Prefab
+[Serializable]
+public class WaveDef
 {
-    public GameObject prefab;
-    public int spawnCount;
+    public string waveID = "Wave";
+    public List<SpawnGroup> groups = new();
 }
 
-[System.Serializable]
-public class EliteEntry
+[Serializable]
+public class SpawnGroup
 {
-    public GameObject prefab;
+    public MobAsset monster;                        // 몬스터 프리팹
+    public StageData.SpawnPoints[] spawnPoints;     // 지정 시 랜덤/순환
+    [Min(0f)] public float startDelay = 0f;         // 웨이브 시작 기준 지연
+    [Min(0f)] public float interval = 0.2f;         // 마리 간 간격
+    public bool cycleSpawnPoints = true;            // true: 순환 / false: 랜덤
 }
+#endregion
+

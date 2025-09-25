@@ -44,11 +44,11 @@ public class StageManager : MonoBehaviour
     // ───── 외부에서 호출하는 간단 API ─────
 
     // 1) 잡몹 스폰 정보 가져가기 → Spawner가 알아서 스폰
-    public MobEntry[] GetCurrentStageMobs()
+    public SpawnGroup[] GetCurrentStageMobs()
     {
         var s = stages[_stageIndex];
-        if (s == null || s.mobs == null) return System.Array.Empty<MobEntry>();
-        return s.mobs.ToArray();
+        if (s == null || s.waves.groups == null) return System.Array.Empty<SpawnGroup>();
+        return s.waves.groups.ToArray();
     }
 
     // 2) 엘리트 프리팹 목록(필요 시)
@@ -62,8 +62,7 @@ public class StageManager : MonoBehaviour
     }
 
     // 이번 스테이지의 보스 프리팹 얻기
-    public GameObject GetSelectedBossPrefab()
-        => _stageBoss ? _stageBoss.bossPrefab : null;
+    public GameObject GetSelectedBossPrefab;
 
     // ─────────────────────────────────────────────────────────────
 

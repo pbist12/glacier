@@ -1209,6 +1209,7 @@ MonoBehaviour:
   _stageIndex: 0
   _stageBoss: {fileID: 0}
   isEnd: 0
+  GetSelectedBossPrefab: {fileID: 0}
 --- !u!1 &393030403
 GameObject:
   m_ObjectHideFlags: 0
