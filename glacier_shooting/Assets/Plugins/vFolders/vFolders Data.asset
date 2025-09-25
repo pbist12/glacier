@@ -28,6 +28,11 @@ MonoBehaviour:
     - 18a254a3f453f264a8e5f94a21c1c194
     - dad7168433abcb04caf1df1ff261f976
     - 9125cada8f5f4814883f56531caf01b9
+    - 18bd5f00d69260247a2fe21bf7b0c48b
+    - cf299f42f76e1774caf0b5aaa680938a
+    - af411c2bdc7230c4a841c5903295d63c
+    - 20793799e46277040bd6225241732378
+    - 34edb16192e9a9446b08439e6b191831
     values:
     - iconNameOrGuid: SceneAsset Icon
       colorIndex: 1
@@ -70,7 +75,7 @@ MonoBehaviour:
       isIconRecursive: 0
       isColorRecursive: 0
     - iconNameOrGuid: 
-      colorIndex: 3
+      colorIndex: 6
       isIconRecursive: 0
       isColorRecursive: 0
     - iconNameOrGuid: 
@@ -83,6 +88,26 @@ MonoBehaviour:
       isColorRecursive: 0
     - iconNameOrGuid: PrefabModel Icon
       colorIndex: 1
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: 
+      colorIndex: 1
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: 
+      colorIndex: 2
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: 
+      colorIndex: 3
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: 
+      colorIndex: 4
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: 
+      colorIndex: 8
       isIconRecursive: 0
       isColorRecursive: 0
   bookmarks: []

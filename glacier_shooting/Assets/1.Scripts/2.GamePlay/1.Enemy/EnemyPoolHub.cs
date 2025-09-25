@@ -1,4 +1,4 @@
-// File: EnemyPoolHub.cs
+ï»¿// File: EnemyPoolHub.cs
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,17 +15,20 @@ public class EnemyPoolHub : MonoBehaviour
     }
 
     [Header("Pools")]
-    [Tooltip("¹Ì¸® µî·ÏÇØµÑ Ç® ¸ñ·Ï (¾ø¾îµµ ·±Å¸ÀÓ¿¡ ÀÚµ¿ »ı¼ºµÊ)")]
+    [Tooltip("ë¯¸ë¦¬ ë“±ë¡í•´ë‘˜ í’€ ëª©ë¡ (ì—†ì–´ë„ ëŸ°íƒ€ì„ì— ìë™ ìƒì„±ë¨)")]
     public List<Entry> entries = new();
 
-    // prefab Å° -> Ç®
+    // prefab í‚¤ -> í’€
     private readonly Dictionary<GameObject, Queue<GameObject>> _pools = new();
-    // ÀÎ½ºÅÏ½º -> ¿øº» ÇÁ¸®ÆÕ ¿ªÃßÀû
+    // ì¸ìŠ¤í„´ìŠ¤ -> ì›ë³¸ í”„ë¦¬íŒ¹ ì—­ì¶”ì 
     private readonly Dictionary<GameObject, GameObject> _origin = new();
+
+    private readonly HashSet<GameObject> _active = new();
+    public int ActiveCount => _active.Count;
 
     void Awake()
     {
-        // »çÀü µî·ÏµÈ Ç® ÇÁ¸®¿ú
+        // ì‚¬ì „ ë“±ë¡ëœ í’€ í”„ë¦¬ì›œ
         foreach (var e in entries)
         {
             if (e.prefab == null) continue;
@@ -53,7 +56,7 @@ public class EnemyPoolHub : MonoBehaviour
         var go = Instantiate(prefab, parent);
         go.SetActive(false);
 
-        // Ç® ÅäÅ«(¿øº» prefab ÂüÁ¶) ºÎÂø
+        // í’€ í† í°(ì›ë³¸ prefab ì°¸ì¡°) ë¶€ì°©
         var token = go.GetComponent<PoolToken>();
         if (token == null) token = go.AddComponent<PoolToken>();
         token.originPrefab = prefab;
@@ -75,7 +78,6 @@ public class EnemyPoolHub : MonoBehaviour
         }
         else
         {
-            // entries¿¡¼­ parent³ª maxSize °°Àº ¼³Á¤À» Ã£¾Æ¿Í¼­ parent¸¸ Àû¿ë(°£´ÜÈ­)
             Transform parent = null;
             var entry = entries.Find(e => e.prefab == prefab);
             if (entry != null) parent = entry.parent;
@@ -85,8 +87,10 @@ public class EnemyPoolHub : MonoBehaviour
         go.transform.SetPositionAndRotation(position, rotation);
         go.SetActive(true);
 
-        // ¿É¼Ç: IPoolable ÈÅ
         if (go.TryGetComponent<IPoolable>(out var p)) p.OnSpawned();
+
+        // âœ… í™œì„± ëª©ë¡ì— ë“±ë¡
+        _active.Add(go);
         return go;
     }
 
@@ -96,13 +100,14 @@ public class EnemyPoolHub : MonoBehaviour
 
         if (!_origin.TryGetValue(instance, out var prefab))
         {
-            // È¤½Ã ÅäÅ«ÀÌ ¾ø´Ù¸é(¿ÜºÎ »ı¼º¹°) ÆÄ±«
             Destroy(instance);
             return;
         }
 
-        // ¿É¼Ç: IPoolable ÈÅ
         if (instance.TryGetComponent<IPoolable>(out var p)) p.OnDespawned();
+
+        // âœ… í™œì„± ëª©ë¡ì—ì„œ ì œê±°
+        _active.Remove(instance);
 
         InternalRelease(prefab, instance);
     }
@@ -116,9 +121,23 @@ public class EnemyPoolHub : MonoBehaviour
 
     public int ActiveCountRough(string tag = null)
     {
-        // °£´Ü ÃßÁ¤: Scene¿¡ È°¼º/ÅÂ±×¸¦ ÈÈ´Â °Ç ºñ¿ë Å­ ¡æ ÇÊ¿ä ½Ã Á÷Á¢ °ü¸® ±ÇÀå
+        // ê°„ë‹¨ ì¶”ì •: Sceneì— í™œì„±/íƒœê·¸ë¥¼ í›‘ëŠ” ê±´ ë¹„ìš© í¼ â†’ í•„ìš” ì‹œ ì§ì ‘ ê´€ë¦¬ ê¶Œì¥
         if (string.IsNullOrEmpty(tag)) return 0;
         return GameObject.FindGameObjectsWithTag(tag).Length;
+    }
+    public int DespawnAll()
+    {
+        var snapshot = new List<GameObject>(_active);
+        int count = 0;
+        foreach (var go in snapshot)
+        {
+            if (go != null && go.activeInHierarchy)
+            {
+                Despawn(go);
+                count++;
+            }
+        }
+        return count;
     }
 }
 
@@ -128,7 +147,7 @@ public interface IPoolable
     void OnDespawned();
 }
 
-// ¿øº» ÇÁ¸®ÆÕ ÃßÀû¿ë
+// ì›ë³¸ í”„ë¦¬íŒ¹ ì¶”ì ìš©
 public class PoolToken : MonoBehaviour
 {
     public GameObject originPrefab;

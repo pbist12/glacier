@@ -95,6 +95,7 @@ public class PlayerStatus : MonoBehaviour, IPlayerStats
         ResetAllModifiers();  // ★ 시작 시 모디파이어 초기화
         SetStat();
         playerHealth = playerMaxHealth;
+        playerInventory.bomb = player.maxBombs; 
     }
 
     #region 피해 처리

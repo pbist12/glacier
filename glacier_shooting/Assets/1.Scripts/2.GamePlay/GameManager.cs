@@ -179,7 +179,7 @@ public class GameManager : MonoBehaviour
         {
             _normalKills = 0;
             _eliteClears = 0;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            SceneLoader.Instance.ReloadCurrent();
         }
     }
     #endregion

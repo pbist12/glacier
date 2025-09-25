@@ -8,7 +8,7 @@ public class LoadSceneTitle : MonoBehaviour
     public void Load()
     {
         if (GameStatus.Instance.characterData == null) return;
-        SceneManager.LoadScene(sceneName);
+        SceneLoader.Instance.LoadScene(sceneName);
     }
 
 }

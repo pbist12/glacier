@@ -8,6 +8,7 @@ public class EnemySpawner : MonoBehaviour
 {
     // Dependencies
     private EnemyPoolHub hub;
+    private BulletPoolHub bulletPool;
     private VerticalScrollerSimple vssample;
 
     #region Inspector
@@ -76,6 +77,7 @@ public class EnemySpawner : MonoBehaviour
     {
         hub = FindFirstObjectByType<EnemyPoolHub>();
         vssample = FindFirstObjectByType<VerticalScrollerSimple>();
+        bulletPool = FindFirstObjectByType<BulletPoolHub>();
     }
 
     private void OnEnable()
@@ -274,6 +276,8 @@ public class EnemySpawner : MonoBehaviour
         if (!eliteEnabled || elitePrefabs == null || elitePrefabs.Length == 0) return;
         if (GameManager.Instance.State != GameManager.GameState.Elite) return;
 
+        hub.DespawnAll();
+
         var pf = elitePrefabs[UnityEngine.Random.Range(0, elitePrefabs.Length)]; // 상한 exclusive
         var pos = areaCenter ? areaCenter.position : transform.position;
 
@@ -298,6 +302,8 @@ public class EnemySpawner : MonoBehaviour
     {
         if (!bossEnabled || bossPrefabs == null || bossPrefabs.Length == 0) return;
 
+        hub.DespawnAll();
+
         var pos = areaCenter ? areaCenter.position : transform.position;
         var pf = bossPrefabs[UnityEngine.Random.Range(0, bossPrefabs.Length)];
         if (!isBossSpawned)
@@ -320,6 +326,8 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
 
+        bulletPool.BombClearAll();
+        hub.DespawnAll();
         Vector3 pos = areaCenter ? areaCenter.position : transform.position;
 
         if (vssample) vssample.speed = vssample.minspeed;

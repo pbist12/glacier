@@ -73,7 +73,7 @@ public class PlayerUI : MonoBehaviour
 
         if (PlayerStatus.Instance != null)
         {
-            Debug.Log($"PlayerStatus.Instance is null: {PlayerStatus.Instance == null}");
+            //Debug.Log($"PlayerStatus.Instance is null: {PlayerStatus.Instance == null}");
             PlayerStatus.Instance.UpdateStatus();
         }
     }

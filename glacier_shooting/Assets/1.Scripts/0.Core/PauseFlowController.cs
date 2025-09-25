@@ -108,6 +108,6 @@ public class PauseFlowController : MonoBehaviour
 
     public void QuitToTitle()
     {
-        SceneManager.LoadScene("LobbyScene");
+        SceneLoader.Instance.LoadScene("LobbyScene");
     }
 }
