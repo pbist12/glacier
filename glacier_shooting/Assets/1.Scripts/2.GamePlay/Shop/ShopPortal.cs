@@ -22,8 +22,8 @@ public class ShopPortal : MonoBehaviour
         if (dist <= interactRange && Input.GetKeyDown(interactKey))
         {
             // 상점 진입
-            if (GameManager.Instance != null)
-                GameManager.Instance.EnterShop();
+            //if (GameManager.Instance != null)
+                //GameManager.Instance.EnterShop();
         }
     }
 }

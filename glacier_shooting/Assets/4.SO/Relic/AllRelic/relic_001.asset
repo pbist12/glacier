@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: relic_001
   m_EditorClassIdentifier: 
   RelicName: "\uBD88\uC0AC\uC758 \uC2EC\uC7A5"
-  description: "\uC8FD\uC5B4\uB3C4 1\uD68C \uBD80\uD65C\uD55C\uB2E4"
-  icon: {fileID: 0}
+  description: "MAX HP\uB97C 1 \uB298\uB824\uC900\uB2E4"
+  icon: {fileID: 963518308, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
   rarity: 5
   price: 500
   cooldown: 0

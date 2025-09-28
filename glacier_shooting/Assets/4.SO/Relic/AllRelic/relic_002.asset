@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: relic_002
   m_EditorClassIdentifier: 
   RelicName: "\uAC00\uBCBC\uC6B4 \uC2E0\uBC1C"
-  description: "\uC774\uB3D9 \uC18D\uB3C4\uAC00 \uBE68\uB77C\uC9C4\uB2E4"
-  icon: {fileID: 0}
+  description: "\uC774\uB3D9\uC18D\uB3C4\uB97C 0.15\uBC30 \uB192\uC5EC\uC900\uB2E4"
+  icon: {fileID: 21300000, guid: 5d07701fcc868e44694f0345d4c79f69, type: 3}
   rarity: 2
   price: 120
   cooldown: 0
@@ -27,7 +27,7 @@ MonoBehaviour:
       type: {class: StatModifierEffect, ns: , asm: Assembly-CSharp}
       data:
         note: 
-        stat: 5
+        stat: 3
         flat: 0
         percent: 0.15
         revertOnRemove: 1

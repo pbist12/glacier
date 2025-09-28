@@ -194,13 +194,9 @@ public class GameManager : MonoBehaviour
         if (State == GameState.Shop) return;
         SetState(GameState.Shop);
     }
-    public void EnterShop()
-    {
-        if (shop) shop.Open();
-    }
+
     public void ExitShop()
     {
-        if (shop) shop.Close();
         Debug.Log($"spawner is null: {spawner == null}");
         spawner.DeSpawnShopPortal();
         paused = false;

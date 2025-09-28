@@ -13,7 +13,7 @@ public class ShopItemButton : MonoBehaviour
     public Image icon;
     public TMP_Text nameText;
     public TMP_Text priceText;
-
+/*
     public void Bind(ShopManager shop, int stockIndex)
     {
         _shop = shop;
@@ -24,9 +24,9 @@ public class ShopItemButton : MonoBehaviour
         _btn.onClick.AddListener(OnClick);
 
         UpdateVisual();
-    }
+    }*/
 
-    void OnClick()
+/*    void OnClick()
     {
         if (_shop == null) return;
 
@@ -45,5 +45,5 @@ public class ShopItemButton : MonoBehaviour
 
         int price = _shop.GetPrice(s);
         if (priceText) priceText.text = $"{price} G";
-    }
+    }*/
 }

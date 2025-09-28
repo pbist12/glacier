@@ -1,121 +1,103 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
 public class ShopManager : MonoBehaviour
 {
-    [System.Serializable]
-    public class Stock
+    [Header("Config")]
+    [Min(1)] public int itemsToShow = 3;
+    public ShopSlot slotPrefab;
+    public Transform[] spawnPoints;
+    public List<RelicData> itemPool = new();
+
+    [Header("Input (전달)")]
+    public UnityEngine.InputSystem.InputActionReference interactAction; // 슬롯에 전달
+
+    public Transform playerTransform; // 인스펙터에 플레이어 루트 드래그
+    
+    private readonly List<ShopSlot> _activeSlots = new();
+
+    private void Awake()
     {
-        public RelicData item;
-        [Min(0)] public int priceOverride = 0;  // 0이면 item.price 사용
-    }
-
-    [Header("상점 재고 (인스펙터에서 직접 설정)")]
-    public List<Stock> stocks = new();
-
-    [Header("레퍼런스")]
-    [SerializeField] private GameObject shopCanvasRoot;         // 상점 전체 UI 루트
-    [SerializeField] private Transform content;                 // 아이템 버튼 부모(스크롤뷰 Content)
-    [SerializeField] private Button itemButtonPrefab;           // 버튼 프리팹
-    [SerializeField] private Button exitButton;                 // 닫기 버튼
-
-    [Header("옵션")]
-    public bool useOnPurchaseForOnUse = true; // OnUse 아이템 구매 즉시 사용
-
-    private PlayerInventory playerInventory;
-    private PlayerStatus playerStatus;
-
-    void Awake()
-    {
-        if (exitButton != null) exitButton.onClick.AddListener(Exit);
-        if (shopCanvasRoot != null) shopCanvasRoot.SetActive(false);
-
-        playerInventory = FindFirstObjectByType<PlayerInventory>();
-        playerStatus = FindFirstObjectByType<PlayerStatus>();
+        OpenShop();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && shopCanvasRoot.activeSelf)
-        {
-            Exit();
-        }
-    }
-
-    public void Open()
-    {
-        if (shopCanvasRoot != null) shopCanvasRoot.SetActive(true);
-        RefreshUI();
-    }
-
-    public void Close()
-    {
-        if (shopCanvasRoot != null) shopCanvasRoot.SetActive(false);
-    }
-
-    void Exit()
-    {
-        if (GameManager.Instance != null)
+        if (Input.GetKeyDown(KeyCode.F))
         {
             GameManager.Instance.ExitShop();
         }
-        else
+    }
+
+    [ContextMenu("Open Shop")]
+    public void OpenShop()
+    {
+        ClearShop();
+
+        if (slotPrefab == null || spawnPoints == null || spawnPoints.Length == 0)
         {
-            Close();
+            Debug.LogWarning("ShopManager 설정이 불완전합니다.");
+            return;
+        }
+
+        int count = Mathf.Min(itemsToShow, spawnPoints.Length);
+        var picks = PickItemsUnique(count);
+
+        for (int i = 0; i < count; i++)
+        {
+            var point = spawnPoints[i]; 
+            
+            var slot = Instantiate(slotPrefab, point.position, point.rotation, point);
+            slot.Setup(picks[i], this);
+            slot.SetPlayer(playerTransform);       // ★ 플레이어 Transform 주입
+            slot.SetInventory(GameObject.FindFirstObjectByType<PlayerInventory>()); // (선택) 인벤토리 주입, 없으면 전역 탐색
+            if (interactAction) slot.interactAction = interactAction;
+            
+            _activeSlots.Add(slot);
         }
     }
 
-    public void RefreshUI()
+    [ContextMenu("Clear Shop")]
+    public void ClearShop()
     {
-        // 기존 버튼 제거
-        if (content != null)
+        for (int i = _activeSlots.Count - 1; i >= 0; i--)
         {
-            for (int i = content.childCount - 1; i >= 0; i--)
-                Destroy(content.GetChild(i).gameObject);
+            if (_activeSlots[i]) Destroy(_activeSlots[i].gameObject);
         }
+        _activeSlots.Clear();
+    }
 
-        // 버튼 생성
-        if (content == null || itemButtonPrefab == null) return;
+    public void NotifySold(ShopSlot slot)
+    {
+        _activeSlots.Remove(slot);
 
-        for (int i = 0; i < stocks.Count; i++)
+        // 모든 슬롯이 팔리면 상점 닫기 같은 연출 가능
+        if (_activeSlots.Count == 0)
         {
-            var s = stocks[i];
-            if (s.item == null) continue;
-
-            var btn = Instantiate(itemButtonPrefab, content);
-
-            // ShopItemButton 스크립트로 바인드 (UI는 프리팹에서 세팅)
-            var comp = btn.GetComponent<ShopItemButton>();
-            if (comp == null) comp = btn.gameObject.AddComponent<ShopItemButton>();
-            comp.Bind(this, i);
+            // 예: gameObject.SetActive(false);
         }
     }
 
-    // 가격 계산
-    public int GetPrice(Stock s)
+    private List<RelicData> PickItemsUnique(int count)
     {
-        if (s == null || s.item == null) return 0;
-        if (s.priceOverride > 0) return s.priceOverride;
-        return Mathf.Max(0, s.item.price);
-    }
+        var result = new List<RelicData>(count);
+        if (itemPool == null || itemPool.Count == 0)
+        {
+            Debug.LogWarning("itemPool이 비어있습니다.");
+            return result;
+        }
 
-    // 구매 로직
-    public bool TryBuyIndex(int stockIndex, int amount = 1)
-    {
-        if (playerInventory == null || stockIndex < 0 || stockIndex >= stocks.Count) return false;
-        var s = stocks[stockIndex];
-        if (s.item == null || amount <= 0) return false;
+        // 간단 셔플
+        var pool = new List<RelicData>(itemPool);
+        for (int i = 0; i < pool.Count; i++)
+        {
+            int r = Random.Range(i, pool.Count);
+            (pool[i], pool[r]) = (pool[r], pool[i]);
+        }
 
-        int priceEach = GetPrice(s);
-        int total = priceEach * amount;
-        if (playerInventory.gold < total) return false;
+        for (int i = 0; i < count && i < pool.Count; i++)
+            result.Add(pool[i]);
 
-        // 결제
-        playerInventory.gold -= total;
-
-        RefreshUI();
-        return true;
+        return result;
     }
 }
