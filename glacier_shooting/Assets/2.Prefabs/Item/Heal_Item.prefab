@@ -130,6 +130,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   database: {fileID: 11400000, guid: b436bab34ce2d544b992a1f871360d6b, type: 2}
   data: {fileID: 0}
+  type: 1
+  useType: 1
+  isBigger: 0
   moveSpeed: 3
   followRange: 5
   pickupRange: 0.5

@@ -22,6 +22,7 @@ public class PlayerStatus : MonoBehaviour, IPlayerStats
     [SerializeField] private int playerMaxHealth;
     [SerializeField] private float playerMana;
     [SerializeField] private float playerMaxMana;
+    [SerializeField] private float power;
 
     #region Add Stat
     // === 가산(mod add) ===
@@ -59,11 +60,33 @@ public class PlayerStatus : MonoBehaviour, IPlayerStats
     public float radius = 0.25f;
     public bool drawDebug = true;
 
+    #region 연결
     public int PlayerHealth
     {
         get => playerHealth;
         set => playerHealth = value;
     }
+    public int PlayerMaxHealth
+    {
+        get => playerMaxHealth;
+        set => playerMaxHealth = value;
+    }
+    public float PlayerMaxMana
+    {
+        get => playerMaxMana;
+        set => playerMaxMana = value;
+    }
+    public float PlayerMana
+    {
+        get => playerMana;
+        set => playerMana = value;
+    }
+    public float Power
+    {
+        get => power;
+        set => power = value;
+    }
+    #endregion
 
     void Awake()
     {
@@ -94,7 +117,10 @@ public class PlayerStatus : MonoBehaviour, IPlayerStats
     {
         ResetAllModifiers();  // ★ 시작 시 모디파이어 초기화
         SetStat();
+
         playerHealth = playerMaxHealth;
+        playerMana = playerMaxMana;
+
         playerInventory.bomb = player.maxBombs; 
     }
 
@@ -158,6 +184,12 @@ public class PlayerStatus : MonoBehaviour, IPlayerStats
         baseMax = Mathf.Max(1, Mathf.RoundToInt(baseMax * (1f + mulMaxHP)));
         playerMaxHealth = baseMax;
         playerHealth = Mathf.Clamp(playerHealth, 0, playerMaxHealth);
+
+        // Mana
+        float baseMaxMana = player.maxMana + addMaxMana;
+        baseMaxMana = Mathf.Max(1, Mathf.RoundToInt(baseMaxMana * (1f + mulMaxMana)));
+        playerMaxMana = baseMaxMana;
+        PlayerMana = Mathf.Clamp(PlayerMana, 0, playerMaxMana);
 
         // Move
         controller.speed = (player.moveSpeed + addMoveSpeed) * (1f + mulMoveSpeed);

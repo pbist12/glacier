@@ -1,19 +1,25 @@
 fileFormatVersion: 2
-guid: 3682638ee5aa2aa4e9061371938d4b5e
+guid: d9ae71043c3274047bdcfdccbbad22fa
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2990309890484215505
-    second: fairy_0
+      213: 2313577976121900723
+    second: ice_dragon_0
   - first:
-      213: 4808560381157864972
-    second: fairy_1
+      213: -2906933964553616645
+    second: ice_dragon_1
   - first:
-      213: 4520698335586148961
-    second: fairy_2
+      213: -2461235283379254299
+    second: ice_dragon_2
   - first:
-      213: 4704531112747684950
-    second: fairy_3
+      213: -194666729945318651
+    second: ice_dragon_3
+  - first:
+      213: -8087143222406242941
+    second: ice_dragon_4
+  - first:
+      213: -3386266178937527597
+    second: ice_dragon_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -60,7 +66,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 128
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -83,7 +89,7 @@ TextureImporter:
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 4
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -109,89 +115,133 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: fairy_0
+      name: ice_dragon_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: f21e9597ff84086d0800000000000000
-      internalID: -2990309890484215505
+      spriteID: 8c6ed105c894d6c4cb077793931f2add
+      internalID: 363807729
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: fairy_1
+      name: ice_dragon_1
       rect:
         serializedVersion: 2
-        x: 32
+        x: 128
         y: 0
-        width: 32
-        height: 32
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c067ee790307bb240800000000000000
-      internalID: 4808560381157864972
+      spriteID: 1a8b6385bdab30249ac7f5e62dc3b3de
+      internalID: 1319548729
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: fairy_2
+      name: ice_dragon_2
       rect:
         serializedVersion: 2
-        x: 64
+        x: 256
         y: 0
-        width: 32
-        height: 32
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 162ef4d3f2fbcbe30800000000000000
-      internalID: 4520698335586148961
+      spriteID: 88caf6fcf8a1119468880c919935e525
+      internalID: -1018110464
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: fairy_3
+      name: ice_dragon_3
       rect:
         serializedVersion: 2
-        x: 96
+        x: 384
         y: 0
-        width: 32
-        height: 32
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 65459121f1ad94140800000000000000
-      internalID: 4704531112747684950
+      spriteID: 8c23ef18686bcc941a1d41aafbb8a9b4
+      internalID: 945570100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice_dragon_4
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 214819ca80f20b247b805947f508c27a
+      internalID: 2081684406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice_dragon_5
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dba91c9c67e0246409d8568eae712b22
+      internalID: -460663171
       vertices: []
       indices: 
       edges: []
@@ -200,7 +250,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: cf084f0d37b454e48b141e59e230864b
+    spriteID: 29c870585d51543458fc495bdc0fb30c
     internalID: 0
     vertices: []
     indices: 
@@ -210,10 +260,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      fairy_0: -2990309890484215505
-      fairy_1: 4808560381157864972
-      fairy_2: 4520698335586148961
-      fairy_3: 4704531112747684950
+      ice_dragon_0: 363807729
+      ice_dragon_1: 1319548729
+      ice_dragon_2: -1018110464
+      ice_dragon_3: 945570100
+      ice_dragon_4: 2081684406
+      ice_dragon_5: -460663171
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

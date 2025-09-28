@@ -2,8 +2,27 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
+
+    public enum ItemType 
+    {
+        None,
+        UseOnGet,
+        Relic
+    }
+    public enum UseType
+    {
+        None,
+        Health,
+        Score,
+        Money
+    }
+
     public RelicDatabase database;
-    public RelicData data;
+    private RelicData data;
+    public ItemType type;
+    public UseType useType;
+
+    public bool isBigger;
 
     [Header("Fallback Move Settings (ÇÃ·¹ÀÌ¾î ¸¶±×³Ý ¾øÀ» ¶§¸¸ »ç¿ë)")]
     public float moveSpeed = 3f;   // ±âº» ²ø¸² ¼Óµµ
@@ -30,7 +49,7 @@ public class Item : MonoBehaviour
         if (!statusCached) statusCached = GameObject.FindFirstObjectByType<PlayerStatus>();
         if (!inventoryCached) inventoryCached = GameObject.FindFirstObjectByType<PlayerInventory>();
 
-        data = database.relics[Random.Range(0, database.relics.Count)];
+        if(data != null) data = database.relics[Random.Range(0, database.relics.Count)];
     }
 
     void Update()
@@ -89,11 +108,66 @@ public class Item : MonoBehaviour
         var status = statusCached ? statusCached : GameObject.FindFirstObjectByType<PlayerStatus>();
         var inventory = inventoryCached ? inventoryCached : GameObject.FindFirstObjectByType<PlayerInventory>();
 
-        if (data != null)
+        if (data != null && type == ItemType.Relic)
         {
             inventory?.AddRelicToInventory(data);
         }
 
+        if (type == ItemType.UseOnGet)
+        {
+            switch (useType)
+            {
+                case UseType.Health:
+                    AddHealth();
+                    Debug.Log("È¹µæ");
+                    break;
+                case UseType.Score:
+                    Debug.Log("È¹µæ");
+                    AddScore();
+                    break;
+                case UseType.Money:
+                    Debug.Log("È¹µæ");
+                    AddMoney();
+                    break;
+            }
+        }
+
         Destroy(gameObject);
+    }
+
+    private void AddHealth()
+    {
+        if (isBigger)
+        {
+            statusCached.Heal(3);
+        }
+        else
+        {
+            statusCached.Heal(1);
+        }
+    }
+
+    private void AddMoney()
+    {
+        if (isBigger)
+        {
+            inventoryCached.gold += 20;
+        }
+        else
+        {
+            inventoryCached.gold += 10;
+        }
+    }
+
+    private void AddScore()
+    {
+        if (isBigger)
+        {
+            GameManager.Instance.Score += 1000;
+        }
+        else
+        {
+            GameManager.Instance.Score += 100;
+        }
     }
 }

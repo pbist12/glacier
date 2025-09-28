@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 6229834534302774436}
   - component: {fileID: -5588009186810469059}
   - component: {fileID: 1896398800950137729}
+  - component: {fileID: 1469198374083570185}
   m_Layer: 10
   m_Name: Elite
   m_TagString: Enemy
@@ -64,7 +65,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.39, y: 1.28, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1814801441830826978}
@@ -171,8 +172,8 @@ MonoBehaviour:
   onPathLoop:
     m_PersistentCalls:
       m_Calls: []
-  patrolHalfWidth: 2.8
-  patrolSpeed: 2.2
+  patrolHalfWidth: 3.3
+  patrolSpeed: 1
   startRight: 1
   edgeEaseRatio: 0.2
   sineDownSpeed: 1.5
@@ -282,10 +283,10 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -5177388603050735206, guid: cc35afd292fc349128b36a291fb3a165, type: 3}
-  m_Color: {r: 0, g: 0.4574416, b: 0.745283, a: 1}
+  m_Sprite: {fileID: 363807729, guid: d9ae71043c3274047bdcfdccbbad22fa, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
-  m_FlipY: 0
+  m_FlipY: 1
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
@@ -329,9 +330,9 @@ BoxCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0.25, y: 0.25, z: 0.25, w: 0.25}
+    border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.984375, y: 0.984375}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -372,3 +373,25 @@ MonoBehaviour:
   bulletColor: {r: 1, g: 1, b: 1, a: 1}
   spawnForwardOffset: 0.2
   isFire: 1
+--- !u!95 &1469198374083570185
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6956107430802199566}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8b9283826ffab394bb3a1bf408ad935f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

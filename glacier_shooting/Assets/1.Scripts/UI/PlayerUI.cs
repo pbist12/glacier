@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
@@ -9,8 +10,24 @@ public class PlayerUI : MonoBehaviour
 
     [Tooltip("Awake에서 자동 바인딩 실행")]
     [SerializeField] private bool autoBindOnAwake = true;
+    [SerializeField] private PlayerInventory inventory;
+    [SerializeField] private PlayerStatus status;
 
     [Header("Texts")]
+    public TextMeshProUGUI BombText;
+    public TextMeshProUGUI MoneyText;
+
+    [Header("Scroll")]
+    public Slider healthScroll;
+    public Slider manaScroll;
+    public Slider powerScroll;
+
+    [Header("Scroll Text")]
+    public TextMeshProUGUI healthScrollText;
+    public TextMeshProUGUI manaScrollText;
+    public TextMeshProUGUI powerScrollText;
+
+    [Header("MoreStatusTexts")]
     public TextMeshProUGUI playerHealthText;
     public TextMeshProUGUI playerScore;
     public TextMeshProUGUI Text_Character;
@@ -21,7 +38,6 @@ public class PlayerUI : MonoBehaviour
     public TextMeshProUGUI Text_Damage;
     public TextMeshProUGUI Text_FireRate;
     public TextMeshProUGUI Text_Luck;
-
 
     [Header("Labels")]
     public string Label_PlayerHealth = "Player Health";
@@ -60,15 +76,31 @@ public class PlayerUI : MonoBehaviour
 
     private void Update()
     {
-        if (playerHealthText != null)
+        if (playerHealthText != null && playerScore != null)
         {
             string hpCurrent = SafeInt(() => PlayerStatus.Instance.PlayerHealth);
             playerHealthText.text = $"Player Health : {hpCurrent}";
+            playerScore.text = $"Score : {GameManager.Instance.Score}";
         }
 
-        if (playerScore != null)
+        if (BombText != null && MoneyText != null)
         {
-            playerScore.text = $"Score : {GameManager.Instance.Score}";
+            BombText.text = "Bomb : " + inventory.bomb.ToString();
+            MoneyText.text = "Gold : " + inventory.gold.ToString();
+        }
+
+        if (healthScroll != null && manaScroll != null && powerScroll != null)
+        {
+            healthScroll.maxValue = status.PlayerMaxHealth;
+            healthScroll.value = status.PlayerHealth;
+            healthScrollText.text = status.PlayerHealth + "/" + status.PlayerMaxHealth;
+
+            manaScroll.maxValue = status.PlayerMaxMana;
+            manaScroll.value = status.PlayerMana;
+            manaScrollText.text = status.PlayerMana + "/" + status.PlayerMaxMana;
+
+            powerScroll.maxValue = 100f;
+            powerScroll.value = status.Power;
         }
 
         if (PlayerStatus.Instance != null)
@@ -130,6 +162,9 @@ public class PlayerUI : MonoBehaviour
         BindTMP(ref Text_Damage, nameof(Text_Damage));
         BindTMP(ref Text_FireRate, nameof(Text_FireRate));
         BindTMP(ref Text_Luck, nameof(Text_Luck));
+
+        status = GameObject.FindFirstObjectByType<PlayerStatus>();
+        inventory = GameObject.FindFirstObjectByType<PlayerInventory>();
     }
 
     private void BindTMP(ref TextMeshProUGUI field, string goName)

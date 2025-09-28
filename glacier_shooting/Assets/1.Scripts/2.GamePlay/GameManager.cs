@@ -30,7 +30,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int score;
     [SerializeField] private bool paused;
 
-    public int Score => score;
+    public int Score
+    {
+        get { return score; }
+        set { score = value; }
+    }
     public bool Paused { get => paused; set { paused = value;} }
 
     [Header("Flow Tunables")]
