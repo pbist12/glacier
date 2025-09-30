@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -108,6 +109,7 @@ public class PauseFlowController : MonoBehaviour
 
     public void QuitToTitle()
     {
+        ResumeGame();
         SceneLoader.Instance.LoadScene("LobbyScene");
     }
 }
