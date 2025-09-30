@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public enum GameState
     {
         Prologue,
+        Dialogue,
         Normal,      
         Elite,         
         Shop,         
@@ -67,7 +68,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         paused = true;
         SetState(GameState.Prologue);
-        DialogueService.Instance.Play(intro);
     }
 
     void SetState(GameState s)
@@ -185,6 +185,14 @@ public class GameManager : MonoBehaviour
             _eliteClears = 0;
             SceneLoader.Instance.ReloadCurrent();
         }
+    }
+    #endregion
+
+    #region 대화창
+    public void StartDialogue()
+    {
+        SetState(GameState.Dialogue);
+        DialogueService.Instance.Play(intro); // 향후 다이얼로그 확장 필요
     }
     #endregion
 

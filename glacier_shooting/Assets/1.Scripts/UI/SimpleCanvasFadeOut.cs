@@ -28,5 +28,15 @@ public class SimpleCanvasFadeOut : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
         cg.DOFade(0f, duration);
+
+        yield return new WaitForSeconds(duration);
+        if (StageManager.Instance._stageIndex == 0)
+        {
+            GameManager.Instance.StartDialogue();
+        }
+        else
+        {
+            GameManager.Instance.StartNormalPhase();
+        }
     }
 }
