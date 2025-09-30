@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bae7f01c51d8e2544914a7deca7b1057, type: 3}
+  m_Name: Boss_03
+  m_EditorClassIdentifier: 
+  bossName: Grass
+  bossPrefab: {fileID: 5255976911480987639, guid: 57482bb759825834fac17535dd9b8995, type: 3}

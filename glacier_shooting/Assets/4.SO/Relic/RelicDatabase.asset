@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41996b7f33f7f884987cc2855fe45bb0, type: 3}
+  m_Name: RelicDatabase
+  m_EditorClassIdentifier: 
+  folderPath: Assets/4.SO/Relic/AllRelic
+  relics:
+  - {fileID: 11400000, guid: 0eb7991f06b2b574da62d74c63e2eeca, type: 2}
+  - {fileID: 11400000, guid: 1b09afef35c0e9a47aa6575d735d50d7, type: 2}
+  - {fileID: 11400000, guid: 54dfd226547b699409bc69de637a6fb2, type: 2}
+  - {fileID: 11400000, guid: 9abc8a0f09ebff44da86e0d28572b992, type: 2}
