@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -30,7 +31,7 @@ public class Bomb : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.Z))
             TryUseBomb();
     }
 
@@ -38,7 +39,7 @@ public class Bomb : MonoBehaviour
     {
         if (!hub) { Debug.LogWarning("[BombTrigger] hub가 없습니다."); return false; }
         if (Time.time < _nextUseTime) return false;
-        if (playerInventory.bomb <= 0) return false;
+        if (PlayerStatus.Instance.PlayerMana <= 0) return false;
 
         if (useRadius)
         {
@@ -51,7 +52,8 @@ public class Bomb : MonoBehaviour
             hub.BombClearAll(includePlayerBullets);
         }
 
-        playerInventory.bomb--;
+        PlayerStatus.Instance.PlayerMana--;
+        //playerInventory.bomb--;
         _nextUseTime = Time.time + cooldown;
         onBombFired?.Invoke();
         return true;

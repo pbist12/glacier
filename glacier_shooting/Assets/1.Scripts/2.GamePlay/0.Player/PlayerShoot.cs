@@ -72,6 +72,8 @@ public class PlayerShoot : MonoBehaviour
 
     void FireOne()
     {
+        //if (PlayerStatus.Instance.PlayerMana <= 0) return;
+        //PlayerStatus.Instance.PlayerMana--;
         Vector2 origin = muzzle ? (Vector2)muzzle.position : (Vector2)transform.position;
         origin += spawnOffset;
 
