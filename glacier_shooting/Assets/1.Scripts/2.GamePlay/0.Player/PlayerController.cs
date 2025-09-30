@@ -33,11 +33,11 @@ public class PlayerController : MonoBehaviour
     public VerticalScrollerSimple vsSample;
 
     // 내부
-    Vector2 _vel;
-    Vector2 _inSm;
-    Vector2 _lastMoveDir = Vector2.up;  // 입력 없을 때 대시 방향
-    bool _isDashing = false;
-    bool _dashOnCooldown = false;
+    [SerializeField] Vector2 _vel;
+    [SerializeField] Vector2 _inSm;
+    [SerializeField] Vector2 _lastMoveDir = Vector2.up;  // 입력 없을 때 대시 방향
+    [SerializeField] bool _isDashing = false;
+    [SerializeField] bool _dashOnCooldown = false;
 
     PlayerStatus _status;
 
