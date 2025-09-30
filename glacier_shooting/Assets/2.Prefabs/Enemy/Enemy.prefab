@@ -239,7 +239,7 @@ MonoBehaviour:
   firePoint: {fileID: 1814801441830826978}
   bulletSpeed: 7
   bulletLifetime: 5
-  fireInterval: 0.45
+  fireInterval: 0.7
   fireAngleDeg: -90
   firstShotDelayFactor: 0.5
 --- !u!212 &6229834534302774436
