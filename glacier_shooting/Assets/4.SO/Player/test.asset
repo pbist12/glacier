@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9822e99ee74c9ff4c98661f22923fee2, type: 3}
   m_Name: test
   m_EditorClassIdentifier: 
-  playerName: Irene
-  portrait: {fileID: 0}
+  playerName: ?????
+  portrait: {fileID: 1777575153, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
   maxLife: 10000
   maxBombs: 2
-  maxMana: 80
+  maxMana: 10
   moveSpeed: 5
   focusSpeed: 2.5
   hitboxRadius: 0.1

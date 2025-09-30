@@ -20,9 +20,13 @@ public class PlayerInventory : MonoBehaviour
     [Header("아이템 보유 목록")]
     public List<Entry> playerRelics = new(); // 초간단: 중복 허용 X, 같은 아이템은 수량 합침
 
+    [Header("유물 인벤토리")]
+    [SerializeField] private RelicInventory relicInventory;
+
     private void Awake()
     {
         playerUI = FindFirstObjectByType<PlayerUI>();
+        relicInventory = FindFirstObjectByType<RelicInventory>();
     }
 
     private void Update()
@@ -38,6 +42,7 @@ public class PlayerInventory : MonoBehaviour
         if (e == null)
         {
             playerRelics.Add(new Entry { item = item});
+            relicInventory.AddRelicUI(item);
             ApplyRelic(item);
         }
     }

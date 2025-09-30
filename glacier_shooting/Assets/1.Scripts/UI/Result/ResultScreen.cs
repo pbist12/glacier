@@ -10,5 +10,7 @@ public class ResultScreen : MonoBehaviour
     {
         if (root) root.SetActive(true);
         if (scoreLabel) scoreLabel.text = $"Final Score : {score}";
+
+        GameStatus.Instance.playerAllMoney += score / 100;
     }
 }
