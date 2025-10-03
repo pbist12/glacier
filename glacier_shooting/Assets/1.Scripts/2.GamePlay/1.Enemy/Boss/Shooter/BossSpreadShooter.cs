@@ -28,7 +28,7 @@ public class BossPatternShooter : MonoBehaviour
 
     [Header("=== Spin ===")]
     [Tooltip("초당 회전 속도 (deg/s)")]
-    public float spinRate = 0f;
+    public float spinRate = 0f; 
 
     [Tooltip("초당 회전가속 (deg/s^2)")]
     public float spinModifier = 0f;
@@ -38,6 +38,13 @@ public class BossPatternShooter : MonoBehaviour
 
     [Tooltip("스핀 절대값 상한 (0 이하면 무제한)")]
     public float maxSpinRate = 360f;
+
+    [Tooltip("자동 회전 방향 반전")]
+    public bool autoInvertSpin = false;
+
+    [Tooltip("자동 회전하는 주기")]
+    public float autoInvertSpinCycle = 0f;
+    [SerializeField] private float autoInvertSpinTime = 0f;
 
     [Header("=== Firing ===")]
     [Tooltip("초당 발사 횟수 (0 이하면 정지)")]
@@ -92,6 +99,16 @@ public class BossPatternShooter : MonoBehaviour
         _spinVel = Mathf.MoveTowards(_spinVel, target, Mathf.Abs(spinModifier) * Time.deltaTime);
         if (maxSpinRate > 0f) _spinVel = Mathf.Clamp(_spinVel, -Mathf.Abs(maxSpinRate), Mathf.Abs(maxSpinRate));
         _spin += _spinVel * Time.deltaTime;
+
+        if(autoInvertSpin)
+        {
+            autoInvertSpinTime += Time.deltaTime;
+            if(autoInvertSpinTime >= autoInvertSpinCycle)
+            {
+                invertSpin = !invertSpin;
+                autoInvertSpinTime = 0f;
+            }
+        }
 
         // 발사 간격
         if (fireRate <= 0f) return;
