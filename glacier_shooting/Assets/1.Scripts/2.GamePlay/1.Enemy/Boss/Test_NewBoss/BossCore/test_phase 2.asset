@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ca9c376c433d7048ae95ad6b8d64675, type: 3}
   m_Name: test_phase 2
   m_EditorClassIdentifier: 
-  endHpRatio: 0.7
+  endHpRatio: 0.3
   patterns:
   - {fileID: 11400000, guid: a4d154584191d154aa57f2966803c28b, type: 2}
   - {fileID: 11400000, guid: a4d154584191d154aa57f2966803c28b, type: 2}

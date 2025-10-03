@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 
 namespace BossSystem
 {
-    public class BossController : MonoBehaviour
+    public class TestBossController : MonoBehaviour
     {
         [Header("Setup")]
         public Transform player;
@@ -38,6 +38,9 @@ namespace BossSystem
                 Runner = this,
                 Log = (msg) => Debug.Log($"[Boss] {msg}")
             };
+
+            player = GameObject.FindWithTag("Player").transform;
+            bulletPool = FindAnyObjectByType<BulletPoolHub>();
         }
 
         void Start()
