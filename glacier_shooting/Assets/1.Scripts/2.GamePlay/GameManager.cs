@@ -12,36 +12,24 @@ public class GameManager : MonoBehaviour
     {
         Prologue,
         Dialogue,
-        Normal,      
-        Elite,         
-        Shop,         
-        Boss,         
-        Result        
+        Normal,
+        Elite,
+        Shop,
+        Boss,
+        Result
     }
-    // 런타임 상태
     [SerializeField] private GameState state = GameState.Prologue;
-    public GameState State
-    {
-        get { return state; }
-        set { state = value; }
-    }
+    public GameState State { get => state; set => state = value; }
     #endregion
 
     [Header("Score / Pause")]
     [SerializeField] private int score;
     [SerializeField] private bool paused;
-
-    public int Score
-    {
-        get { return score; }
-        set { score = value; }
-    }
-    public bool Paused { get => paused; set { paused = value;} }
+    public int Score { get => score; set => score = value; }
+    public bool Paused { get => paused; set => paused = value; }
 
     [Header("Flow Tunables")]
-    public int killsToElite = 25;          // 일반 페이즈에서 이 킬 수 달성 시 엘리트 페이즈로
     public int elitesToBoss = 2;           // 엘리트 페이즈 N번 완료 후 보스전 진입
-    [SerializeField] private int _normalKills = 0;
     [SerializeField] private int _eliteClears = 0;
 
     public float shopPortalChance = 0.35f; // 엘리트 처치 후 포탈 등장 확률
@@ -79,45 +67,47 @@ public class GameManager : MonoBehaviour
     #region 몬스터 페이즈 변경
     public void StartNormalPhase()
     {
-        _normalKills = 0;
         paused = false;
-
         SetState(GameState.Normal);
 
         if (!stageManager.isEnd)
         {
-            var stage = stageManager.stages[stageManager._stageIndex]; // StageManager가 들고 있는 StageData
+            var stage = stageManager.stages[stageManager._stageIndex];
             spawner.LoadStage(stage);
         }
 
-        // (2) 노말 페이즈 시작: 예산 기반 티커 ON
         spawner.EnableElite(false);
         spawner.EnableBoss(false);
-        spawner.BeginNormalPhase();        // ✅ EnableNormal(true) 대신 이걸로 시작
+        spawner.BeginNormalPhase();
+
+        // "일반 전멸 → 엘리트 진입" 구독
+        if (spawner != null)
+        {
+            spawner.OnNormalsCleared -= HandleNormalsCleared;
+            spawner.OnNormalsCleared += HandleNormalsCleared;
+        }
     }
+
     public void RequestElitePhase()
     {
-        // 일반 페이즈에서 호출: 목표 처치 수 달성 시
         if (State != GameState.Normal) return;
         SetState(GameState.Elite);
         if (spawner)
         {
             spawner.EnableNormal(false);
             spawner.EnableElite(true);
-            spawner.SpawnElitePack();      // 엘리트 1~N마리 스폰 (스포너에 구현)
+            spawner.SpawnElitePack();
         }
     }
+
     public void BackToNormalAfterElite()
     {
         if (_eliteClears >= elitesToBoss)
-        {
             StartBossPhase();
-        }
         else
-        {
             StartNormalPhase();
-        }
     }
+
     public void StartBossPhase()
     {
         SetState(GameState.Boss);
@@ -126,7 +116,7 @@ public class GameManager : MonoBehaviour
             spawner.EnableNormal(false);
             spawner.EnableElite(false);
             spawner.EnableBoss(true);
-            spawner.BeginBossPhaseWithDelay(); // 연출 후 보스 등장(스포너에 구현)
+            spawner.BeginBossPhaseWithDelay();
         }
     }
     #endregion
@@ -134,19 +124,16 @@ public class GameManager : MonoBehaviour
     #region 몬스터 사망 이벤트
     public void OnEnemyKilled(bool isElite, int scoreGain)
     {
+        // 이제 처치 수 기반 전환은 사용하지 않음: 점수만 처리
         score += scoreGain;
-
-        if (State == GameState.Normal && !isElite)
-        {
-            _normalKills++;
-            if (_normalKills >= killsToElite) RequestElitePhase();
-        }
     }
+
     public void OnEliteUnitKilled(int scoreGain)
     {
         score += scoreGain;
-        // 엘리트 전멸 여부는 스포너가 판단해서 OnEliteCleared() 호출
+        // 엘리트 전멸 여부는 스포너가 판단 후 OnEliteCleared() 호출
     }
+
     public void OnEliteCleared()
     {
         bool spawnShop = Random.value < shopPortalChance;
@@ -156,7 +143,7 @@ public class GameManager : MonoBehaviour
         if (spawnShop && spawner)
         {
             Debug.Log("Spawning shop portal and returning");
-            spawner.SpawnShopPortal(); // 포탈 프리팹 소환
+            spawner.SpawnShopPortal();
             return;
         }
 
@@ -166,11 +153,13 @@ public class GameManager : MonoBehaviour
             Debug.Log("리턴 X 실행");
         }
     }
+
     public void OnBossKilled(int scoreGain)
     {
         score += scoreGain;
         OnBossDefeated();
     }
+
     public void OnBossDefeated()
     {
         stageManager.GoToNextStage();
@@ -181,18 +170,24 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            _normalKills = 0;
             _eliteClears = 0;
             SceneLoader.Instance.ReloadCurrent();
         }
     }
     #endregion
 
+    // 일반 전멸 신호 → 엘리트 페이즈 진입
+    private void HandleNormalsCleared()
+    {
+        if (State != GameState.Normal) return;
+        RequestElitePhase();
+    }
+
     #region 대화창
     public void StartDialogue()
     {
         SetState(GameState.Dialogue);
-        DialogueService.Instance.Play(intro); // 향후 다이얼로그 확장 필요
+        DialogueService.Instance.Play(intro);
     }
     #endregion
 
@@ -235,13 +230,12 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    public void AddScore(int amount) => score += amount; // 호환용
+    public void AddScore(int amount) => score += amount;
     public void TogglePause() { Paused = !Paused; }
 
     #region Bind
     void OnEnable()
     {
-        // 씬이 로드될 때마다 다시 바인딩
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -258,7 +252,6 @@ public class GameManager : MonoBehaviour
 
     private void BindAll()
     {
-        // Inactive 오브젝트까지 포함해서 탐색 (UI가 꺼져 시작하는 경우 대비)
         const FindObjectsInactive Inactive = FindObjectsInactive.Include;
 
         spawner = spawner ? spawner : FindFirstObjectByType<EnemySpawner>(Inactive);
@@ -267,7 +260,6 @@ public class GameManager : MonoBehaviour
         vssample = vssample ? vssample : FindFirstObjectByType<VerticalScrollerSimple>(Inactive);
         stageManager = stageManager ? stageManager : FindFirstObjectByType<StageManager>(Inactive);
 
-        // 선택: 필수 참조 누락 시 경고
         if (!spawner) Debug.LogWarning("[GameRefBinder] EnemySpawner를 찾지 못했습니다.");
         if (!shop) Debug.LogWarning("[GameRefBinder] ShopManager를 찾지 못했습니다.");
         if (!result) Debug.LogWarning("[GameRefBinder] ResultScreen을 찾지 못했습니다.");

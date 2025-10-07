@@ -32,7 +32,7 @@ public class SimpleCanvasFadeOut : MonoBehaviour
         yield return new WaitForSeconds(duration);
         if (StageManager.Instance._stageIndex == 0)
         {
-            GameManager.Instance.StartDialogue();
+            if (GameManager.Instance) GameManager.Instance.StartDialogue();
         }
         else
         {

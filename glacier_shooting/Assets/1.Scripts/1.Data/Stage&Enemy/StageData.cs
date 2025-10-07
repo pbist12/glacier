@@ -1,23 +1,35 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "StageData", menuName = "GameMini/StageData")]
 public class StageData : ScriptableObject
 {
-    public enum SpawnPoints { None, Right, Left, Up }
+    public enum SpawnPoints { None, Right, Left, Up, CenterTop }
 
-    [Min(0.1f)] public float periodN = 10f;   // NÃÊ(¿şÀÌºê ÇÑ ¹ÙÄû)
-    public bool loop;                          // ÇöÀç ±ÔÄ¢: ÇÑ ¹ÙÄû ÈÄ Elite¡æBoss·Î ÁøÇà
+    [Min(0.1f)] public float periodN = 10f;
+    public bool loop;
 
-    [Header("Mobs: ¼ıÀÚ¸¸Å­ Pool ¿¡¼­ ½ºÆù")]
+    [Header("Mobs: ìˆ«ìë§Œí¼ Pool ì—ì„œ ìŠ¤í°")]
     public WaveDef waves = new();
 
-    [Header("Elite (ÈÄº¸µé, 1¸¶¸® ·£´ı »ç¿ë)")]
+    [Header("Elite (í›„ë³´ë“¤, 1ë§ˆë¦¬ ëœë¤ ì‚¬ìš©)")]
     public List<EliteAsset> elites = new();
 
-    [Header("Bosses (¸ñ·Ï Áß 1¸¶¸® ·£´ı ¼±ÅÃ)")]
+    [Header("Bosses (ëª©ë¡ ì¤‘ 1ë§ˆë¦¬ ëœë¤ ì„ íƒ)")]
     public List<BossAsset> bosses = new();
+
+#if UNITY_EDITOR
+    // ê¸°ì¡´ SOì—ì„œ spawnCountê°€ 0ìœ¼ë¡œ ë‚¨ëŠ” ê²½ìš°ë¥¼ ëŒ€ë¹„í•´ ë³´ì •
+    void OnValidate()
+    {
+        if (waves != null && waves.groups != null)
+        {
+            foreach (var g in waves.groups)
+                if (g != null && g.spawnCount < 1) g.spawnCount = 1;
+        }
+    }
+#endif
 }
 
 #region Normal Monster Prefab
@@ -31,11 +43,12 @@ public class WaveDef
 [Serializable]
 public class SpawnGroup
 {
-    public MobAsset monster;                        // ¸ó½ºÅÍ ÇÁ¸®ÆÕ
-    public StageData.SpawnPoints[] spawnPoints;     // ÁöÁ¤ ½Ã ·£´ı/¼øÈ¯
-    [Min(0f)] public float startDelay = 0f;         // ¿şÀÌºê ½ÃÀÛ ±âÁØ Áö¿¬
-    [Min(0f)] public float interval = 0.2f;         // ¸¶¸® °£ °£°İ
-    public bool cycleSpawnPoints = true;            // true: ¼øÈ¯ / false: ·£´ı
+    public MobAsset monster;                        // ëª¬ìŠ¤í„° í”„ë¦¬íŒ¹(or SO)
+    public StageData.SpawnPoints[] spawnPoints;     // ì§€ì • ì‹œ ëœë¤/ìˆœí™˜
+    [Min(0f)] public float startDelay = 0f;         // ì›¨ì´ë¸Œ ì‹œì‘ ê¸°ì¤€ ì§€ì—°
+    [Min(0f)] public float interval = 0.2f;         // ë§ˆë¦¬ ê°„ ê°„ê²©
+    public bool cycleSpawnPoints = true;            // true: ìˆœí™˜ / false: ëœë¤
+
+    [Min(1)] public int spawnCount = 1;             // ğŸ”¹ ì¶”ê°€: ì´ ìˆ˜ë§Œí¼ ìƒì„±
 }
 #endregion
-

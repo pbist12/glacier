@@ -1,4 +1,5 @@
-﻿using System;
+﻿// File: EnemySpawner.cs
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -30,26 +31,34 @@ public class EnemySpawner : MonoBehaviour
     [Tooltip("필드 전체 적 수 상한(성능 보호용)")]
     public int maxAlive = 50;
 
-    [Tooltip("StageData가 없거나 비었을 때 균등 랜덤으로 사용")]
-    public GameObject[] enemyPrefabs;
+    [Tooltip("StageData가 없거나 비었을 때 균등 랜덤으로 사용 (폴백)")]
+    private GameObject[] enemyPrefabs;
 
     [Header("Elite")]
     public bool eliteEnabled = false;
-    public GameObject[] elitePrefabs;
+    private GameObject[] elitePrefabs;
 
     [Header("Boss")]
     public bool bossEnabled = false;
     public bool isBossSpawned = false;
-    public GameObject[] bossPrefabs;
+    private GameObject[] bossPrefabs;
     public float bossSpawnDelay = 3f;
 
     [Header("Spawn Area (Rectangle)")]
     public Transform areaCenter;
     public Vector2 rectSize = new Vector2(10, 6);
 
+    [Header("Anchors (optional)")]
+    [Tooltip("CenterTop 지점을 직접 지정하고 싶다면 할당 (없으면 앵커 스캔/자동 계산)")]
+    public Transform centerTopAnchor;
+
     [Header("Shop Portal")]
     public GameObject shopPortalPrefab;
-    public GameObject spawnedShopPortal; // 읽기 전용 표시용(원하면 커스텀 어트리뷰트)
+    public GameObject spawnedShopPortal;
+
+    [Header("Normal Group Order")]
+    [Tooltip("true: 그룹을 라운드로빈(1마리씩) 순차 스폰, false: 한 그룹을 모두 소진하고 다음 그룹으로 이동")]
+    public bool roundRobinGroups = true;
 
     public EnemyPoolHub Hub => hub;
 
@@ -60,14 +69,26 @@ public class EnemySpawner : MonoBehaviour
     private float _nextTickAt;
     private bool _eliteActive;
 
-    // StageData 기반 노말 가중치 테이블
-    private readonly List<WeightedEntry> _weighted = new();
+    // StageData 기반 "정확한 수량 + 앵커 스폰"을 위한 엔트리
+    private readonly List<GroupEntry> _entries = new();
+    private int _normalSpawnBudget; // 남은 노멀 스폰 총량(모든 그룹 spawnCount 합)
 
-    private sealed class WeightedEntry
+    private sealed class GroupEntry
     {
         public GameObject prefab;
-        public int weight;
+        public int remaining; // 해당 그룹 남은 스폰 수
+        public StageData.SpawnPoints[] spawnPoints; // 그룹 지정 포인트 타입들
+        public bool cycle;     // 순환/랜덤
+        public int spIdx;      // 순환 인덱스
     }
+
+    // 그룹 순차 스폰 커서
+    private int _groupCursor = 0;
+
+    // ───────── 일반 전멸 이벤트 및 상태 ─────────
+    public event System.Action OnNormalsCleared;
+    private bool normalSpawningActive;   // 노멀 스폰 루프 진행 중?
+    private bool normalsClearedSent;     // OnNormalsCleared 중복 방지
 
     #endregion
 
@@ -98,6 +119,7 @@ public class EnemySpawner : MonoBehaviour
     private void Update()
     {
         TryTickNormal();
+        CheckNormalsClearedGate(); // 전멸 게이트 체크(스폰 종료 후 0명 되는 순간)
     }
 
     private void OnValidate()
@@ -117,37 +139,48 @@ public class EnemySpawner : MonoBehaviour
     }
 
     #endregion
-    
+
     #region Stage Data
 
     /// <summary>
-    /// StageData를 읽어 노말/엘리트/보스 프리팹과 가중치 테이블을 구성한다.
-    /// spawnCount는 '가중치'로만 쓰고 감소/카운팅은 하지 않는다.
+    /// StageData를 읽어 노멀/엘리트/보스 프리팹과 "정확한 스폰 수량 + 앵커 포인트" 테이블을 구성한다.
     /// </summary>
     public void LoadStage(StageData stage)
     {
-        _weighted.Clear();
+        _entries.Clear();
+        _normalSpawnBudget = 0;
         _eliteActive = false;
         isBossSpawned = false;
+        _groupCursor = 0;
 
         if (stage != null)
         {
-            // Normal (weights)
-            if (stage.waves != null)
+            // Normal (정확한 수량 + 포인트 지정)
+            if (stage.waves != null && stage.waves.groups != null)
             {
-                // 균등 풀(폴백용)
+                foreach (var g in stage.waves.groups)
+                {
+                    if (g == null || g.monster == null || g.monster.prefab == null) continue;
+                    int count = Mathf.Max(0, g.spawnCount);
+                    if (count <= 0) continue;
+
+                    _entries.Add(new GroupEntry
+                    {
+                        prefab = g.monster.prefab,
+                        remaining = count,
+                        spawnPoints = g.spawnPoints,
+                        cycle = g.cycleSpawnPoints,
+                        spIdx = 0
+                    });
+                    _normalSpawnBudget += count;
+                }
+
+                // 폴백용 균등 풀
                 enemyPrefabs = stage.waves.groups
-                    .Where(m => m != null && m.monster.prefab != null)
+                    .Where(m => m != null && m.monster != null && m.monster.prefab != null)
                     .Select(m => m.monster.prefab)
                     .Distinct()
                     .ToArray();
-
-                foreach (var m in stage.waves.groups)
-                {
-                    if (m == null || m.monster.prefab == null) continue;
-                    int weight = Mathf.Max(1, m.monster.spawnCount); // 최소 1
-                    _weighted.Add(new WeightedEntry { prefab = m.monster.prefab, weight = weight });
-                }
             }
 
             // Elite
@@ -178,17 +211,32 @@ public class EnemySpawner : MonoBehaviour
 
     public void BeginNormalPhase()
     {
-        // 가중치/프리팹 중 하나라도 있으면 ON
-        normalEnabled = (_weighted.Count > 0) || (enemyPrefabs != null && enemyPrefabs.Length > 0);
+        // 스폰 예산이 있거나(정확 스폰) 폴백 프리팹이 있으면 ON
+        normalEnabled = (_normalSpawnBudget > 0) || (enemyPrefabs != null && enemyPrefabs.Length > 0);
         ResetTick();
+
+        normalSpawningActive = true;
+        normalsClearedSent = false;
     }
-    public void EnableNormal(bool on) => normalEnabled = on;
+
+    public void EnableNormal(bool on)
+    {
+        normalEnabled = on;
+        if (!on)
+        {
+            // 노멀 스폰 중단 시점 → 전멸 게이트 준비
+            normalSpawningActive = false;
+            CheckNormalsClearedGate();
+        }
+    }
+
     public void BeginElitePhase()
     {
         eliteEnabled = elitePrefabs != null && elitePrefabs.Length > 0;
         if (eliteEnabled) SpawnElitePack();
     }
     public void EnableElite(bool on) => eliteEnabled = on;
+
     public void BeginBossPhaseWithDelay()
     {
         if (!bossEnabled) return;
@@ -198,6 +246,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
     public void EnableBoss(bool on) => bossEnabled = on;
+
     public void ResetTick() => _nextTickAt = Time.time + interval;
 
     #endregion
@@ -213,62 +262,109 @@ public class EnemySpawner : MonoBehaviour
 
         _nextTickAt = Time.time + interval;
 
-        // 폭주 방지: 필드 전체 적 수가 상한이면 스폰 보류
+        // 폭주 방지: 필드 전체 적 수 상한이면 스폰 보류
         if (CountAllAlive() >= maxAlive) return;
 
+        // 예산을 소진하면서 스폰
         for (int i = 0; i < spawnPerTick; i++)
-            TrySpawnNormalWeighted();
+        {
+            if (!TrySpawnNormalSequential())
+                break; // 더 이상 스폰할 예산이 없으면 종료
+        }
+
+        // 예산을 다 썼으면 노멀 스폰을 멈춘다 → 이후 전멸 게이트가 엘리트로 넘김
+        if (_normalSpawnBudget <= 0 && normalEnabled)
+            EnableNormal(false);
     }
 
-    private void TrySpawnNormalWeighted()
+    /// <summary>
+    /// 그룹 순차 스폰:
+    /// - roundRobinGroups == true  → 1마리씩 라운드로빈(그룹들을 돌면서 한 마리씩)
+    /// - roundRobinGroups == false → 한 그룹을 모두 소진하고 다음 그룹으로
+    /// </summary>
+    private bool TrySpawnNormalSequential()
     {
-        // StageData 기반 가중치가 있으면 우선 사용
-        if (_weighted.Count > 0)
+        if (_normalSpawnBudget <= 0)
         {
-            var pick = PickWeightedPrefab(_weighted);
-            if (pick != null)
+            // 폴백: StageData 없거나 모두 0인 경우 균등 랜덤 프리팹으로만 스폰 가능
+            if (enemyPrefabs != null && enemyPrefabs.Length > 0)
             {
-                SpawnNormalOne(pick);
-                return;
+                var pf = enemyPrefabs[UnityEngine.Random.Range(0, enemyPrefabs.Length)];
+                SpawnNormalOneAt(pf, GetRandomPointInRect());
+                return true; // 폴백은 예산 개념이 없으므로 계속 가능
             }
+            return false;
         }
 
-        // 폴백: 균등 랜덤
-        if (enemyPrefabs != null && enemyPrefabs.Length > 0)
+        if (_entries.Count == 0) return false;
+
+        if (roundRobinGroups)
         {
-            var pf = enemyPrefabs[UnityEngine.Random.Range(0, enemyPrefabs.Length)];
-            SpawnNormalOne(pf);
+            // 라운드로빈: 커서부터 시작해서 남은 그룹을 찾아 1마리 스폰
+            int tries = _entries.Count;
+            while (tries-- > 0)
+            {
+                _groupCursor = ((_groupCursor % _entries.Count) + _entries.Count) % _entries.Count;
+                var e = _entries[_groupCursor];
+
+                if (e.remaining > 0)
+                {
+                    SpawnOneFromEntry(e);
+                    // 다음번에는 다음 그룹부터 보게 커서 이동
+                    _groupCursor = (_groupCursor + 1) % _entries.Count;
+                    return true;
+                }
+
+                _groupCursor = (_groupCursor + 1) % _entries.Count;
+            }
+
+            // 남은 게 없다면 실패 처리
+            return false;
+        }
+        else
+        {
+            // 그룹 소진 방식: 커서가 가리키는 그룹을 먼저 다 소진
+            // 남은 게 없으면 다음 그룹으로 이동
+            int tries = _entries.Count;
+            while (tries-- > 0)
+            {
+                _groupCursor = ((_groupCursor % _entries.Count) + _entries.Count) % _entries.Count;
+                var e = _entries[_groupCursor];
+
+                if (e.remaining > 0)
+                {
+                    SpawnOneFromEntry(e);
+                    // 소진 방식은 커서를 고정(해당 그룹을 먼저 다 쓰기)
+                    if (e.remaining <= 0)
+                        _groupCursor = (_groupCursor + 1) % _entries.Count;
+                    return true;
+                }
+
+                _groupCursor = (_groupCursor + 1) % _entries.Count;
+            }
+
+            return false;
         }
     }
 
-    private static GameObject PickWeightedPrefab(List<WeightedEntry> list)
+    private void SpawnOneFromEntry(GroupEntry e)
     {
-        int total = 0;
-        for (int i = 0; i < list.Count; i++)
-            total += Mathf.Max(0, list[i].weight);
+        e.remaining = Mathf.Max(0, e.remaining - 1);
+        _normalSpawnBudget = Mathf.Max(0, _normalSpawnBudget - 1);
 
-        if (total <= 0) return null;
-
-        int r = UnityEngine.Random.Range(0, total); // [0, total)
-        int acc = 0;
-        for (int i = 0; i < list.Count; i++)
-        {
-            acc += Mathf.Max(0, list[i].weight);
-            if (r < acc) return list[i].prefab;
-        }
-        return null;
+        Vector3 pos = ResolveNormalSpawnPosition(e);
+        SpawnNormalOneAt(e.prefab, pos);
     }
 
-    private void SpawnNormalOne(GameObject prefab)
+    private void SpawnNormalOneAt(GameObject prefab, Vector3 pos)
     {
-        var pos = GetRandomPointInRect();
         var go = Spawn(prefab, pos, Quaternion.identity);
         var eh = go.GetComponent<EnemyHealth>();
         if (eh) eh.Init(this, EnemyHealth.EnemyKind.Normal);
     }
 
     #endregion
-    
+
     #region Elite & Boss
 
     public void SpawnElitePack()
@@ -278,8 +374,8 @@ public class EnemySpawner : MonoBehaviour
 
         hub.DespawnAll();
 
-        var pf = elitePrefabs[UnityEngine.Random.Range(0, elitePrefabs.Length)]; // 상한 exclusive
-        var pos = areaCenter ? areaCenter.position : transform.position;
+        var pf = elitePrefabs[UnityEngine.Random.Range(0, elitePrefabs.Length)];
+        var pos = ResolveCenterTopPosition();
 
         var go = Spawn(pf, pos, Quaternion.identity);
         var eh = go.GetComponent<EnemyHealth>();
@@ -290,12 +386,9 @@ public class EnemySpawner : MonoBehaviour
 
     public void NotifyEliteUnitDead()
     {
-        // 여러 마리 관리가 필요하면 별도 집계로 확장
         _eliteActive = false;
         if (!_eliteActive)
-        {
             GameManager.Instance?.OnEliteCleared();
-        }
     }
 
     private void SpawnBoss()
@@ -304,7 +397,7 @@ public class EnemySpawner : MonoBehaviour
 
         hub.DespawnAll();
 
-        var pos = areaCenter ? areaCenter.position : transform.position;
+        var pos = ResolveCenterTopPosition();
         var pf = bossPrefabs[UnityEngine.Random.Range(0, bossPrefabs.Length)];
         if (!isBossSpawned)
         {
@@ -314,7 +407,7 @@ public class EnemySpawner : MonoBehaviour
     }
 
     #endregion
-    
+
     #region Shop Portal
 
     public void SpawnShopPortal()
@@ -347,7 +440,7 @@ public class EnemySpawner : MonoBehaviour
     }
 
     #endregion
-    
+
     #region Spawn Helpers
 
     private GameObject Spawn(GameObject prefab, Vector3 pos, Quaternion rot)
@@ -379,6 +472,132 @@ public class EnemySpawner : MonoBehaviour
         float x = UnityEngine.Random.Range(-rectSize.x * 0.5f, rectSize.x * 0.5f);
         float y = UnityEngine.Random.Range(-rectSize.y * 0.5f, rectSize.y * 0.5f);
         return pivot + new Vector3(x, y, 0f);
+    }
+
+    #endregion
+
+    #region NEW: 위치 해석(일반/엘리트/보스) + 전멸 게이트
+
+    // 일반 전멸 게이트 체크: 노멀 스폰이 멈췄고, 생존 0이면 1회 알림
+    private void CheckNormalsClearedGate()
+    {
+        if (normalsClearedSent) return;
+        if (normalEnabled) return;        // 아직 스폰 중이면 대기
+        if (normalSpawningActive) return; // 스폰 종료 신호 전이면 대기
+        if (GameManager.Instance == null || GameManager.Instance.State != GameManager.GameState.Normal) return;
+
+        if (CountAllAlive() == 0)
+        {
+            normalsClearedSent = true;
+            OnNormalsCleared?.Invoke();
+        }
+    }
+
+    // ───────── 일반 몬스터: 그룹의 앵커 규칙으로 좌표를 해석
+    private Vector3 ResolveNormalSpawnPosition(GroupEntry e)
+    {
+        // 1) 그룹이 포인트 타입들을 지정했다면 그 규칙 사용
+        if (e.spawnPoints != null && e.spawnPoints.Length > 0)
+        {
+            StageData.SpawnPoints type;
+            if (e.cycle)
+            {
+                type = e.spawnPoints[(e.spIdx++) % e.spawnPoints.Length];
+            }
+            else
+            {
+                type = e.spawnPoints[UnityEngine.Random.Range(0, e.spawnPoints.Length)];
+            }
+
+            var t = ResolveSpawnPoint(type);
+            if (t) return t.position;
+        }
+
+        // 2) 지정 포인트가 없거나 실패 → 전체 앵커에서 랜덤
+        var any = GetComponentsInChildren<SpawnPointAnchor>(true)
+                    ?.Where(a => a)
+                    .Select(a => a.transform).ToList();
+        if (any != null && any.Count > 0)
+            return any[UnityEngine.Random.Range(0, any.Count)].position;
+
+        // 3) 최종 폴백: 사각형 랜덤
+        return GetRandomPointInRect();
+    }
+
+    // 포인트 타입 해석: CenterTop은 특별 처리, 그 외 타입은 해당 앵커 중에서 랜덤
+    private Transform ResolveSpawnPoint(StageData.SpawnPoints type)
+    {
+        var anchors = GetComponentsInChildren<SpawnPointAnchor>(true);
+        if (anchors == null || anchors.Length == 0)
+        {
+            // 앵커가 하나도 없는 씬이면 null (바깥에서 폴백 처리)
+            return null;
+        }
+
+        if (type == StageData.SpawnPoints.CenterTop)
+        {
+            // CenterTop → Top-Center 해석(엘리트/보스와 동일 규칙)
+            var centerTop = anchors.Where(a => a && a.pointType == StageData.SpawnPoints.CenterTop)
+                                   .Select(a => a.transform).ToList();
+            var ups = anchors.Where(a => a && a.pointType == StageData.SpawnPoints.Up)
+                                   .Select(a => a.transform).ToList();
+            var any = anchors.Where(a => a).Select(a => a.transform).ToList();
+
+            var pick = PickTopCenter(centerTop);
+            if (!pick && ups.Count > 0) pick = PickTopCenter(ups);
+            if (!pick && any.Count > 0) pick = PickTopCenter(any);
+            return pick; // 없으면 null
+        }
+        else
+        {
+            // 지정 타입에서 랜덤
+            var list = anchors.Where(a => a && a.pointType == type).Select(a => a.transform).ToList();
+            if (list.Count > 0)
+                return list[UnityEngine.Random.Range(0, list.Count)];
+            return null;
+        }
+    }
+
+    // 엘리트/보스 전용: CenterTop → Up → 전체 → areaCenter 폴백
+    private Vector3 ResolveCenterTopPosition()
+    {
+        // 1) 직접 지정된 앵커 최우선
+        if (centerTopAnchor) return centerTopAnchor.position;
+
+        // 2) SpawnPointAnchor 스캔 (자식 기준)
+        var anchors = GetComponentsInChildren<SpawnPointAnchor>(true);
+        if (anchors != null && anchors.Length > 0)
+        {
+            var centerTop = anchors.Where(a => a && a.pointType == StageData.SpawnPoints.CenterTop).Select(a => a.transform).ToList();
+            var ups = anchors.Where(a => a && a.pointType == StageData.SpawnPoints.Up).Select(a => a.transform).ToList();
+            var any = anchors.Where(a => a).Select(a => a.transform).ToList();
+
+            var pick = PickTopCenter(centerTop);
+            if (!pick && ups.Count > 0) pick = PickTopCenter(ups);
+            if (!pick && any.Count > 0) pick = PickTopCenter(any);
+            if (pick) return pick.position;
+        }
+
+        // 3) 폴백: 기존 중심
+        return areaCenter ? areaCenter.position : transform.position;
+    }
+
+    private Transform PickTopCenter(List<Transform> list)
+    {
+        if (list == null || list.Count == 0) return null;
+        var root = areaCenter ? areaCenter.position : transform.position;
+        float maxY = float.NegativeInfinity;
+        foreach (var t in list) if (t && t.position.y > maxY) maxY = t.position.y;
+
+        Transform best = null; float bestDx = float.PositiveInfinity; const float eps = 0.0001f;
+        foreach (var t in list)
+        {
+            if (!t) continue;
+            if ((maxY - t.position.y) > eps) continue; // 최상단만
+            float dx = Mathf.Abs(t.position.x - root.x);
+            if (dx < bestDx) { bestDx = dx; best = t; }
+        }
+        return best;
     }
 
     #endregion

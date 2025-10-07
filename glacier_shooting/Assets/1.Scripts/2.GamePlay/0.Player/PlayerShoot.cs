@@ -39,7 +39,7 @@ public class PlayerShoot : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.Paused) return;
+        if (GameManager.Instance) if (GameManager.Instance.Paused) return;
         if (pool == null) return;
 
         // 키가 눌려있지 않으면 발사하지 않음

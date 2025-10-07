@@ -80,7 +80,7 @@ public class PlayerUI : MonoBehaviour
         {
             string hpCurrent = SafeInt(() => PlayerStatus.Instance.PlayerHealth);
             playerHealthText.text = $"Player Health : {hpCurrent}";
-            playerScore.text = $"Score : {GameManager.Instance.Score}";
+            if (GameManager.Instance) playerScore.text = $"Score : {GameManager.Instance.Score}";
         }
 
         if (BombText != null && MoneyText != null)

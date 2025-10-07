@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.Paused) return;
+        if(GameManager.Instance) if (GameManager.Instance.Paused) return;
         // ── 대시 입력 체크 (이동보다 우선)
         if (Input.GetKeyDown(dashKey))
             TryDash();

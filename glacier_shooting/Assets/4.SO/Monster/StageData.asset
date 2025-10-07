@@ -18,10 +18,17 @@ MonoBehaviour:
     waveID: Wave
     groups:
     - monster: {fileID: 11400000, guid: 0dab71ac026123f47a2ea965ccfbf2b9, type: 2}
-      spawnPoints: 00000000
-      startDelay: 0
-      interval: 0
+      spawnPoints: 02000000
+      startDelay: 10
+      interval: 0.5
       cycleSpawnPoints: 0
+      spawnCount: 10
+    - monster: {fileID: 11400000, guid: 149ff032446184f4cbb0dde53e532709, type: 2}
+      spawnPoints: 01000000
+      startDelay: 10
+      interval: 0.5
+      cycleSpawnPoints: 0
+      spawnCount: 10
   elites:
   - {fileID: 11400000, guid: 498f1b9c2cf608943abc63aade5cead3, type: 2}
   - {fileID: 11400000, guid: 498f1b9c2cf608943abc63aade5cead3, type: 2}
