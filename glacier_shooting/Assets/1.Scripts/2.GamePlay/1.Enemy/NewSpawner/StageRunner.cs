@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using Game.Data;
 using Random = UnityEngine.Random;
 
 public class StageRunner : MonoBehaviour

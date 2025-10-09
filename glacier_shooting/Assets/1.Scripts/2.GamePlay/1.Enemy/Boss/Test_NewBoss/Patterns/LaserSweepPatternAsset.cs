@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using UnityEngine;
 using BossSystem;
 
@@ -51,3 +51,4 @@ public class LaserSweepPatternAsset : PatternAsset
         GameObject.Destroy(laser);
     }
 }
+*/

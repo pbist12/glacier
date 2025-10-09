@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 2472259372885053972}
   - component: {fileID: 511072604985279982}
   - component: {fileID: 5284442150827382319}
-  - component: {fileID: 7928987713481899978}
   m_Layer: 10
   m_Name: BossTest
   m_TagString: Untagged
@@ -86,6 +85,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -107,6 +108,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
@@ -145,6 +147,9 @@ MonoBehaviour:
   spinModifier: 0
   invertSpin: 0
   maxSpinRate: 360
+  autoInvertSpin: 0
+  autoInvertSpinCycle: 0
+  autoInvertSpinTime: 0
   fireRate: 6
   fireOffset: {x: 0, y: 0}
   bulletSpeed: 2
@@ -154,36 +159,3 @@ MonoBehaviour:
   bulletColor: {r: 1, g: 1, b: 1, a: 1}
   spawnForwardOffset: 0.2
   isFire: 0
---- !u!114 &7928987713481899978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8862399863497919165}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35cd05567a29adb4ba39b0f0089fc674, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hub: {fileID: 0}
-  poolKey: 1
-  firePoint: {fileID: 0}
-  totalBulletArrays: 3
-  bulletsPerArray: 3
-  spreadBetweenArrays: 120
-  spreadWithinArrays: 1
-  startingAngle: 0
-  spinRate: 0
-  spinModifier: 0
-  invertSpin: 0
-  maxSpinRate: 360
-  fireRate: 6
-  fireOffset: {x: 0, y: 0}
-  bulletSpeed: 8
-  bulletTTL: 5
-  bulletAcceleration: 0
-  bulletCurve: 0
-  bulletColor: {r: 1, g: 1, b: 1, a: 1}
-  spawnForwardOffset: 0.2
-  isFire: 1

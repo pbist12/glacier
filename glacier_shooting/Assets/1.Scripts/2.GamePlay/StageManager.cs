@@ -1,4 +1,5 @@
 using UnityEngine;
+using Game.Data;
 
 public class StageManager : MonoBehaviour
 {

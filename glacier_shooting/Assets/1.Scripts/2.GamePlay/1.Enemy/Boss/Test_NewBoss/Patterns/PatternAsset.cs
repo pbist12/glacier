@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 
 namespace BossSystem
 {
@@ -18,3 +18,4 @@ namespace BossSystem
         public abstract System.Collections.IEnumerator Play(BossContext ctx);
     }
 }
+*/

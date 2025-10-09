@@ -1,5 +1,6 @@
 // File: SpawnPointAnchor.cs
 using UnityEngine;
+using Game.Data;
 
 public class SpawnPointAnchor : MonoBehaviour
 {

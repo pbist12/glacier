@@ -121,7 +121,7 @@ public class BossPatternShooter : MonoBehaviour
         }
     }
 
-    void FireOnce()
+    public void FireOnce()
     {
         Vector2 origin = firePoint ? (Vector2)firePoint.position : (Vector2)transform.position;
         float baseDeg = firePoint ? firePoint.eulerAngles.z : transform.eulerAngles.z;

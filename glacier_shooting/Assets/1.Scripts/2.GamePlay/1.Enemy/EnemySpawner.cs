@@ -1,8 +1,8 @@
 ﻿// File: EnemySpawner.cs
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Game.Data;
 
 [DisallowMultipleComponent]
 public class EnemySpawner : MonoBehaviour

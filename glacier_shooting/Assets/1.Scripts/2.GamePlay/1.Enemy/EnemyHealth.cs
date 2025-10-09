@@ -66,14 +66,13 @@ public class EnemyHealth : MonoBehaviour
 
     // ─────────────────────────────────────────────────────────────
     // 프로퍼티/도우미
-    public float HP => hp;
+    public float HP { get{ return hp; } set { hp = value; } }
     public float HPPercent => maxHP > 0f ? Mathf.Clamp01(hp / maxHP) : 0f;
     public bool IsBossLike => kind == EnemyKind.Boss || kind == EnemyKind.FinalBoss || kind == EnemyKind.Elite;
 
     // ====== 라이프사이클 ======
     void OnEnable()
     {
-        hp = maxHP;
         owner = GameObject.FindFirstObjectByType<EnemySpawner>();
         if (!All.Contains(this)) All.Add(this);
 

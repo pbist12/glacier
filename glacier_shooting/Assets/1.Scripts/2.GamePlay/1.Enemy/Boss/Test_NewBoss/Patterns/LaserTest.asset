@@ -44,5 +44,5 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  laserPrefab: {fileID: 0}
+  laserPrefab: {fileID: 1803180619962251111, guid: b7206e1be3c266b4d812095098c4dd35, type: 3}
   laserLength: 20
