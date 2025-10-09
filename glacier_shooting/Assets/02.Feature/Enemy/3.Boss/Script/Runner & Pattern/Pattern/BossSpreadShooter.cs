@@ -114,10 +114,11 @@ public class BossPatternShooter : MonoBehaviour
         if (fireRate <= 0f) return;
         _t += Time.deltaTime;
         float interval = 1f / fireRate;
+           
         while (_t >= interval)
         {
             _t -= interval;
-            FireOnce();
+            //FireOnce();
         }
     }
 

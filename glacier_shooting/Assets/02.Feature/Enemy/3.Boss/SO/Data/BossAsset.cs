@@ -27,7 +27,7 @@ namespace Game.Data
 
         [Header("Transitions (Top-Down)")]
         [Tooltip("위에서부터 첫 매치 규칙으로 전환")]
-        public List<SimpleRule> transitions = new();
+        public SimpleRule transitions = new();
 
         [Header("Outcomes")]
         [Tooltip("규칙이 만족될 때의 행동: 기본 Next(다음 페이즈), End(종료)")]
@@ -40,7 +40,7 @@ namespace Game.Data
     }
     #endregion
 
-    [CreateAssetMenu(fileName = "BossData", menuName = "GameMini/Boss")]
+    [CreateAssetMenu(menuName = "Monster/Boss/BossAsset", fileName = "BossAsset")]
     public class BossAsset : ScriptableObject
     {
         [Header("Identity")]

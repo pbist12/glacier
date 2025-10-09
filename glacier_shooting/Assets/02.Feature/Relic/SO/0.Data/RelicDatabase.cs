@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-[CreateAssetMenu(fileName = "RelicDatabase", menuName = "Game/Relic Database")]
+[CreateAssetMenu(fileName = "RelicDatabase", menuName = "Relic/Relic Database")]
 public class RelicDatabase : ScriptableObject
 {
     [Header("Editor Scan Settings (에디터에서만 사용)")]

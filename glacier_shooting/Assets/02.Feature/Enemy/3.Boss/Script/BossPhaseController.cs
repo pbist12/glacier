@@ -1,8 +1,10 @@
 ﻿// File: BossPhaseController.cs (v2 - no homing here)
+using Boss;
+using Game.Data;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
-using Game.Data;
 
 [DisallowMultipleComponent]
 public class BossPhaseController : MonoBehaviour
@@ -14,6 +16,7 @@ public class BossPhaseController : MonoBehaviour
     [Header("Refs")]
     [SerializeField] private EnemyHealth health;       // HP/사망 이벤트
     [SerializeField] private BulletPoolHub bulletPool; // 탄 일괄 제거
+    [SerializeField] private BossPatternScheduler patternScheduler;
     [SerializeField] private BossPatternShooter spread; // 기존 부채꼴(임시 데모용)
 
     [Header("Move (optional demo)")]
@@ -31,11 +34,22 @@ public class BossPhaseController : MonoBehaviour
         if (!health) health = GetComponent<EnemyHealth>();
         if (!spread) spread = GetComponent<BossPatternShooter>();
         if (!bulletPool) bulletPool = FindFirstObjectByType<BulletPoolHub>();
+        if (!patternScheduler) patternScheduler = GetComponent<BossPatternScheduler>();
     }
 
     #region Unity Event
+
+    void Awake()
+    {
+        if (boss && health)
+        {
+            health.maxHP = boss.maxHealth;
+            health.HP = boss.maxHealth;
+        }
+    }
     void OnEnable()
     {
+        Reset();
         if (!boss || boss.phases == null || boss.phases.Count == 0)
         {
             Debug.LogError("[BossPhaseController] BossAsset이 비었거나 페이즈가 없습니다.", this);
@@ -68,26 +82,25 @@ public class BossPhaseController : MonoBehaviour
     {
         if (_phaseIndex < 0) return;
 
-        if (enableMove)
-        {
-            float x = Mathf.PingPong(Time.time * moveSpeed, moveRange * 2f) - moveRange;
-            transform.position = new Vector3(x, transform.position.y, transform.position.z);
-        }
-
         _elapsed += Time.deltaTime;
 
-        // 전환 검사
-        var next = EvaluateTransition();
-        if (next == TransitionOutcome.Next)
+        // (선택) 진입 직후 쿨다운/스로틀이 있으면 여기 가드 추가
+
+        Debug.Log(health.HP / health.maxHP);
+        if (!TryEvaluateTransition(out var outcome))
+            return; // ★ 조건이 안 맞음 → 그냥 유지
+
+        if (outcome == TransitionOutcome.Next)
         {
             int i = _phaseIndex + 1;
             if (i < boss.phases.Count) ApplyPhase(i);
-            else EndEncounter(); // 마지막 다음 → 종료
+            else EndEncounter(); // 마지막 다음이면 종료 (또는 무시 옵션)
         }
-        else if (next == TransitionOutcome.End)
+        else if (outcome == TransitionOutcome.End)
         {
             EndEncounter();
         }
+        // outcome이 Next/End 외 값이 없다면 else는 필요 X
     }
     #endregion
 
@@ -106,34 +119,19 @@ public class BossPhaseController : MonoBehaviour
 
     #region 전환
     // ===== 전환 로직 =====
-    private TransitionOutcome EvaluateTransition()
+    private bool TryEvaluateTransition(out TransitionOutcome outcome)
     {
+        outcome = default;
         var entry = boss.phases[_phaseIndex];
+        bool hit = (entry.transitions.kind == SimpleRuleKind.HPBelow && (health.HP / health.maxHP) <= entry.transitions.value);
 
-        // 최소 체류시간 전에는 전환 무시
-        if (_elapsed < entry.minSecondsInPhase) return default;
-
-        // 규칙 리스트(위→아래) 첫 매치
-        var rules = entry.transitions;
-        for (int r = 0; r < rules.Count; r++)
+        if (hit)
         {
-            var rule = rules[r];
-            switch (rule.kind)
-            {
-                case SimpleRuleKind.HPBelow:
-                    if (_hp01 <= rule.value) return entry.onRule;
-                    break;
-                case SimpleRuleKind.TimerReached:
-                    if (_elapsed >= rule.value) return entry.onRule;
-                    break;
-            }
+            outcome = entry.onRule; // Next or End (SO는 그대로)
+            return true;            // ★ 매치!
         }
 
-        // 하드 타임아웃(안전망)
-        if (entry.hardTimeoutSeconds > 0f && _elapsed >= entry.hardTimeoutSeconds)
-            return entry.onTimeout;
-
-        return default; // 전환 없음
+        return false; // 아무 것도 아님 → 유지
     }
     #endregion
 
@@ -146,8 +144,12 @@ public class BossPhaseController : MonoBehaviour
         // 안전장치: 기존 탄막 정리
         if (bulletPool) bulletPool.BombClearAll();
 
+        if (patternScheduler) patternScheduler.StartPhase(boss.phases[_phaseIndex].phase);
+
+        Debug.Log(boss.phases[_phaseIndex].phase);
+
         // (임시) 기존 스프레드 슈터 ON — 실제로는 패턴 스케줄러가 담당할 예정
-        if (spread) spread.isFire = true;
+        // if (spread) spread.isFire = true;
 
         // TODO: Run-Once 패턴 스케줄러 연결 지점
         // - boss.phases[_phaseIndex].phase.cadenceSeconds 기준으로
@@ -159,7 +161,5 @@ public class BossPhaseController : MonoBehaviour
     private void EndEncounter()
     {
         if (bulletPool) bulletPool.BombClearAll();
-        // TODO: 클리어 연출/보상/포털 등
-        Destroy(gameObject);
     }
 }

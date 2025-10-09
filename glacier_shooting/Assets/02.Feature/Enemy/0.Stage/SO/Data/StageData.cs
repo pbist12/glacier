@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.Data
 {
-    [CreateAssetMenu(fileName = "StageData", menuName = "GameMini/StageData")]
+    [CreateAssetMenu(fileName = "StageData", menuName = "StageData")]
     public class StageData : ScriptableObject
     {
         public enum SpawnPoints { None, Right, Left, Up, CenterTop }

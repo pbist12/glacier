@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.Data
 {
-    [CreateAssetMenu(menuName = "Boss/Pattern/Spread", fileName = "SpreadPatternSO")]
+    [CreateAssetMenu(menuName = "Monster/Boss/Pattern/Spread", fileName = "SpreadPatternSO")]
     public class SpreadPatternSO : PatternSOBase
     {
         [Header("=== Pattern Arrays ===")]

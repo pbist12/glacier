@@ -18,6 +18,11 @@ namespace Boss
         private BossPhaseSO _phase;
         private int _seqIndex;
 
+        private void OnEnable()
+        {
+            Reset();
+        }
+
         void Reset()
         {
             if (!ctxProvider) ctxProvider = GetComponent<BossRuntimeContextProvider>();

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MobData", menuName = "GameMini/Mob")]
+[CreateAssetMenu(menuName = "Monster/MobAsset", fileName = "MobAsset")]
 public class MobAsset : ScriptableObject
 {
     public GameObject prefab;

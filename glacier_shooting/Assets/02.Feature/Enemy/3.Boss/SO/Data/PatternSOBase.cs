@@ -1,4 +1,3 @@
-// File: PatternSOBase.cs
 using UnityEngine;
 
 namespace Game.Data
@@ -9,7 +8,8 @@ namespace Game.Data
         Dash,     // 돌진 (추가 예정)
         Spiral,   // 스파이럴 (추가 예정)
         Laser,    // 레이저 (추가 예정)
-        Summon    // 소환 (추가 예정)
+        Summon,   // 소환 (추가 예정)
+        Move,
     }
 
     /// <summary>

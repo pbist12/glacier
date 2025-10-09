@@ -16,13 +16,14 @@ MonoBehaviour:
   note: 
   kind: 0
   telegraphSeconds: 0.5
+  actionSeconds: 0.2
   postDelaySeconds: 0.2
-  totalBulletArrays: 3
-  bulletsPerArray: 3
+  totalBulletArrays: 10
+  bulletsPerArray: 10
   spreadBetweenArrays: 120
-  spreadWithinArrays: 1
+  spreadWithinArrays: 10
   startingAngle: 0
-  spinRate: 0
+  spinRate: 5
   spinModifier: 0
   invertSpin: 0
   maxSpinRate: 360
