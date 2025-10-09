@@ -17,13 +17,11 @@ MonoBehaviour:
     - db90126802ff61540ae807c221a12fee
     - c804484f644e0db4ba03dc34d90db1df
     - d56de8cc39a901e40a082a3e44198ad0
-    - 5e03f3c5f326af74493f6f8e9faa4bc0
     - 74c5a7e9f4e4be148b2af828c4684e5d
     - 3cdc69ba529b1d440ad5965bb0fa9e09
     - 7810e9b2e2afa1e4b8d8707d1aa62ea6
     - 76462e4231576e142be541050d215ae2
     - 59dc4a3abd1f25846a6e40cd2c362975
-    - d72d8dfac95a5764895921fa08f46f52
     - 234e1e2a8a011b74ca3a9645be60b82a
     - 18a254a3f453f264a8e5f94a21c1c194
     - dad7168433abcb04caf1df1ff261f976
@@ -31,8 +29,50 @@ MonoBehaviour:
     - 18bd5f00d69260247a2fe21bf7b0c48b
     - cf299f42f76e1774caf0b5aaa680938a
     - af411c2bdc7230c4a841c5903295d63c
-    - 20793799e46277040bd6225241732378
     - 34edb16192e9a9446b08439e6b191831
+    - f81bb60ab423d714287463772384b898
+    - b8d5ba390f017594f89f3f34aafa6e3c
+    - 5651ee2904526f84bb706e7100053da4
+    - 07fac9189ccaee24db1425187cffd690
+    - c4c19ad1404f8334788655fb5d9f9599
+    - 7e798602fc1d4884abbb8042b510d673
+    - 7dd3fa3dc7a90ef44905ba7f3231d81c
+    - 26663c6fe0af5084a92b3de0e73f48c9
+    - bc4a7206875519c4c97f3288cddeeeb7
+    - f35b3c9f09406394988092cd9b5abfab
+    - 05ee6b6b4756c7b43b72247e852092bc
+    - b941dacf2584a2449b852ed603857701
+    - 221ff75f1edf15743bb74017bb919b8a
+    - ca7bf181b24d6444bb5f10da11cbbce6
+    - d37c43a70e78239469cd6f5023142e07
+    - a1e42096755b2da4388a1b21e216818d
+    - f24422d3736557a478356782a9cb402f
+    - 3a4da203bd03a0842a7b8c02b0c3a2e3
+    - 48ee626c127f406448c51f324a5ce7b7
+    - 34b3bd28e180e4742925fb23d1ae1eea
+    - 8244fd934cc8e9249b4fbf6cfc5510dd
+    - e746539b56c46644caa612bcbdc74991
+    - ce561ca05d60615438aa1612c3dcf2a5
+    - 0363e7a893e304b4a8fb60685315d238
+    - 23b95d8fdf3599149951ccf42d632821
+    - 2b3e28661d24a0b4b9bf45ff83ebc6b4
+    - 78a8c86d41c7326409dfb3924283d714
+    - d9ee1da1711b3a4498c5cd1950db8581
+    - 6138b5f270518ad49b00e8ee01d92a69
+    - a8ad26ac1e7556c4a8226e84ea8ab81d
+    - 248e6e79a6c7cd947adb7a1f81aff4da
+    - 760b630b4a2f6ea4a9cb27a54d8b8355
+    - 3461a8101b35ff24abe6f2305f8c8d0f
+    - caa910248effdb84e8c59a4edf803563
+    - 334051cfa4e111e4d934776b27fde39b
+    - 4c7092a00fa967e41a487b1af4ab1796
+    - 66e3d42c32d3b4946950157bf6cc39ae
+    - 820b150a1375cca419f3e4e440b0d38c
+    - f42c5137337f83841bd48850978fa9a3
+    - b19c90c6b342f5743a83a5a8b5167478
+    - a446ec7829a28c148afc7b1db1e31c2f
+    - 5e03f3c5f326af74493f6f8e9faa4bc0
+    - 0220aab0833d04faeb927d84ca6cc40c
     values:
     - iconNameOrGuid: SceneAsset Icon
       colorIndex: 1
@@ -44,10 +84,6 @@ MonoBehaviour:
       isColorRecursive: 0
     - iconNameOrGuid: Prefab Icon
       colorIndex: 3
-      isIconRecursive: 0
-      isColorRecursive: 0
-    - iconNameOrGuid: 
-      colorIndex: 8
       isIconRecursive: 0
       isColorRecursive: 0
     - iconNameOrGuid: ScriptableObject Icon
@@ -68,10 +104,6 @@ MonoBehaviour:
       isColorRecursive: 0
     - iconNameOrGuid: 
       colorIndex: 3
-      isIconRecursive: 0
-      isColorRecursive: 0
-    - iconNameOrGuid: 
-      colorIndex: 4
       isIconRecursive: 0
       isColorRecursive: 0
     - iconNameOrGuid: 
@@ -103,11 +135,179 @@ MonoBehaviour:
       isIconRecursive: 0
       isColorRecursive: 0
     - iconNameOrGuid: 
+      colorIndex: 8
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: cs Script Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: Texture Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: Prefab Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: Prefab Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: cs Script Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: Prefab Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: cs Script Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: ScriptableObject Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: Prefab Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: cs Script Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: ScriptableObject Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: ScriptableObject Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: ScriptableObject Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: ScriptableObject Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: cs Script Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: Prefab Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: Texture Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: Prefab Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: Texture Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: cs Script Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: Texture Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: Prefab Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: cs Script Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: cs Script Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: Prefab Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: BoxCollider Icon
+      colorIndex: 2
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: Prefab Icon
+      colorIndex: 3
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: cs Script Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: Prefab Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: Prefab Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: RawImage Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: cs Script Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: RawImage Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: RawImage Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: cs Script Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: RawImage Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: RawImage Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: Prefab Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: cs Script Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: 
       colorIndex: 4
       isIconRecursive: 0
       isColorRecursive: 0
     - iconNameOrGuid: 
-      colorIndex: 8
+      colorIndex: 5
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: 
+      colorIndex: 6
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: 
+      colorIndex: 7
       isIconRecursive: 0
       isColorRecursive: 0
   bookmarks: []

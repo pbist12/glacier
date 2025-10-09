@@ -78,3 +78,11 @@ MonoBehaviour:
     - Settings Icon
     customIcons: []
     enabled: 1
+  - builtinIcons: []
+    customIcons:
+    - SoftlockInline
+    - greenLight
+    enabled: 1
+  - builtinIcons: []
+    customIcons: []
+    enabled: 1
