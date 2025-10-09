@@ -73,6 +73,7 @@ public class EnemyHealth : MonoBehaviour
     // ====== 라이프사이클 ======
     void OnEnable()
     {
+        hp = maxHP;
         owner = GameObject.FindFirstObjectByType<EnemySpawner>();
         if (!All.Contains(this)) All.Add(this);
 
