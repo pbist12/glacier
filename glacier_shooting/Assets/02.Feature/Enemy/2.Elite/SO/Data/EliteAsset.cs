@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "EliteData", menuName = "GameMini/Elite")]
+[CreateAssetMenu(menuName = "Monster/EliteAsset", fileName = "EliteAsset")]
 public class EliteAsset : ScriptableObject
 {
     public GameObject prefab;

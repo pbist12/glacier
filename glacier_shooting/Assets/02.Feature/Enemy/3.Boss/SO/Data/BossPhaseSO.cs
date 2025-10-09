@@ -6,7 +6,7 @@ namespace Game.Data
 {
     public enum PhaseRunMode { Sequential, LoopSequential, WeightedRandom }
 
-    [CreateAssetMenu(menuName = "GameMini/Boss Phase", fileName = "BossPhaseSO")]
+    [CreateAssetMenu(menuName = "Monster/Boss/BossPhase", fileName = "BossPhaseSO")]
     public class BossPhaseSO : ScriptableObject
     {
         [Header("Meta")]

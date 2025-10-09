@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewPlayer", menuName = "Game/Player")]
+[CreateAssetMenu(fileName = "NewPlayer", menuName = "Player")]
 public class CharacterData : ScriptableObject
 {
     [Header("기본 정보")]

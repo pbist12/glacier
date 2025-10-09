@@ -6,9 +6,10 @@ using System.Collections;
 using UnityEngine;
 
 [DisallowMultipleComponent]
-public class SpreadPatternRunner : MonoBehaviour, IPatternRunner
+public class SpreadPatternRunner : MonoBehaviour, IPatternRunner, ISupportsPatternKind
 {
     public bool useInternalShooterLoop = true; // true: isFire 스위치형, false: Runner가 FireOnce 펄스 직접 호출
+    public PatternKind Kind => PatternKind.Spread;
 
     public IEnumerator RunOnce(PatternSOBase so, BossRuntimeContext ctx, Func<bool> stop)
     {
@@ -22,29 +23,7 @@ public class SpreadPatternRunner : MonoBehaviour, IPatternRunner
         // (선택) SO 수치를 Shooter에 주입
         ApplySpreadSO(ctx.Spread, p);
 
-        if (useInternalShooterLoop)
-        {
-            // 스위치형: Shooter.Update가 fireRate에 맞춰 자동 발사
-            ctx.Spread.isFire = true;
-            yield return Wait(so.actionSeconds, ctx, stop);
-            ctx.Spread.isFire = false;
-        }
-        else
-        {
-            // 외부 구동형: Runner가 직접 FireOnce 주기 호출
-            ctx.Spread.isFire = false;
-            float dur = Mathf.Max(0f, so.actionSeconds);
-            float interval = (p.fireRate > 0f) ? 1f / p.fireRate : dur;
-            float t = 0f, tShot = 0f;
-            while (t < dur && !stop())
-            {
-                if (tShot <= 0f) { ctx.Spread.FireOnce(); tShot = interval; }
-                float dt = ctx.DeltaTime();
-                t += dt;
-                tShot -= dt;
-                yield return null;
-            }
-        }
+        ctx.Spread.FireOnce();
     }
 
     static void ApplySpreadSO(BossPatternShooter s, SpreadPatternSO p)

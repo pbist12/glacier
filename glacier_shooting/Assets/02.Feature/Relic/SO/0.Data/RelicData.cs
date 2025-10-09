@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Relic", menuName = "Game/Relic")]
+[CreateAssetMenu(fileName = "Relic", menuName = "Relic/Relic")]
 public class RelicData : ScriptableObject
 {
     [Header("기본 정보")]

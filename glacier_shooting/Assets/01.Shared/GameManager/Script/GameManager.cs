@@ -255,13 +255,11 @@ public class GameManager : MonoBehaviour
         const FindObjectsInactive Inactive = FindObjectsInactive.Include;
 
         spawner = spawner ? spawner : FindFirstObjectByType<EnemySpawner>(Inactive);
-        shop = shop ? shop : FindFirstObjectByType<ShopManager>(Inactive);
         result = result ? result : FindFirstObjectByType<ResultScreen>(Inactive);
         vssample = vssample ? vssample : FindFirstObjectByType<VerticalScrollerSimple>(Inactive);
         stageManager = stageManager ? stageManager : FindFirstObjectByType<StageManager>(Inactive);
 
         if (!spawner) Debug.LogWarning("[GameRefBinder] EnemySpawner를 찾지 못했습니다.");
-        if (!shop) Debug.LogWarning("[GameRefBinder] ShopManager를 찾지 못했습니다.");
         if (!result) Debug.LogWarning("[GameRefBinder] ResultScreen을 찾지 못했습니다.");
         if (!vssample) Debug.LogWarning("[GameRefBinder] VerticalScrollerSimple을 찾지 못했습니다.");
         if (!stageManager) Debug.LogWarning("[GameRefBinder] StageManager를 찾지 못했습니다.");

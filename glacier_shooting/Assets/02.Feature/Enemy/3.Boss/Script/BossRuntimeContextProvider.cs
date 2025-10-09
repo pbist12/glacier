@@ -1,4 +1,3 @@
-// File: BossRuntimeContextProvider.cs
 using UnityEngine;
 
 namespace Boss
@@ -15,6 +14,15 @@ namespace Boss
 
         [Header("Time")]
         public bool useUnscaledTime = false;
+
+        private void OnEnable()
+        {
+            boss = GetComponent<Transform>();
+            bullets = FindFirstObjectByType<BulletPoolHub>();
+            spread = GetComponentInChildren<BossPatternShooter>();
+            laser = GetComponentInChildren<BossLaserShooter>();
+            mover = GetComponentInChildren<BossMover>();
+        }
 
         public BossRuntimeContext Build()
         {
