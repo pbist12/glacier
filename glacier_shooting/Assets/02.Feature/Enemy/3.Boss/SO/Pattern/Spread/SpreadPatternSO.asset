@@ -16,7 +16,7 @@ MonoBehaviour:
   note: 
   kind: 0
   telegraphSeconds: 0.5
-  actionSeconds: 0.2
+  actionSeconds: 1
   postDelaySeconds: 0.2
   totalBulletArrays: 10
   bulletsPerArray: 10

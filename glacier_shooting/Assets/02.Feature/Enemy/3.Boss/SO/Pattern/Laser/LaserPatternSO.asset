@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LaserPatternSO
   patternId: PATTERN
   note: 
-  kind: 0
-  telegraphSeconds: 0.5
-  actionSeconds: 1.2
+  kind: 3
+  telegraphSeconds: 1
+  actionSeconds: 2
   postDelaySeconds: 0.2
   chargeSeconds: 0.6
   beamWidth: 0.5
