@@ -102,7 +102,7 @@ public class PlayerStatus : MonoBehaviour, IPlayerStats
             player = GameStatus.Instance.characterData;
         }
 
-        playerSprite = GetComponent<SpriteRenderer>();
+        playerSprite = GetComponentInChildren<SpriteRenderer>();
 
         controller = GetComponent<PlayerController>();
         playerShoot = GetComponent<PlayerShoot>();

@@ -82,7 +82,7 @@ public class BossLaserShooter : MonoBehaviour
         if (!muzzle) muzzle = transform;
 
         Vector3 origin = muzzle.position;
-        Vector3 forward = useLocalRightAsForward ? muzzle.right : muzzle.up; // 2D: 보통 right
+        Vector3 forward = useLocalRightAsForward ? muzzle.right : -muzzle.up; // 2D: 보통 right
 
         float length = maxDistance;
         RaycastHit2D hit = Physics2D.Raycast(origin, forward, maxDistance, hitMask);
