@@ -23,6 +23,8 @@ public class Bullet : MonoBehaviour
 
     [Header("Collision Debug")]
     public float hitRadius = 0.12f;
+    public float defHtiRadius;
+
     [Tooltip("씬 뷰에서 판정 반경을 Gizmo로 표시할지 여부")]
     public bool drawHitRadiusGizmo = true;
 
@@ -37,12 +39,17 @@ public class Bullet : MonoBehaviour
     enum State { StraightByVelocity, PreHoming, Homing, StraightFacing }
     State _state = State.StraightByVelocity;
 
-    void Awake() => _tf = transform;
+    void Awake()
+    {
+        _tf = transform;
+        hitRadius = defHtiRadius;
+    } 
 
     void OnEnable()
     {
         _age = 0f;
         _phaseTimer = 0f;
+        hitRadius = defHtiRadius;
 
         // ★ 풀에서 다시 살아날 때 이전 위치가 남지 않도록
         prevPos = transform.position;
@@ -165,5 +172,10 @@ public class Bullet : MonoBehaviour
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, hitRadius);
+    }
+
+    public void UpdateHitRadius(float mul)
+    {
+        hitRadius = hitRadius * mul;
     }
 }

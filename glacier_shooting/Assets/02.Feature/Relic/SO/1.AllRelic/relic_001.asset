@@ -15,19 +15,25 @@ MonoBehaviour:
   RelicName: "\uBD88\uC0AC\uC758 \uC2EC\uC7A5"
   description: "\uC8FD\uC5B4\uB3C4 1\uD68C \uBD80\uD65C\uD55C\uB2E4"
   icon: {fileID: 1903202154, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
-  rarity: 5
-  price: 500
+  rarity: 1
+  price: 20
   cooldown: 0
   effects:
-  - rid: 9114842748482486481
+  - rid: 9114842958278164558
   references:
     version: 2
     RefIds:
-    - rid: 9114842748482486481
-      type: {class: StatModifierEffect, ns: , asm: Assembly-CSharp}
+    - rid: 9114842958278164558
+      type: {class: NthAttackStyleAndBuffEffect, ns: , asm: Assembly-CSharp}
       data:
         note: 
-        stat: 0
-        flat: 1
-        percent: 0
-        revertOnRemove: 1
+        nth: 5
+        tintNth: 1
+        tintColor: {r: 1, g: 0, b: 0, a: 1}
+        damageBonusPercent: 0.5
+        sizeMul: 2
+        speedMul: 1
+        lifetimeMul: 1
+        spawnVfx: {fileID: 0}
+        sfx: {fileID: 0}
+        sfxVolume: 1
