@@ -253,8 +253,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ca253566812234cb0ced4b830a61e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss.BossPatternScheduler
-  registry: {fileID: 0}
-  ctxProvider: {fileID: 0}
+  registry: {fileID: 3776501968722111075}
+  ctxProvider: {fileID: 8755994633017800733}
   bulletPool: {fileID: 0}
 --- !u!114 &3776501968722111075
 MonoBehaviour:
@@ -304,7 +304,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7576734988671032909
 Transform:
   m_ObjectHideFlags: 0
