@@ -18,21 +18,21 @@ MonoBehaviour:
   telegraphSeconds: 0.5
   actionSeconds: 1
   postDelaySeconds: 0.2
-  totalBulletArrays: 4
-  bulletsPerArray: 4
-  spreadBetweenArrays: 90
-  spreadWithinArrays: 47
+  totalBulletArrays: 12
+  bulletsPerArray: 5
+  spreadBetweenArrays: 30
+  spreadWithinArrays: 15
   startingAngle: 0
-  spinRate: 1.5
-  spinModifier: 1.5
-  invertSpin: 1
-  maxSpinRate: 100
+  spinRate: 30
+  spinModifier: 30
+  invertSpin: 0
+  maxSpinRate: 230
   autoInvertSpin: 0
-  autoInvertSpinCycle: 0
-  fireRate: 5
+  autoInvertSpinCycle: 3
+  fireRate: 3
   fireOffset: {x: 0, y: 0}
   poolKey: 1
-  bulletSpeed: 3
+  bulletSpeed: 2
   bulletTTL: 5
   bulletAcceleration: 0
   bulletCurve: 0

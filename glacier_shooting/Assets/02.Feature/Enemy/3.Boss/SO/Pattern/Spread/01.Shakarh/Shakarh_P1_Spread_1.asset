@@ -18,13 +18,13 @@ MonoBehaviour:
   telegraphSeconds: 0.1
   actionSeconds: 0.1
   postDelaySeconds: 0.1
-  totalBulletArrays: 12
-  bulletsPerArray: 3
-  spreadBetweenArrays: 30
-  spreadWithinArrays: 10
+  totalBulletArrays: 4
+  bulletsPerArray: 4
+  spreadBetweenArrays: 90
+  spreadWithinArrays: 100
   startingAngle: 0
-  spinRate: 7
-  spinModifier: 12
+  spinRate: 25
+  spinModifier: 10
   invertSpin: 0
   maxSpinRate: 360
   autoInvertSpin: 0
