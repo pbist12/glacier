@@ -21,7 +21,7 @@ MonoBehaviour:
   totalBulletArrays: 4
   bulletsPerArray: 4
   spreadBetweenArrays: 90
-  spreadWithinArrays: 100
+  spreadWithinArrays: 47
   startingAngle: 0
   spinRate: 1.5
   spinModifier: 1.5

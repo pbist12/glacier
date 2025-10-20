@@ -32,7 +32,7 @@ MonoBehaviour:
   fireRate: 3
   fireOffset: {x: 0, y: 0}
   poolKey: 1
-  bulletSpeed: 5
+  bulletSpeed: 2
   bulletTTL: 5
   bulletAcceleration: 0
   bulletCurve: 0
