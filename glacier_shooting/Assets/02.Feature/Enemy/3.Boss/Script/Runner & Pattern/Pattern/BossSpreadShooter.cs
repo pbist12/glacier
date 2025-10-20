@@ -118,7 +118,7 @@ public class BossPatternShooter : MonoBehaviour
         while (_t >= interval)
         {
             _t -= interval;
-            //FireOnce();
+            FireOnce();
         }
     }
 

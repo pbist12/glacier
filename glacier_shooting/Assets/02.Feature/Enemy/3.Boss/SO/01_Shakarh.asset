@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bae7f01c51d8e2544914a7deca7b1057, type: 3}
-  m_Name: Boss_01
+  m_Name: 01_Shakarh
   m_EditorClassIdentifier: 
   bossName: King
   description: 

@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abaf13704c079a14394f8c511441a9fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossPhaseController
-  boss: {fileID: 11400000, guid: 9c456dddf1130884e990b4575b35d201, type: 2}
+  boss: {fileID: 11400000, guid: fb891d293fa910043b6087b4c7e27bb2, type: 2}
   startPhaseIndex: 0
   health: {fileID: 7033682911969036102}
   bulletPool: {fileID: 0}

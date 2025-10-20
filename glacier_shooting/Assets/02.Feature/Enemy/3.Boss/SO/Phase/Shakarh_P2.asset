@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2ce37eca11c23d4c8a4216da186153f, type: 3}
-  m_Name: BossPhaseSO
+  m_Name: Shakarh_P2
   m_EditorClassIdentifier: Assembly-CSharp::Game.Data.BossPhaseSO
   phaseId: P1
   note: 
@@ -18,9 +18,6 @@ MonoBehaviour:
   cadenceSeconds: 0.2
   useUnscaledTime: 0
   patterns:
-  - pattern: {fileID: 11400000, guid: fa87272b8358a624f8e4d6b7170844ac, type: 2}
+  - pattern: {fileID: 11400000, guid: 4bcf3165792c0c24d9c45e9119d7960f, type: 2}
     weight: 3
-    delayAfter: 0
-  - pattern: {fileID: 11400000, guid: c7c288cea4248dd44a8e53995c9b3290, type: 2}
-    weight: 3
-    delayAfter: 0
+    delayAfter: 1

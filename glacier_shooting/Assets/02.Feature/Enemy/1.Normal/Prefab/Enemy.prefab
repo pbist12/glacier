@@ -239,7 +239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kind: 0
   owner: {fileID: 0}
-  maxHP: 10
+  maxHP: 5
   hp: 0
   scoreOnKill: 10
   enemyDrop: {fileID: 3594462672435707539}
