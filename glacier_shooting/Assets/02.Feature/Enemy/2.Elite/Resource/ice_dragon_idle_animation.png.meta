@@ -1,40 +1,31 @@
 fileFormatVersion: 2
-guid: b0c9f8c9736eb6a4399fb4a3f0bbafeb
+guid: 3e309c374d377854faf80f2e0c4f525c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6741043336603738150
-    second: ice_dragon_rush_animation_0
+      213: -3191147779796356569
+    second: ice_dragon_idle_animation_0
   - first:
-      213: -7013204185392122948
-    second: ice_dragon_rush_animation_1
+      213: -5753228075090569809
+    second: ice_dragon_idle_animation_1
   - first:
-      213: -4190603298979904835
-    second: ice_dragon_rush_animation_2
+      213: -719385967808586140
+    second: ice_dragon_idle_animation_2
   - first:
-      213: -8122889317505174459
-    second: ice_dragon_rush_animation_3
+      213: 7936169534796432617
+    second: ice_dragon_idle_animation_3
   - first:
-      213: 4487004115970397355
-    second: ice_dragon_rush_animation_4
+      213: 6857594525287831765
+    second: ice_dragon_idle_animation_4
   - first:
-      213: 577959299388295651
-    second: ice_dragon_rush_animation_5
+      213: -2179003923959910240
+    second: ice_dragon_idle_animation_5
   - first:
-      213: -6025558199479814069
-    second: ice_dragon_rush_animation_6
+      213: -8341167932676220224
+    second: ice_dragon_idle_animation_6
   - first:
-      213: -426141251533415499
-    second: ice_dragon_rush_animation_7
-  - first:
-      213: -1131643492316682625
-    second: ice_dragon_rush_animation_8
-  - first:
-      213: -6064076195669010275
-    second: ice_dragon_rush_animation_9
-  - first:
-      213: 897517202879832873
-    second: ice_dragon_rush_animation_10
+      213: -6087659838729479391
+    second: ice_dragon_idle_animation_7
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -130,11 +121,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ice_Dragon_0
+      name: ice_dragon_idle_animation_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 128
+        y: 0
         width: 128
         height: 128
       alignment: 0
@@ -145,18 +136,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 620a7c5f23ffc8d50800000000000000
-      internalID: 6741043336603738150
+      spriteID: 722367f6004c6b3d0800000000000000
+      internalID: -3191147779796356569
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ice_dragon_rush_animation_1
+      name: ice_dragon_idle_animation_1
       rect:
         serializedVersion: 2
         x: 128
-        y: 128
+        y: 0
         width: 128
         height: 128
       alignment: 0
@@ -167,18 +158,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cb37b6073f71cae90800000000000000
-      internalID: -7013204185392122948
+      spriteID: fa51c603c8d6820b0800000000000000
+      internalID: -5753228075090569809
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ice_dragon_rush_animation_2
+      name: ice_dragon_idle_animation_2
       rect:
         serializedVersion: 2
         x: 256
-        y: 128
+        y: 0
         width: 128
         height: 128
       alignment: 0
@@ -189,18 +180,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: db209b9908cf7d5c0800000000000000
-      internalID: -4190603298979904835
+      spriteID: 46e5e54164a3406f0800000000000000
+      internalID: -719385967808586140
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ice_dragon_rush_animation_3
+      name: ice_dragon_idle_animation_3
       rect:
         serializedVersion: 2
         x: 384
-        y: 128
+        y: 0
         width: 128
         height: 128
       alignment: 0
@@ -211,18 +202,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 544f940e333b54f80800000000000000
-      internalID: -8122889317505174459
+      spriteID: 9e481dee420f22e60800000000000000
+      internalID: 7936169534796432617
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ice_dragon_rush_animation_4
+      name: ice_dragon_idle_animation_4
       rect:
         serializedVersion: 2
         x: 512
-        y: 128
+        y: 0
         width: 128
         height: 128
       alignment: 0
@@ -233,18 +224,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ba49126687a054e30800000000000000
-      internalID: 4487004115970397355
+      spriteID: 5d8d17d33e11b2f50800000000000000
+      internalID: 6857594525287831765
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ice_dragon_rush_animation_5
+      name: ice_dragon_idle_animation_5
       rect:
         serializedVersion: 2
         x: 640
-        y: 128
+        y: 0
         width: 128
         height: 128
       alignment: 0
@@ -255,18 +246,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3e94caeabe2550800800000000000000
-      internalID: 577959299388295651
+      spriteID: 0a0ff2cd97f92c1e0800000000000000
+      internalID: -2179003923959910240
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ice_dragon_rush_animation_6
+      name: ice_dragon_idle_animation_6
       rect:
         serializedVersion: 2
         x: 768
-        y: 128
+        y: 0
         width: 128
         height: 128
       alignment: 0
@@ -277,39 +268,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b48309a0ebae06ca0800000000000000
-      internalID: -6025558199479814069
+      spriteID: 0ca54f865f73e3c80800000000000000
+      internalID: -8341167932676220224
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ice_dragon_rush_animation_7
+      name: ice_dragon_idle_animation_7
       rect:
         serializedVersion: 2
         x: 896
-        y: 128
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5bbd53e1aca061af0800000000000000
-      internalID: -426141251533415499
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ice_dragon_rush_animation_8
-      rect:
-        serializedVersion: 2
-        x: 0
         y: 0
         width: 128
         height: 128
@@ -321,52 +290,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f76e41c4d389b40f0800000000000000
-      internalID: -1131643492316682625
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ice_dragon_rush_animation_9
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d981f3234d218dba0800000000000000
-      internalID: -6064076195669010275
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ice_dragon_rush_animation_10
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9236479042f947c00800000000000000
-      internalID: 897517202879832873
+      spriteID: 12b1e1761a9448ba0800000000000000
+      internalID: -6087659838729479391
       vertices: []
       indices: 
       edges: []
@@ -375,7 +300,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 78ca7b9df3427c4449e40dd010caa254
+    spriteID: 3ba6627f629ec2148855bd0027d91d88
     internalID: 0
     vertices: []
     indices: 
@@ -385,20 +310,16 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":8.0,"y":2.0},"gridSpriteSize":{"x":128.0,"y":128.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":8.0,"y":1.0},"gridSpriteSize":{"x":128.0,"y":128.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Ice_Dragon_0: 6741043336603738150
-      ice_dragon_rush_animation_0: 6741043336603738150
-      ice_dragon_rush_animation_1: -7013204185392122948
-      ice_dragon_rush_animation_10: 897517202879832873
-      ice_dragon_rush_animation_2: -4190603298979904835
-      ice_dragon_rush_animation_3: -8122889317505174459
-      ice_dragon_rush_animation_4: 4487004115970397355
-      ice_dragon_rush_animation_5: 577959299388295651
-      ice_dragon_rush_animation_6: -6025558199479814069
-      ice_dragon_rush_animation_7: -426141251533415499
-      ice_dragon_rush_animation_8: -1131643492316682625
-      ice_dragon_rush_animation_9: -6064076195669010275
+      ice_dragon_idle_animation_0: -3191147779796356569
+      ice_dragon_idle_animation_1: -5753228075090569809
+      ice_dragon_idle_animation_2: -719385967808586140
+      ice_dragon_idle_animation_3: 7936169534796432617
+      ice_dragon_idle_animation_4: 6857594525287831765
+      ice_dragon_idle_animation_5: -2179003923959910240
+      ice_dragon_idle_animation_6: -8341167932676220224
+      ice_dragon_idle_animation_7: -6087659838729479391
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
