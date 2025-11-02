@@ -13,7 +13,4 @@ MonoBehaviour:
   m_Name: RelicDatabase
   m_EditorClassIdentifier: 
   folderPath: Assets/4.SO/Relic/AllRelic
-  relics:
-  - {fileID: 11400000, guid: 0eb7991f06b2b574da62d74c63e2eeca, type: 2}
-  - {fileID: 11400000, guid: 1b09afef35c0e9a47aa6575d735d50d7, type: 2}
-  - {fileID: 11400000, guid: 54dfd226547b699409bc69de637a6fb2, type: 2}
+  relics: []
