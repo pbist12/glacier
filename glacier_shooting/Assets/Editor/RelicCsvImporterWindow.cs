@@ -147,7 +147,7 @@ public class RelicCsvImporterWindow : EditorWindow
     {
         string Get(string k) => row.TryGetValue(k, out var v) ? v?.Trim() : null;
 
-        var id = Get("RelicID");
+        var id = Get("RelicName");
         if (string.IsNullOrWhiteSpace(id))
         {
             _skipped++;
