@@ -16,20 +16,20 @@ MonoBehaviour:
   RelicName: "\uC791\uC740 \uC790\uC11D"
   description: "\uBAA8\uB4E0 \uC544\uC774\uD15C\uC744 \uB04C\uC5B4\uB2F9\uAE34\uB2E4.(\uC644\uC804
     \uC720\uB3C4X)"
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 11c6556809fe31544a9754b9c2612e4f, type: 3}
   rarity: 1
   price: 20
   cooldown: 0
   effects:
-  - rid: 5338797550761672725
+  - rid: 1797607161492144506
   references:
     version: 2
     RefIds:
-    - rid: 5338797550761672725
+    - rid: 1797607161492144506
       type: {class: StatModifierEffect, ns: , asm: Assembly-CSharp}
       data:
         note: 
-        stat: 5
+        stat: 7
         flat: 0
         percent: 0.25
         revertOnRemove: 1

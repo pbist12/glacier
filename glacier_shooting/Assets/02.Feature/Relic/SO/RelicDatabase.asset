@@ -12,5 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41996b7f33f7f884987cc2855fe45bb0, type: 3}
   m_Name: RelicDatabase
   m_EditorClassIdentifier: 
-  folderPath: Assets/4.SO/Relic/AllRelic
-  relics: []
+  folderPath: Assets\02.Feature\Relic\SO
+  relics:
+  - {fileID: 11400000, guid: d44d66c5d1e88c248b210af680210266, type: 2}
+  - {fileID: 11400000, guid: bbd2505a153ed02428fa2a96421b4d5b, type: 2}
+  - {fileID: 11400000, guid: 91dbb745b4d16394cb7499be692936a1, type: 2}
+  - {fileID: 11400000, guid: 6181acc54016a1445897d504d7ce2877, type: 2}
+  - {fileID: 11400000, guid: 737826f8ed8f1c34cba59e126b84b30d, type: 2}
+  - {fileID: 11400000, guid: 745474585b249e6429102af5a2233567, type: 2}
+  - {fileID: 11400000, guid: a5ff5c70bb7fd494b97ef99b7dc38e0a, type: 2}
+  - {fileID: 11400000, guid: 8d0462d4cb50a1943b6716a5ed35593e, type: 2}
+  - {fileID: 11400000, guid: 4c77d3881089b184c9ca2e10e995e9b6, type: 2}
+  - {fileID: 11400000, guid: fdb784001b0342e48a87665dca2ada9c, type: 2}
+  - {fileID: 11400000, guid: 40c66f3b5f84eb74583583eed0883ecb, type: 2}
+  - {fileID: 11400000, guid: bad1703c14b001d46868028b086db61c, type: 2}
+  - {fileID: 11400000, guid: a34bef80638d84540bc5a76ba44c74cf, type: 2}
+  - {fileID: 11400000, guid: b04e8b9d167d0364588b0d9da1e314dd, type: 2}
+  - {fileID: 11400000, guid: f976db563af0588428ed135e1cf55204, type: 2}
+  - {fileID: 11400000, guid: 451e708245911e64391b70d36e7955c7, type: 2}
+  - {fileID: 11400000, guid: 81733cf3a8d4658479b6b702f0b83e47, type: 2}
+  - {fileID: 11400000, guid: e369f0101863dd44cba2404a5f627d95, type: 2}
+  - {fileID: 11400000, guid: e57d8dd5cd661d64ab5ded3c631f0ae8, type: 2}
+  - {fileID: 11400000, guid: a7d43f442cb03c948ac7bb1ab180e8d1, type: 2}
+  - {fileID: 11400000, guid: b4df2df0eba71ff4b9e83f386e7a1d65, type: 2}
+  - {fileID: 11400000, guid: 01dbd5fb1c010fa44b9f55582be1657e, type: 2}
+  - {fileID: 11400000, guid: 5a8d35b45016eb44fb517d77b79ae28a, type: 2}
+  - {fileID: 11400000, guid: a814efe9da7eb524883daba30da09962, type: 2}
+  - {fileID: 11400000, guid: 730fa68abc7876d4a96423f518b41c92, type: 2}
+  - {fileID: 11400000, guid: 4067e40ce906b12498280de19ff05dba, type: 2}

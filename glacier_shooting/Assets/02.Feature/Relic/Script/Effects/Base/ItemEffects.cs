@@ -22,6 +22,8 @@ public class ItemContext
 public enum StatType
 {
     MaxHP,
+    MaxMP,
+    FireDirection,
     FireRate,
     BulletSize,
     BulletSpeed,
