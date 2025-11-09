@@ -1,4 +1,4 @@
-// File: SpreadPatternRunner.cs
+ï»¿// File: SpreadPatternRunner.cs
 using Boss;
 using Game.Data;
 using System;
@@ -8,54 +8,74 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class SpreadPatternRunner : MonoBehaviour, IPatternRunner, ISupportsPatternKind
 {
-    public bool useInternalShooterLoop = true; // true: isFire ½ºÀ§Ä¡Çü, false: Runner°¡ FireOnce ÆŞ½º Á÷Á¢ È£Ãâ
+    public bool useInternalShooterLoop = true; // ë‹¨ìˆœ on/off ë°©ì‹
     public PatternKind Kind => PatternKind.Spread;
 
     public IEnumerator RunOnce(PatternSOBase so, BossRuntimeContext ctx, Func<bool> stop)
     {
         var p = so as SpreadPatternSO;
-        if (ctx.Spread == null)
+        var s = ctx.Spread; // BossPatternShooter (BulletSpawner ìŠ¤íƒ€ì¼ í•„ë“œ ì‚¬ìš©)
+        if (s == null)
         {
             yield return Wait(so.actionSeconds, ctx, stop);
             yield break;
         }
 
-        // (¼±ÅÃ) SO ¼öÄ¡¸¦ Shooter¿¡ ÁÖÀÔ
-        ApplySpreadSO(ctx.Spread, p);
+        // 1) SO -> Shooter ë§¤í•‘ (BulletSpawner ìŠ¤íƒ€ì¼ ë³€ìˆ˜ëª…)
+        ApplySpreadSO(s, p);
 
-        ctx.Spread.FireOnce();
+        // 2) Shooter ë‚´ë¶€ Update ë£¨í”„ë¡œ ë°œì‚¬
+        s.isFire = true;
+        yield return Wait(so.actionSeconds, ctx, stop);
+        s.isFire = false;
     }
 
     static void ApplySpreadSO(BossPatternShooter s, SpreadPatternSO p)
     {
         if (!s || !p) return;
-        s.totalBulletArrays = p.totalBulletArrays;
+
+        // === Arrays & Counts ===
+        s.patternArrays = p.totalBulletArrays; // SOì˜ totalBulletArrays -> Shooterì˜ patternArrays
         s.bulletsPerArray = p.bulletsPerArray;
-        s.spreadBetweenArrays = p.spreadBetweenArrays;
-        s.spreadWithinArrays = p.spreadWithinArrays;
-        s.startingAngle = p.startingAngle;
 
+        // === Angles (degree) ===
+        s.spreadBetweenArray = p.spreadBetweenArrays;
+        s.spreadWithinArray = p.spreadWithinArrays;
+        s.startAngle = p.startingAngle;
+        // s.defaultAngle     // í•„ìš”í•˜ë©´ SOì— ìˆì„ ë•Œë§Œ ë§¤í•‘
+
+        // === Spin (deg/sec, deg/secÂ²) ===
         s.spinRate = p.spinRate;
-        s.spinModifier = p.spinModifier;
-        s.invertSpin = p.invertSpin;
+        s.spinModificator = p.spinModifier;
+        s.invertSpin = p.maxSpinRate > 0f;      // ì˜µì…˜ ì‚¬ìš©í•œë‹¤ë©´
         s.maxSpinRate = p.maxSpinRate;
-        s.autoInvertSpin = p.autoInvertSpin;
-        // s.autoInvertSpinCycle ´Â privateÀÌ¸é ¹İ¿µ »ı·« ¶Ç´Â ¸®ÇÃ·º¼Ç »ç¿ë
 
-        s.fireRate = p.fireRate;
-        s.fireOffset = p.fireOffset;
+        // === Fire Rate ===
+        // SOì˜ fireRateë¥¼ "ì´ˆë‹¹ ë°œì‚¬ ìˆ˜"ë¡œ í•´ì„
+        s.fireRatePerSec = Mathf.Max(0.01f, p.fireRate);
 
+        // === Offsets ===
+        s.xOffset = p.fireOffset.x;
+        s.yOffset = p.fireOffset.y;
+
+        // === Bullet Kinematics ===
         s.bulletSpeed = p.bulletSpeed;
-        s.bulletTTL = p.bulletTTL;
         s.bulletAcceleration = p.bulletAcceleration;
-        s.bulletCurve = p.bulletCurve;
-        s.bulletColor = p.bulletColor;
-        s.spawnForwardOffset = p.spawnForwardOffset;
+        s.bulletCurveDegPerSec = p.bulletCurve;   // SOê°€ deg/sec ê°’ì´ë©´ ê·¸ëŒ€ë¡œ
+        s.bulletTTL = p.bulletTTL;
+
+        // === Spawn ===
+        // s.spawnForwardOffset = p.spawnForwardOffset;
+        // s.fireOrigin         // í•„ìš” ì‹œ ctxì—ì„œ ë„˜ê²¨ ì„¸íŒ…
     }
 
     static IEnumerator Wait(float sec, BossRuntimeContext ctx, Func<bool> stop)
     {
-        float t = 0f; float dur = Mathf.Max(0f, sec);
-        while (t < dur && !stop()) { t += ctx.DeltaTime(); yield return null; }
+        float t = 0f, dur = Mathf.Max(0f, sec);
+        while (t < dur && !stop())
+        {
+            t += ctx.DeltaTime();
+            yield return null;
+        }
     }
 }

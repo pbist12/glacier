@@ -106,6 +106,7 @@ public class PlayerController : MonoBehaviour
         _isDashing = true;
         _dashOnCooldown = true;
 
+        GameEvents.RaiseDashed();
         if (_status) _status.invincible = true;
 
         float t = 0f;

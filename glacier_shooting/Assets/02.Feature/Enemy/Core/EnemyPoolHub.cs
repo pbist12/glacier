@@ -147,7 +147,6 @@ public interface IPoolable
     void OnDespawned();
 }
 
-// 원본 프리팹 추적용
 public class PoolToken : MonoBehaviour
 {
     public GameObject originPrefab;

@@ -50,6 +50,7 @@ public class Bomb : MonoBehaviour
         else
         {
             hub.BombClearAll(includePlayerBullets);
+            GameEvents.RaiseSkillUsed();
         }
 
         PlayerStatus.Instance.PlayerMana--;

@@ -17,7 +17,7 @@ MonoBehaviour:
   bossPrefab: {fileID: 5255976911480987639, guid: f23a2f58fc5eece4e8850f476cf72012, type: 3}
   maxHealth: 1000
   phases:
-  - phase: {fileID: 11400000, guid: 1c6cd1a40aae82d459af4d57c63fb6af, type: 2}
+  - phase: {fileID: 11400000, guid: c9b21418fa23cbd47a340bb846adf9bb, type: 2}
     minSecondsInPhase: 50
     transitions:
       kind: 0
@@ -25,7 +25,7 @@ MonoBehaviour:
     onRule: 0
     hardTimeoutSeconds: 50
     onTimeout: 0
-  - phase: {fileID: 11400000, guid: 1c6cd1a40aae82d459af4d57c63fb6af, type: 2}
+  - phase: {fileID: 11400000, guid: 15dd0028cc5b02e40979192cc336ee33, type: 2}
     minSecondsInPhase: 50
     transitions:
       kind: 0

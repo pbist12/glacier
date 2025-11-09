@@ -35,6 +35,7 @@ public class PlayerStatus : MonoBehaviour, IPlayerStats
     private float addFocusSpeed;
     private int addMaxHP;
     private int addMaxMana;
+    private int addShotCount;
     private float addMagnetRange;
     #endregion
 
@@ -102,7 +103,7 @@ public class PlayerStatus : MonoBehaviour, IPlayerStats
             player = GameStatus.Instance.characterData;
         }
 
-        playerSprite = GetComponent<SpriteRenderer>();
+        playerSprite = GetComponentInChildren<SpriteRenderer>();
 
         controller = GetComponent<PlayerController>();
         playerShoot = GetComponent<PlayerShoot>();
@@ -175,6 +176,7 @@ public class PlayerStatus : MonoBehaviour, IPlayerStats
         playerShoot.bulletSize = (player.bulletSize + addBulletSize) * (1f + mulBulletSize);
         playerShoot.bulletLifetime = (player.bulletLifetime + addBulletLifeTime) * (1f + mulBulletLifeTime);
         playerShoot.bulletDamage = (player.damage + addBulletDamage) * (1f + mulBulletDamage);
+        playerShoot.shotCount = (player.shotCount + addShotCount);
 
         // Magnet
         playerMagenet.followRange = (player.magnetRange + addMagnetRange);
@@ -235,6 +237,13 @@ public class PlayerStatus : MonoBehaviour, IPlayerStats
                 addMaxHP += flatDelta;
                 mulMaxHP += percentDelta;
                 // HP 재계산은 SetStat에서
+                break;
+            case StatType.MaxMP:
+                addMaxMana += flatDelta;
+                mulMaxMana += percentDelta;
+                break;
+            case StatType.FireDirection:
+                addShotCount += flatDelta;
                 break;
             case StatType.MagnetRange:
                 addMagnetRange += flatDelta;

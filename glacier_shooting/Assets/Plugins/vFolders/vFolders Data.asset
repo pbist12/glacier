@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   folderDatas_byGuid:
     keys:
-    - db90126802ff61540ae807c221a12fee
     - c804484f644e0db4ba03dc34d90db1df
     - d56de8cc39a901e40a082a3e44198ad0
     - 74c5a7e9f4e4be148b2af828c4684e5d
@@ -69,15 +68,11 @@ MonoBehaviour:
     - 66e3d42c32d3b4946950157bf6cc39ae
     - 820b150a1375cca419f3e4e440b0d38c
     - f42c5137337f83841bd48850978fa9a3
-    - b19c90c6b342f5743a83a5a8b5167478
-    - a446ec7829a28c148afc7b1db1e31c2f
-    - 5e03f3c5f326af74493f6f8e9faa4bc0
-    - 0220aab0833d04faeb927d84ca6cc40c
+    - 1abb0b8f13a87a1418ef889eb125bda1
+    - caa9e9b483513f346b6d473a22f0d91f
+    - d9d45392a754258498a4e74fa825ddc1
+    - c95da4b145b06b24b953e21115443c43
     values:
-    - iconNameOrGuid: SceneAsset Icon
-      colorIndex: 1
-      isIconRecursive: 0
-      isColorRecursive: 0
     - iconNameOrGuid: cs Script Icon
       colorIndex: 2
       isIconRecursive: 0
@@ -239,11 +234,11 @@ MonoBehaviour:
       isIconRecursive: 0
       isColorRecursive: 0
     - iconNameOrGuid: BoxCollider Icon
-      colorIndex: 2
+      colorIndex: 0
       isIconRecursive: 0
       isColorRecursive: 0
     - iconNameOrGuid: Prefab Icon
-      colorIndex: 3
+      colorIndex: 0
       isIconRecursive: 0
       isColorRecursive: 0
     - iconNameOrGuid: cs Script Icon
@@ -255,18 +250,6 @@ MonoBehaviour:
       isIconRecursive: 0
       isColorRecursive: 0
     - iconNameOrGuid: Prefab Icon
-      colorIndex: 0
-      isIconRecursive: 0
-      isColorRecursive: 0
-    - iconNameOrGuid: RawImage Icon
-      colorIndex: 0
-      isIconRecursive: 0
-      isColorRecursive: 0
-    - iconNameOrGuid: cs Script Icon
-      colorIndex: 0
-      isIconRecursive: 0
-      isColorRecursive: 0
-    - iconNameOrGuid: RawImage Icon
       colorIndex: 0
       isIconRecursive: 0
       isColorRecursive: 0
@@ -286,6 +269,18 @@ MonoBehaviour:
       colorIndex: 0
       isIconRecursive: 0
       isColorRecursive: 0
+    - iconNameOrGuid: cs Script Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: RawImage Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: RawImage Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
     - iconNameOrGuid: Prefab Icon
       colorIndex: 0
       isIconRecursive: 0
@@ -294,20 +289,20 @@ MonoBehaviour:
       colorIndex: 0
       isIconRecursive: 0
       isColorRecursive: 0
-    - iconNameOrGuid: 
-      colorIndex: 4
+    - iconNameOrGuid: cs Script Icon
+      colorIndex: 0
       isIconRecursive: 0
       isColorRecursive: 0
-    - iconNameOrGuid: 
-      colorIndex: 5
+    - iconNameOrGuid: cs Script Icon
+      colorIndex: 0
       isIconRecursive: 0
       isColorRecursive: 0
-    - iconNameOrGuid: 
-      colorIndex: 6
+    - iconNameOrGuid: cs Script Icon
+      colorIndex: 0
       isIconRecursive: 0
       isColorRecursive: 0
-    - iconNameOrGuid: 
-      colorIndex: 7
+    - iconNameOrGuid: cs Script Icon
+      colorIndex: 0
       isIconRecursive: 0
       isColorRecursive: 0
   bookmarks: []

@@ -21,6 +21,7 @@ public class CharacterData : ScriptableObject
     public float fireRate = 10f;      // ÃÊ´ç ¹ß»ç ¼ö
     public float bulletSpeed = 8f;    // Åº ¼Óµµ
     public float bulletLifetime = 3f; // Åº »ıÁ¸ ½Ã°£
+    public int shotCount;
 
     [Header("ÆøÅº/Æ¯¼ö")]
     public float bombDuration = 2f;   // ÆøÅº ¹«Àû ½Ã°£

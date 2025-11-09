@@ -22,7 +22,7 @@ namespace Game.Data
         public float autoInvertSpinCycle = 0f;         // 초
 
         [Header("=== Firing ===")]
-        public float fireRate = 6f;                    // shots per second (0 이하면 정지)
+        public int fireRate = 6;                    // shots per second (0 이하면 정지)
         public Vector2 fireOffset = Vector2.zero;      // 로컬 오프셋
 
         [Header("=== Bullet Kinetics ===")]
@@ -44,7 +44,7 @@ namespace Game.Data
             bulletsPerArray = Mathf.Max(1, bulletsPerArray);
             if (maxSpinRate < 0f) maxSpinRate = 0f;
             if (autoInvertSpin && autoInvertSpinCycle < 0f) autoInvertSpinCycle = 0f;
-            if (fireRate < 0f) fireRate = 0f;
+            if (fireRate < 0f) fireRate = 0;
             bulletSpeed = Mathf.Max(0.01f, bulletSpeed);
             bulletTTL = Mathf.Max(0.05f, bulletTTL);
             spawnForwardOffset = Mathf.Max(0f, spawnForwardOffset);

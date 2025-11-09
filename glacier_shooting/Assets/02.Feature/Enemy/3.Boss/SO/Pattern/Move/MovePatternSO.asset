@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MovePatternSO
   patternId: PATTERN
   note: 
-  kind: 0
-  telegraphSeconds: 0.5
+  kind: 5
+  telegraphSeconds: 0.1
   actionSeconds: 1.2
-  postDelaySeconds: 0.2
+  postDelaySeconds: 0.1
   localOffset: {x: 2, y: 0}
   ease:
     serializedVersion: 2

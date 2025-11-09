@@ -15,15 +15,12 @@ MonoBehaviour:
   phaseId: P1
   note: 
   runMode: 2
-  cadenceSeconds: 1
+  cadenceSeconds: 0.2
   useUnscaledTime: 0
   patterns:
   - pattern: {fileID: 11400000, guid: fa87272b8358a624f8e4d6b7170844ac, type: 2}
     weight: 3
-    delayAfter: 0.1
-  - pattern: {fileID: 11400000, guid: 008b812c382d3ad4f838ec9f1ca2831f, type: 2}
-    weight: 1
-    delayAfter: 0.1
-  - pattern: {fileID: 11400000, guid: c1511362d9ca174408cd13e8ffaf2ef7, type: 2}
-    weight: 0.5
-    delayAfter: 0.1
+    delayAfter: 0
+  - pattern: {fileID: 11400000, guid: c7c288cea4248dd44a8e53995c9b3290, type: 2}
+    weight: 3
+    delayAfter: 0

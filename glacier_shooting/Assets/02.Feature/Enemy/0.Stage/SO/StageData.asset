@@ -18,13 +18,13 @@ MonoBehaviour:
     waveID: Wave
     groups:
     - monster: {fileID: 11400000, guid: 0dab71ac026123f47a2ea965ccfbf2b9, type: 2}
-      spawnPoints: 02000000
+      spawnPoints: 020000000100000003000000
       startDelay: 10
       interval: 0.5
       cycleSpawnPoints: 0
       spawnCount: 10
     - monster: {fileID: 11400000, guid: 149ff032446184f4cbb0dde53e532709, type: 2}
-      spawnPoints: 01000000
+      spawnPoints: 0100000002000000
       startDelay: 10
       interval: 0.5
       cycleSpawnPoints: 0

@@ -84,7 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kind: 0
   owner: {fileID: 0}
-  maxHP: 3
+  maxHP: 5
   hp: 0
   scoreOnKill: 10
   enemyDrop: {fileID: 3594462672435707539}
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveMode: 4
-  useEntry: 1
+  useEntry: 0
   entryTargetY: 2.8
   entrySpeed: 6
   entryEase:
@@ -222,6 +222,20 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   waypoints: []
+  autoFindPlayer: 1
+  explicitTarget: {fileID: 0}
+  seekMaxSpeed: 5
+  seekAccel: 12
+  seekMaxTurnDegPerSec: 360
+  seekStopDistance: 0.4
+  seekFallbackDownSpeed: 1.2
+  refreshByTag: 1
+  refreshInterval: 1
+  targetTag: Player
+  maxChaseDistance: 30
+  reacquireOnNull: 1
+  targetSmooth: 10
+  aimPointOffset: {x: 0, y: 0}
 --- !u!114 &3659103923836047353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,6 +276,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -283,6 +299,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
