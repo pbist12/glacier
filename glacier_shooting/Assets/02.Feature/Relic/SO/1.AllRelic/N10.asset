@@ -16,16 +16,16 @@ MonoBehaviour:
   RelicName: N10
   description: "\uC774\uBC88 \uC138\uC158\uC5D0 \uCD5C\uC885 \uBCF4\uC2A4\uB97C \uCC98\uCE58\uD55C
     \uD6C4\uC5D0 \uD788\uB4E0 \uBCF4\uC2A4 \uB8E8\uD2B8\uB97C \uCD94\uAC00\uD55C\uB2E4."
-  icon: {fileID: 21300000, guid: 11c6556809fe31544a9754b9c2612e4f, type: 3}
+  icon: {fileID: 21300000, guid: 7794e7391ecb9c84383fdd75e22620d0, type: 3}
   rarity: 4
   price: 20
   cooldown: 0
   effects:
-  - rid: 1797607161492144499
+  - rid: 1797607164344270930
   references:
     version: 2
     RefIds:
-    - rid: 1797607161492144499
+    - rid: 1797607164344270930
       type: {class: StatModifierEffect, ns: , asm: Assembly-CSharp}
       data:
         note: 

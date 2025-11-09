@@ -21,11 +21,11 @@ MonoBehaviour:
   price: 20
   cooldown: 0
   effects:
-  - rid: 1797607161492144487
+  - rid: 1797607164344270918
   references:
     version: 2
     RefIds:
-    - rid: 1797607161492144487
+    - rid: 1797607164344270918
       type: {class: StatModifierEffect, ns: , asm: Assembly-CSharp}
       data:
         note: 

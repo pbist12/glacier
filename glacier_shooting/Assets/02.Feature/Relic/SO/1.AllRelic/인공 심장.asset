@@ -17,16 +17,16 @@ MonoBehaviour:
   description: "\uD50C\uB808\uC774\uC5B4\uC758 \uCCB4\uB825\uC774 0\uC774 \uB418\uBA74
     1\uD68C\uC5D0 \uD55C\uD574 \uCCB4\uB825\uC744 \uCD5C\uB300\uB85C \uD68C\uBCF5
     \uC2DC\uD0A8\uB2E4."
-  icon: {fileID: 21300000, guid: 11c6556809fe31544a9754b9c2612e4f, type: 3}
+  icon: {fileID: 21300000, guid: 7794e7391ecb9c84383fdd75e22620d0, type: 3}
   rarity: 4
   price: 20
   cooldown: 0
   effects:
-  - rid: 1797607161492144508
+  - rid: 1797607164344270939
   references:
     version: 2
     RefIds:
-    - rid: 1797607161492144508
+    - rid: 1797607164344270939
       type: {class: StatModifierEffect, ns: , asm: Assembly-CSharp}
       data:
         note: 
