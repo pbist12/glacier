@@ -145,30 +145,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35cd05567a29adb4ba39b0f0089fc674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossPatternShooter
+  isFire: 1
   hub: {fileID: 0}
   poolKey: 1
-  firePoint: {fileID: 1877511086918872406}
-  totalBulletArrays: 3
+  patternArrays: 2
   bulletsPerArray: 3
-  spreadBetweenArrays: 120
-  spreadWithinArrays: 1
-  startingAngle: 0
+  spreadBetweenArray: 180
+  spreadWithinArray: 90
+  startAngle: 0
+  defaultAngle: 0
   spinRate: 0
-  spinModifier: 0
+  spinModificator: 0
   invertSpin: 0
   maxSpinRate: 360
-  autoInvertSpin: 0
-  autoInvertSpinCycle: 0
-  autoInvertSpinTime: 0
-  fireRate: 6
-  fireOffset: {x: 0, y: 0}
+  fireRatePerSec: 5
+  fireOrigin: {fileID: 0}
+  xOffset: 0
+  yOffset: 0
   bulletSpeed: 8
-  bulletTTL: 5
   bulletAcceleration: 0
-  bulletCurve: 0
-  bulletColor: {r: 1, g: 1, b: 1, a: 1}
-  spawnForwardOffset: 0.2
-  isFire: 1
+  bulletCurveDegPerSec: 0
+  bulletTTL: 5
+  _spinCurrent: 0
 --- !u!114 &4068076996204664266
 MonoBehaviour:
   m_ObjectHideFlags: 0
