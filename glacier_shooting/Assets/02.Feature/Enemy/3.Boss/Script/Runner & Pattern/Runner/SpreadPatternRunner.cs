@@ -35,33 +35,33 @@ public class SpreadPatternRunner : MonoBehaviour, IPatternRunner, ISupportsPatte
         if (!s || !p) return;
 
         // === Arrays & Counts ===
-        s.patternArrays = p.totalBulletArrays; // SO의 totalBulletArrays -> Shooter의 patternArrays
+        s.patternArrays = p.patternArrays; // SO의 totalBulletArrays -> Shooter의 patternArrays
         s.bulletsPerArray = p.bulletsPerArray;
 
         // === Angles (degree) ===
-        s.spreadBetweenArray = p.spreadBetweenArrays;
-        s.spreadWithinArray = p.spreadWithinArrays;
-        s.startAngle = p.startingAngle;
+        s.spreadBetweenArray = p.spreadBetweenArray;
+        s.spreadWithinArray = p.spreadWithinArray;
+        s.startAngle = p.startAngle;
         // s.defaultAngle     // 필요하면 SO에 있을 때만 매핑
 
         // === Spin (deg/sec, deg/sec²) ===
         s.spinRate = p.spinRate;
-        s.spinModificator = p.spinModifier;
+        s.spinModificator = p.spinModificator;
         s.invertSpin = p.maxSpinRate > 0f;      // 옵션 사용한다면
         s.maxSpinRate = p.maxSpinRate;
 
         // === Fire Rate ===
         // SO의 fireRate를 "초당 발사 수"로 해석
-        s.fireRatePerSec = Mathf.Max(0.01f, p.fireRate);
+        s.fireRatePerSec = Mathf.Max(0.01f, p.fireRatePerSec);
 
         // === Offsets ===
-        s.xOffset = p.fireOffset.x;
-        s.yOffset = p.fireOffset.y;
+        s.xOffset = p.xOffset;
+        s.yOffset = p.yOffset;
 
         // === Bullet Kinematics ===
         s.bulletSpeed = p.bulletSpeed;
         s.bulletAcceleration = p.bulletAcceleration;
-        s.bulletCurveDegPerSec = p.bulletCurve;   // SO가 deg/sec 값이면 그대로
+        s.bulletCurveDegPerSec = p.bulletCurveDegPerSec;   // SO가 deg/sec 값이면 그대로
         s.bulletTTL = p.bulletTTL;
 
         // === Spawn ===
