@@ -18,6 +18,7 @@ public class SetStageText : MonoBehaviour
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (StageManager.Instance == null) return;
         int num = StageManager.Instance._stageIndex + 1;
         stageText.text = "STAGE : " + num;
     }

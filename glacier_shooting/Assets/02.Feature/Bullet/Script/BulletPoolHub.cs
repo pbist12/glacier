@@ -72,6 +72,9 @@ public class BulletPoolHub : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 기본 Spawn: 초기 velocity/lifetime/damage 지정, 회전 zRotationDeg 적용.
+    /// </summary>
     public Bullet Spawn(
         BulletPoolKey key,
         Vector2 position,
@@ -96,6 +99,10 @@ public class BulletPoolHub : MonoBehaviour
         b.lifetime = lifetime;
         b.damage = damage;
 
+        // 풀 입고 훅(활성화 이전에 초기화)
+        if (b.TryGetComponent<IPooledBulletReset>(out var resetter))
+            resetter.OnBeforeSpawnFromPool();
+
         b.gameObject.SetActive(true);
 
         // 활성 목록 등록
@@ -109,6 +116,10 @@ public class BulletPoolHub : MonoBehaviour
     {
         if (b == null) return;
         if (!b.gameObject.activeSelf) return;
+
+        // 풀 반납 훅(비활성화 직전)
+        if (b.TryGetComponent<IPooledBulletReset>(out var resetter))
+            resetter.OnAfterDespawnToPool();
 
         b.gameObject.SetActive(false);
 
@@ -216,4 +227,93 @@ public class BulletPoolHub : MonoBehaviour
         return buffer.Count;
     }
 
+    // ========= 추가 오버로드/API =========
+
+    static Vector2 DegreeToVector2(float angleDeg)
+    {
+        float r = angleDeg * Mathf.Deg2Rad;
+        return new Vector2(Mathf.Cos(r), Mathf.Sin(r));
+    }
+
+    /// <summary>
+    /// (간편) 방향각 + 속도로 스폰. 가속/커브=0, damage 기본=1.
+    /// </summary>
+    public Bullet SpawnDir(
+        BulletPoolKey key,
+        Vector2 position,
+        float dirDeg,
+        float speed,
+        float ttlSeconds,
+        float damage = 1f)
+    {
+        Vector2 v = DegreeToVector2(dirDeg) * speed;
+        var b = Spawn(key, position, v, ttlSeconds, damage, dirDeg);
+        if (b == null) return null;
+
+        if (b.TryGetComponent<IBulletKinetics>(out var kin))
+        {
+            Vector2 dir = DegreeToVector2(dirDeg);
+            kin.Launch(dir, speed, 0f, 0f, ttlSeconds);
+        }
+        return b;
+    }
+
+    /// <summary>
+    /// (완전) 방향/속도/가속/커브/TTL/데미지까지 한 번에.
+    /// </summary>
+    public Bullet SpawnFull(
+        BulletPoolKey key,
+        Vector2 position,
+        float dirDeg,
+        float speed,
+        float accel,
+        float curve,
+        float ttlSeconds,
+        float damage = 1f)
+    {
+        Vector2 v = DegreeToVector2(dirDeg) * speed;
+        var b = Spawn(key, position, v, ttlSeconds, damage, dirDeg);
+        if (b == null) return null;
+
+        if (b.TryGetComponent<IBulletKinetics>(out var kin))
+        {
+            Vector2 dir = DegreeToVector2(dirDeg);
+            kin.Launch(dir, speed, accel, curve, ttlSeconds);
+        }
+        else
+        {
+            // 필요 시 Bullet 타입에 추가 필드가 있다면 여기서 반영
+            // 예) if (b.TryGetComponent<MyBullet>(out var mb)) { mb.accel = accel; mb.curve = curve; }
+        }
+        return b;
+    }
+
+    /// <summary>
+    /// (고급) 커스텀 초기화 델리게이트로 어떤 탄이든 세팅.
+    /// 내부 Spawn 호출 후 init 콜백에서 필요한 세팅 수행.
+    /// </summary>
+    public Bullet SpawnWith(
+        BulletPoolKey key,
+        Vector2 position,
+        float zRotationDeg,
+        float ttlSeconds,
+        float damage,
+        System.Action<Bullet> init)
+    {
+        var b = Spawn(key, position, Vector2.zero, ttlSeconds, damage, zRotationDeg);
+        if (b == null) return null;
+
+        init?.Invoke(b);
+        return b;
+    }
+}
+
+/// <summary>
+/// (선택) 풀 입출고 훅: Trail/파티클/상태 초기화 등.
+/// 탄 오브젝트가 구현하면 Hub가 자동 호출.
+/// </summary>
+public interface IPooledBulletReset
+{
+    void OnBeforeSpawnFromPool();   // 활성화 직전
+    void OnAfterDespawnToPool();    // 비활성화 직전
 }

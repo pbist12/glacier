@@ -1,182 +1,153 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BossPatternShooter : MonoBehaviour
 {
-    [Header("Pool")]
-    [SerializeField] private BulletPoolHub hub;
-    [SerializeField] private BulletPoolKey poolKey = BulletPoolKey.Enemy;
-
-    [Header("Fire Point (optional)")]
-    [SerializeField] private Transform firePoint;
-
-    [Header("=== Pattern Arrays ===")]
-    [Tooltip("ÀüÃ¼ Åº ¹è¿­(½ºÆ÷Å©/ÆÈ) °³¼ö")]
-    [Min(1)] public int totalBulletArrays = 3;
-
-    [Tooltip("°¢ ¹è¿­(ÆÈ) ¾È¿¡¼­ ¹ß»çµÇ´Â Åº ¼ö")]
-    [Min(1)] public int bulletsPerArray = 3;
-
-    [Tooltip("¹è¿­(ÆÈ) »çÀÌÀÇ °¢µµ °£°İ (deg)")]
-    public float spreadBetweenArrays = 120f;
-
-    [Tooltip("°¢ ¹è¿­ ¾È¿¡¼­ÀÇ Åº °£ °¢µµ °£°İ (deg)")]
-    public float spreadWithinArrays = 1f;
-
-    [Tooltip("½ÃÀÛ °¢µµ(ÀüÃ¼ ÆĞÅÏ¿¡ ´õÇØÁü)")]
-    public float startingAngle = 0f;
-
-    [Header("=== Spin ===")]
-    [Tooltip("ÃÊ´ç È¸Àü ¼Óµµ (deg/s)")]
-    public float spinRate = 0f; 
-
-    [Tooltip("ÃÊ´ç È¸Àü°¡¼Ó (deg/s^2)")]
-    public float spinModifier = 0f;
-
-    [Tooltip("È¸Àü ¹æÇâ ¹İÀü")]
-    public bool invertSpin = false;
-
-    [Tooltip("½ºÇÉ Àı´ë°ª »óÇÑ (0 ÀÌÇÏ¸é ¹«Á¦ÇÑ)")]
-    public float maxSpinRate = 360f;
-
-    [Tooltip("ÀÚµ¿ È¸Àü ¹æÇâ ¹İÀü")]
-    public bool autoInvertSpin = false;
-
-    [Tooltip("ÀÚµ¿ È¸ÀüÇÏ´Â ÁÖ±â")]
-    public float autoInvertSpinCycle = 0f;
-    [SerializeField] private float autoInvertSpinTime = 0f;
-
-    [Header("=== Firing ===")]
-    [Tooltip("ÃÊ´ç ¹ß»ç È½¼ö (0 ÀÌÇÏ¸é Á¤Áö)")]
-    public float fireRate = 6f;
-
-    [Tooltip("°¢ ¼¦¸¶´Ù X/Y ¿ÀÇÁ¼Â(·ÎÄÃ °ø°£, È¸Àü¿¡ µû¶ó È¸ÀüµÊ)")]
-    public Vector2 fireOffset = Vector2.zero;
-
-    [Header("=== Bullet Kinetics ===")]
-    [Min(0.01f)] public float bulletSpeed = 8f;
-    [Tooltip("ÅºÀÇ ¼ö¸í(ÃÊ)")]
-    [Min(0.05f)] public float bulletTTL = 5f;
-    [Tooltip("ÅºÀÇ °¡¼Ó(¼Óµµ ¹æÇâ) m/s^2")]
-    public float bulletAcceleration = 0f;
-    [Tooltip("ÅºÀÇ Ä¿ºê °­µµ(ÁÂÈ¸Àü +, ¿ìÈ¸Àü -) deg/s, ³»ºÎÀûÀ¸·Î ¼öÁ÷ °¡¼ÓÀ¸·Î º¯È¯")]
-    public float bulletCurve = 0f;
-
-    [Header("=== Visual (optional) ===")]
-    public Color bulletColor = Color.white;
-    [Tooltip("½ºÆù ½Ã ¾ÕÂÊÀ¸·Î Á¶±İ »©¼­ ÀÚ±âÃæµ¹ ¹æÁö")]
-    public float spawnForwardOffset = 0.2f;
-
-    [Header("Control")]
+    [Header("On/Off")]
     public bool isFire = true;
 
-    // ³»ºÎ »óÅÂ
-    float _t;
-    float _spin;     // ´©Àû ½ºÇÉ °¢µµ
-    float _spinVel;  // ÇöÀç ½ºÇÉ ¼Óµµ (deg/s)
+    [Header("Pool (Required)")]
+    [SerializeField] private BulletPoolHub hub;              // í’€ í—ˆë¸Œ
+    [SerializeField] private BulletPoolKey poolKey = BulletPoolKey.Enemy;
+
+    [Header("Arrays & Counts")]
+    public int patternArrays = 2;        // ê³ ë¦¬(ë§) ìˆ˜
+    public int bulletsPerArray = 10;     // ë°°ì—´ë‹¹ ì´ì•Œ ìˆ˜
+
+    [Header("Angles (degree)")]
+    public float spreadBetweenArray = 180f;  // ë°°ì—´ ê°„ ê¸°ì¤€ê° ê°„ê²©
+    public float spreadWithinArray = 90f;    // ë°°ì—´ ë‚´ë¶€ì—ì„œ ì²«~ë§ˆì§€ë§‰ ì´ì•Œ ë²Œì–´ì§
+    public float startAngle = 0f;            // ë°°ì—´ ê¸°ì¤€ ì‹œì‘ê°
+    public float defaultAngle = 0f;          // ëˆ„ì  ê¸°ì¤€ê°(íšŒì „ì´ ì—¬ê¸°ì— ë”í•´ì§)
+
+    [Header("Spin (deg/sec, deg/secÂ²)")]
+    public float spinRate = 0f;          // ì´ˆë‹¹ íšŒì „(ë„/ì´ˆ)
+    public float spinModificator = 0f;   // ì´ˆë‹¹ ê°€ê°ì†(ë„/ì´ˆÂ²)
+    public bool invertSpin = true;       // ìƒí•œ ë„ë‹¬ ì‹œ ê°€ê°ì† ë°©í–¥ ë°˜ì „?
+    public float maxSpinRate = 360f;     // |spinRate| ìƒí•œ(ë„/ì´ˆ)
+
+    [Header("Fire Rate")]
+    public float fireRatePerSec = 5f;    // ì´ˆë‹¹ ë°œì‚¬ íšŸìˆ˜ (<=0ì´ë©´ 0.2ì´ˆ ê°„ê²©ìœ¼ë¡œ ê°„ì£¼)
+
+    [Header("Offsets (world units)")]
+    public Transform fireOrigin;         // ì—†ìœ¼ë©´ transform.position
+    public float xOffset = 0f;
+    public float yOffset = 0f;
+
+    [Header("Bullet Kinematics")]
+    public float bulletSpeed = 3f;           // unit/sec
+    public float bulletAcceleration = 0f;    // unit/sec^2
+    public float bulletCurveDegPerSec = 0f;  // ë„/ì´ˆ (íƒ„ êµ¬í˜„ì²´ í•´ì„ì— ë”°ë¦„)
+    public float bulletTTL = 3f;             // ì´ˆ
+
+    // ë‚´ë¶€ ìƒíƒœ
+    [SerializeField] float _spinCurrent;
+    float _acc;                 // ë°œì‚¬ìš© ëˆ„ì  ì‹œê°„
+    float _interval;            // 1 / fireRatePerSec
+    const int MaxShotsPerFrame = 500; // í”„ë ˆì„ ë“œë ì‹œ í­ì£¼ ë°©ì§€
 
     void Reset()
     {
-        hub = FindAnyObjectByType<BulletPoolHub>();
+        if (!hub) hub = FindAnyObjectByType<BulletPoolHub>();
+        _acc = 0f;
     }
 
     void OnEnable()
     {
-        _spinVel = (invertSpin ? -Mathf.Abs(spinRate) : spinRate);
+        _spinCurrent = spinRate;
+        _acc = 0f;
+        _interval = fireRatePerSec > 0f ? 1f / fireRatePerSec : 0.2f;
+    }
+
+    void OnDisable()
+    {
+        _acc = 0f;
     }
 
     void Update()
     {
         if (!isFire) return;
-        if (!hub)
+
+        // 1) ì‹¤ì œ ê²½ê³¼ì‹œê°„ ê¸°ë°˜ ìŠ¤í•€ ì—…ë°ì´íŠ¸
+        float dt = Time.deltaTime;
+
+        // (ì˜µì…˜) í° í”„ë ˆì„ ìŠ¤íŒŒì´í¬ ì™„í™”
+        if (dt > 0.1f) dt = 0.1f;
+
+        _spinCurrent += spinModificator * dt;
+
+        if (invertSpin && Mathf.Abs(_spinCurrent) >= Mathf.Abs(maxSpinRate))
         {
-            hub = FindAnyObjectByType<BulletPoolHub>();
-            if (!hub) return;
+            _spinCurrent = Mathf.Sign(_spinCurrent) * Mathf.Abs(maxSpinRate);
+            spinModificator = -spinModificator; // ê°€ê°ì† ë°©í–¥ ë°˜ì „
         }
 
-        // ½ºÇÉ ÀûºĞ
-        float target = (invertSpin ? -Mathf.Abs(spinRate) : spinRate);
-        _spinVel = Mathf.MoveTowards(_spinVel, target, Mathf.Abs(spinModifier) * Time.deltaTime);
-        if (maxSpinRate > 0f) _spinVel = Mathf.Clamp(_spinVel, -Mathf.Abs(maxSpinRate), Mathf.Abs(maxSpinRate));
-        _spin += _spinVel * Time.deltaTime;
+        startAngle += _spinCurrent * dt;
+        if (startAngle > 360f || startAngle < -360f) startAngle %= 360f;
 
-        if(autoInvertSpin)
-        {
-            autoInvertSpinTime += Time.deltaTime;
-            if(autoInvertSpinTime >= autoInvertSpinCycle)
-            {
-                invertSpin = !invertSpin;
-                autoInvertSpinTime = 0f;
-            }
-        }
+        // 2) ë°œì‚¬ í…œí¬: í”„ë ˆì„ë‹¹ ì—¬ëŸ¬ ë°œ í—ˆìš©
+        _interval = fireRatePerSec > 0f ? 1f / fireRatePerSec : 0.2f; // ëŸ°íƒ€ì„ ì¦‰ì‹œ ë°˜ì˜
+        _acc += dt;
 
-        // ¹ß»ç °£°İ
-        if (fireRate <= 0f) return;
-        _t += Time.deltaTime;
-        float interval = 1f / fireRate;
-           
-        while (_t >= interval)
+        int safety = 0;
+        while (_acc >= _interval && safety < MaxShotsPerFrame)
         {
-            _t -= interval;
-            FireOnce();
+            SpawnPattern();
+            _acc -= _interval;
+            safety++;
         }
     }
 
-    public void FireOnce()
+    void SpawnPattern()
     {
-        Vector2 origin = firePoint ? (Vector2)firePoint.position : (Vector2)transform.position;
-        float baseDeg = firePoint ? firePoint.eulerAngles.z : transform.eulerAngles.z;
-        float rootAngle = baseDeg + startingAngle + _spin;
+        if (patternArrays < 1 || bulletsPerArray < 1) return;
 
-        // ·ÎÄÃ ¿ÀÇÁ¼Â(¹ß»ç±¸ À§Ä¡ ¹Ì¼¼Á¶Á¤) ¡æ ÇöÀç È¸Àü¿¡ ¸Â°Ô È¸Àü
-        Vector2 rotatedOffset = Rotate(fireOffset, rootAngle * Mathf.Deg2Rad);
-        origin += rotatedOffset;
+        Vector3 origin = fireOrigin ? fireOrigin.position : transform.position;
+        origin += new Vector3(xOffset, yOffset, 0f);
 
-        // °¢ ¹è¿­(ÆÈ)
-        for (int a = 0; a < totalBulletArrays; a++)
+        // ê° ë°°ì—´(ë§)ë³„ ê¸°ì¤€ê°
+        for (int a = 0; a < patternArrays; a++)
         {
-            float arrayCenterDeg = rootAngle + a * spreadBetweenArrays;
+            float baseAngle = startAngle + (a * spreadBetweenArray);
 
-            // ¹è¿­ ³»ºÎÀÇ Åºµé
-            float half = (bulletsPerArray - 1) * 0.5f;
+            // ë°°ì—´ ë‚´ë¶€ ì´ì•Œ ê°„ ê°„ê²©
+            float step = (bulletsPerArray > 1) ? (spreadWithinArray / (bulletsPerArray - 1)) : 0f;
+            float start = baseAngle - spreadWithinArray * 0.5f;
+
             for (int i = 0; i < bulletsPerArray; i++)
             {
-                float idx = i - half;
-                float deg = arrayCenterDeg + idx * spreadWithinArrays;
-                float rad = deg * Mathf.Deg2Rad;
-
-                Vector2 dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)).normalized;
-                Vector2 spawnPos = origin + dir * spawnForwardOffset;
-
-                // ½ºÆù
-                var go = hub.Spawn(poolKey, spawnPos, dir * bulletSpeed, bulletTTL, 1f, deg);
-
-                // (¼±ÅÃ) »ö»ó
-                if (go)
-                {
-                    var sr = go.GetComponentInChildren<SpriteRenderer>();
-                    if (sr) sr.color = bulletColor;
-
-                    // (¼±ÅÃ) °¡¼Ó/Ä¿ºê Àû¿ë¿ë º¸Á¶ ÄÄÆ÷³ÍÆ® ºÎÂø
-                    if (bulletAcceleration != 0f || bulletCurve != 0f)
-                    {
-                        //var kin = go.GetComponent<PatternBulletKinetics>();
-                        //if (!kin) kin = go.AddComponent<PatternBulletKinetics>();
-                        //kin.Set(bulletAcceleration, bulletCurve);
-                    }
-                }
-
-#if UNITY_EDITOR
-                Debug.DrawRay(spawnPos, dir * 1.2f, Color.green, 0.2f);
-#endif
+                float angleDeg = start + (step * i) + defaultAngle;
+                SpawnBullet(origin, angleDeg);
             }
         }
     }
 
-    static Vector2 Rotate(in Vector2 v, float rad)
+    void SpawnBullet(Vector3 pos, float directionDeg)
     {
-        float c = Mathf.Cos(rad);
-        float s = Mathf.Sin(rad);
-        return new Vector2(v.x * c - v.y * s, v.x * s + v.y * c);
+        float r = directionDeg * Mathf.Deg2Rad;
+        Vector2 dir = new Vector2(Mathf.Cos(r), Mathf.Sin(r));
+        Vector2 vel = dir * bulletSpeed;
+
+        if (hub)
+        {
+            Bullet go = hub.Spawn(poolKey, pos, vel, bulletTTL, 1f, directionDeg);
+            if (go)
+            {
+                if (go.TryGetComponent<Bullet>(out var bullet))
+                {
+                    bullet.Init(directionDeg, bulletSpeed, bulletAcceleration, bulletCurveDegPerSec, bulletTTL);
+                }
+                // 2) IBulletKinetics í˜•íƒœë„ ëŒ€ì‘
+                else if (go.TryGetComponent<IBulletKinetics>(out var kin))
+                {
+                    kin.Launch(dir, bulletSpeed, bulletAcceleration, bulletCurveDegPerSec, bulletTTL);
+                }
+                return;
+            }
+        }
     }
+}
+
+public interface IBulletKinetics
+{
+    void Launch(Vector2 dir, float speed, float accel, float curve, float ttlSeconds);
 }
