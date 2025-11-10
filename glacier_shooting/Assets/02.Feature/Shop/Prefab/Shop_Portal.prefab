@@ -646,6 +646,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -667,6 +669,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -699,12 +702,9 @@ MonoBehaviour:
   - {fileID: 7772268750256623047}
   - {fileID: 2417091605938125024}
   - {fileID: 3682637145433011264}
-  itemPool:
-  - {fileID: 11400000, guid: 0eb7991f06b2b574da62d74c63e2eeca, type: 2}
-  - {fileID: 11400000, guid: 1b09afef35c0e9a47aa6575d735d50d7, type: 2}
-  - {fileID: 11400000, guid: 54dfd226547b699409bc69de637a6fb2, type: 2}
-  - {fileID: 11400000, guid: 9abc8a0f09ebff44da86e0d28572b992, type: 2}
+  itemPool: {fileID: 11400000, guid: b436bab34ce2d544b992a1f871360d6b, type: 2}
   interactAction: {fileID: 1781555164194001046, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  playerTransform: {fileID: 0}
 --- !u!1 &7728318157108348333
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ public class ShopManager : MonoBehaviour
     [Min(1)] public int itemsToShow = 3;
     public ShopSlot slotPrefab;
     public Transform[] spawnPoints;
-    public List<RelicData> itemPool = new();
+    public RelicDatabase itemPool;
 
     [Header("Input (전달)")]
     public UnityEngine.InputSystem.InputActionReference interactAction; // 슬롯에 전달
@@ -88,15 +88,15 @@ public class ShopManager : MonoBehaviour
         }
 
         // 간단 셔플
-        var pool = new List<RelicData>(itemPool);
-        for (int i = 0; i < pool.Count; i++)
+        var pool = itemPool;
+        for (int i = 0; i < pool.relics.Count; i++)
         {
             int r = Random.Range(i, pool.Count);
-            (pool[i], pool[r]) = (pool[r], pool[i]);
+            (pool.relics[i], pool.relics[r]) = (pool.relics[r], pool.relics[i]);
         }
 
         for (int i = 0; i < count && i < pool.Count; i++)
-            result.Add(pool[i]);
+            result.Add(pool.relics[i]);
 
         return result;
     }
