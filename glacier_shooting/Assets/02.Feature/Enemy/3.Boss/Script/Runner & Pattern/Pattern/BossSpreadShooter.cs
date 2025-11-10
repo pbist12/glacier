@@ -45,14 +45,9 @@ public class BossPatternShooter : MonoBehaviour
     float _interval;            // 1 / fireRatePerSec
     const int MaxShotsPerFrame = 500; // 프레임 드랍 시 폭주 방지
 
-    void Reset()
-    {
-        if (!hub) hub = FindAnyObjectByType<BulletPoolHub>();
-        _acc = 0f;
-    }
-
     void OnEnable()
     {
+        if (!hub) hub = FindAnyObjectByType<BulletPoolHub>();
         _spinCurrent = spinRate;
         _acc = 0f;
         _interval = fireRatePerSec > 0f ? 1f / fireRatePerSec : 0.2f;
@@ -73,7 +68,7 @@ public class BossPatternShooter : MonoBehaviour
         // (옵션) 큰 프레임 스파이크 완화
         if (dt > 0.1f) dt = 0.1f;
 
-        _spinCurrent += spinModificator * dt;
+        _spinCurrent = spinModificator * dt;
 
         if (invertSpin && Mathf.Abs(_spinCurrent) >= Mathf.Abs(maxSpinRate))
         {

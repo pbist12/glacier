@@ -27,7 +27,7 @@ public class SpreadPatternRunner : MonoBehaviour, IPatternRunner, ISupportsPatte
         // 2) Shooter 내부 Update 루프로 발사
         s.isFire = true;
         yield return Wait(so.actionSeconds, ctx, stop);
-        s.isFire = false;
+        //s.isFire = false;
     }
 
     static void ApplySpreadSO(BossPatternShooter s, SpreadPatternSO p)
