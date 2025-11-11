@@ -35,7 +35,7 @@ public class PlayerShoot : MonoBehaviour
 
     [Header("Input (Hold-to-Fire)")]
     [Tooltip("해당 키를 누르고 있는 동안에만 발사합니다.")]
-    public Key holdKey = Key.Space;           // 인스펙터에서 키 지정
+    [SerializeField] private InputActionReference shootAction;
 
     float _accum;
     bool _wantsFire;
@@ -80,16 +80,12 @@ public class PlayerShoot : MonoBehaviour
             FireVolley(); // 변경: N발 산탄 발사
         }
     }
-
     bool IsHoldKeyPressed()
     {
-        var kb = Keyboard.current;
-        // Keyboard.current가 null일 수 있는 에디터/플랫폼 대비
-        if (kb == null) return false;
-
-        // 새 입력 시스템: 인덱서로 KeyControl 접근 가능
-        var keyCtrl = kb[holdKey];
-        return keyCtrl != null && keyCtrl.isPressed;
+        // 누르고 있는 동안 true (토글 X, 홀드 감지)
+        return shootAction != null
+            && shootAction.action != null
+            && shootAction.action.IsPressed();
     }
 
     // === 새로 추가: 방향 모드에 따른 기본 조준 벡터 계산 ===

@@ -210,6 +210,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7523939880559817042}
     m_Modifications:
+    - target: {fileID: 3011289463183984026, guid: 692b135e922596a4799e0c7240bfcb65, type: 3}
+      propertyPath: skillAction
+      value: 
+      objectReference: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+    - target: {fileID: 5605752690910765413, guid: 692b135e922596a4799e0c7240bfcb65, type: 3}
+      propertyPath: shootAction
+      value: 
+      objectReference: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
     - target: {fileID: 7342220503623468381, guid: 692b135e922596a4799e0c7240bfcb65, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -250,6 +258,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7985738353202282962, guid: 692b135e922596a4799e0c7240bfcb65, type: 3}
+      propertyPath: dashAction
+      value: 
+      objectReference: {fileID: -7471211009204490832, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+    - target: {fileID: 7985738353202282962, guid: 692b135e922596a4799e0c7240bfcb65, type: 3}
+      propertyPath: moveAction
+      value: 
+      objectReference: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+    - target: {fileID: 7985738353202282962, guid: 692b135e922596a4799e0c7240bfcb65, type: 3}
+      propertyPath: focusAction
+      value: 
+      objectReference: {fileID: 7040659881675835329, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
     - target: {fileID: 8578574186630412656, guid: 692b135e922596a4799e0c7240bfcb65, type: 3}
       propertyPath: m_Name
       value: Player

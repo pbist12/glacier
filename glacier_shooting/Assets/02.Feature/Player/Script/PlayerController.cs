@@ -1,13 +1,14 @@
 // File: PlayerControllerSnappy.cs
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [DisallowMultipleComponent]
 public class PlayerController : MonoBehaviour
 {
     [Header("Top Speed")]
     public float speed = 6f;
-    public float focusSpeed = 3f;   // LeftShift로 느리게
+    public float focusSpeed = 3f;   // Shift로 느리게
 
     [Header("Feel")]
     public float accel = 30f;
@@ -17,7 +18,6 @@ public class PlayerController : MonoBehaviour
     public bool normalizeDiagonal = true;
 
     [Header("Dash (I-frame)")]
-    public KeyCode dashKey = KeyCode.Space;
     public float dashSpeed = 16f;
     public float dashDuration = 0.15f;
     public float dashCooldown = 0.5f;
@@ -39,6 +39,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool _isDashing = false;
     [SerializeField] bool _dashOnCooldown = false;
 
+    [Header("PlayerInput (New Input System)")]
+    [SerializeField] private InputActionReference moveAction;   // Vector2
+    [SerializeField] private InputActionReference dashAction;   // Button
+    [SerializeField] private InputActionReference focusAction;  // Button (느린이동)
+
     PlayerStatus _status;
 
     void Awake()
@@ -47,11 +52,31 @@ public class PlayerController : MonoBehaviour
         if (!_status) _status = GetComponent<PlayerStatus>();
     }
 
+    void OnEnable()
+    {
+        // 액션 활성화
+        moveAction?.action?.Enable();
+        dashAction?.action?.Enable();
+        focusAction?.action?.Enable();
+    }
+
+    void OnDisable()
+    {
+        // 액션 비활성화
+        moveAction?.action?.Disable();
+        dashAction?.action?.Disable();
+        focusAction?.action?.Disable();
+    }
+
     void Update()
     {
-        if(GameManager.Instance) if (GameManager.Instance.Paused) return;
-        // ── 대시 입력 체크 (이동보다 우선)
-        if (Input.GetKeyDown(dashKey))
+        if (GameManager.Instance)
+            if (GameManager.Instance.Paused) return;
+
+        // ── 대시 입력 체크 (New Input System)
+        bool dashPressed = dashAction != null && dashAction.action != null
+            && dashAction.action.WasPressedThisFrame();
+        if (dashPressed)
             TryDash();
 
         if (_isDashing)
@@ -60,11 +85,13 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        // ── 일반 이동
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
-        Vector2 inRaw = new Vector2(h, v);
-        if (normalizeDiagonal && inRaw.sqrMagnitude > 1f) inRaw.Normalize();
+        // ── 일반 이동 (New Input System)
+        Vector2 inRaw = Vector2.zero;
+        if (moveAction != null && moveAction.action != null)
+            inRaw = moveAction.action.ReadValue<Vector2>(); // ← GetAxisRaw 대체
+
+        if (normalizeDiagonal && inRaw.sqrMagnitude > 1f)
+            inRaw.Normalize();
 
         // 입력 스무딩
         float t = 1f - Mathf.Exp(-inputSmooth * Time.deltaTime);
@@ -73,8 +100,12 @@ public class PlayerController : MonoBehaviour
         // 방향 기록(대시 방향에 사용)
         if (_inSm.sqrMagnitude > 0.0001f) _lastMoveDir = _inSm.normalized;
 
+        // 느린 이동(포커스) 여부
+        bool focusHeld = focusAction != null && focusAction.action != null
+            && focusAction.action.IsPressed();
+        float maxSpd = focusHeld ? focusSpeed : speed;
+
         // 목표 속도
-        float maxSpd = Input.GetKey(KeyCode.LeftShift) ? focusSpeed : speed;
         Vector2 desiredVel = _inSm * maxSpd;
 
         // 가속/감속

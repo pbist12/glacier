@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ShopManager : MonoBehaviour
 {
@@ -10,7 +11,8 @@ public class ShopManager : MonoBehaviour
     public RelicDatabase itemPool;
 
     [Header("Input (전달)")]
-    public UnityEngine.InputSystem.InputActionReference interactAction; // 슬롯에 전달
+    public InputActionReference interactAction; // 슬롯에 전달
+    public InputActionReference quitAction;
 
     public Transform playerTransform; // 인스펙터에 플레이어 루트 드래그
     
@@ -23,7 +25,7 @@ public class ShopManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (quitAction.action.WasPressedThisFrame())
         {
             GameManager.Instance.ExitShop();
         }

@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class Bomb : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class Bomb : MonoBehaviour
     [Header("Events")]
     public UnityEvent onBombFired;            // 연출 훅(플래시/사운드 등)
 
+    [Header("Input")]
+    [SerializeField] private InputActionReference skillAction;
+
     float _nextUseTime = 0f;
 
     void Awake()
@@ -31,7 +35,7 @@ public class Bomb : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (skillAction.action.WasPressedThisFrame())
             TryUseBomb();
     }
 

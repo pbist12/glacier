@@ -704,6 +704,7 @@ MonoBehaviour:
   - {fileID: 3682637145433011264}
   itemPool: {fileID: 11400000, guid: b436bab34ce2d544b992a1f871360d6b, type: 2}
   interactAction: {fileID: 1781555164194001046, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  quitAction: {fileID: 3725403033342587169, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   playerTransform: {fileID: 0}
 --- !u!1 &7728318157108348333
 GameObject:
