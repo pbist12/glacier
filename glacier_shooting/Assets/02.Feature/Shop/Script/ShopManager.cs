@@ -25,7 +25,7 @@ public class ShopManager : MonoBehaviour
 
     private void Update()
     {
-        if (quitAction.action.WasPressedThisFrame())
+        if (quitAction.action.WasPerformedThisFrame())
         {
             Debug.Log("상점 나가기");
             GameManager.Instance.ExitShop();
