@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class ShopSlot : MonoBehaviour
 {
     [Header("Data (런타임에 ShopManager가 세팅)")]
-    public RelicData itemData;
-    public ShopManager owner;
+    private RelicData itemData;
+    private ShopManager owner;
 
     [Header("Inventory")]
-    public PlayerInventory playerInventory;
+    private PlayerInventory playerInventory;
 
     [Header("UI (월드 스페이스)")]
     public GameObject promptRoot;     // "E 구매" 프롬프트
@@ -24,9 +24,7 @@ public class ShopSlot : MonoBehaviour
     public float exitRadius = 2.4f;
     public string playerTag = "Player";
 
-    [SerializeField] private Transform player;
-
-    // 내부 상태
+    private Transform player;
     private bool _inRange;
     private InputAction _action;
     private static ShopSlot _focused;     // 가장 가까운 슬롯(전역 단일 포커스)
@@ -122,10 +120,12 @@ public class ShopSlot : MonoBehaviour
                 _focusedDistSqr = sqrDist;
                 // 프롬프트 On/Off: 포커스 슬롯만 표시
                 if (promptRoot) promptRoot.SetActive(true);
+                ShopItemInfoUI.Instance?.ShowFor(itemData, transform); // 슬롯 따라다님
             }
             else
             {
                 if (promptRoot) promptRoot.SetActive(false);
+                ShopItemInfoUI.Instance?.Hide();
             }
         }
         else
@@ -153,7 +153,6 @@ public class ShopSlot : MonoBehaviour
     private void EnterRange()
     {
         _inRange = true;
-        ShopItemInfoUI.Instance?.ShowFor(itemData, transform); // 슬롯 따라다님
     }
 
     private void LeaveRange()
@@ -161,15 +160,15 @@ public class ShopSlot : MonoBehaviour
         _inRange = false;
         if (ReferenceEquals(_focused, this)) _focused = null;
         ShopItemInfoUI.Instance?.Hide();
-        if (promptRoot) promptRoot.SetActive(false);
+        promptRoot.SetActive(false);
     }
 
     private void HideUIIfNeeded()
     {
-        if (_inRange) ShopItemInfoUI.Instance?.Hide();
         _inRange = false;
         if (ReferenceEquals(_focused, this)) _focused = null;
-        if (promptRoot) promptRoot.SetActive(false);
+        ShopItemInfoUI.Instance?.Hide();
+        promptRoot.SetActive(false);
     }
 
     private void TryPurchase()

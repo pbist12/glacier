@@ -2761,14 +2761,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
-    - target: {fileID: 6696011753971306243, guid: 379735067e3cc1347a50225798720aa5, type: 3}
-      propertyPath: elitesToBoss
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6696011753971306243, guid: 379735067e3cc1347a50225798720aa5, type: 3}
-      propertyPath: shopPortalChance
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

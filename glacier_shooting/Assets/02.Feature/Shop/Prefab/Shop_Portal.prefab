@@ -697,7 +697,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemsToShow: 3
-  slotPrefab: {fileID: 4408982680860736720, guid: fc945d4ae6d168a42b5bde5fe40e791a, type: 3}
+  slotPrefab: {fileID: 6057982424021744256, guid: 8fcc43956618c484b95b530e46a38e80, type: 3}
   spawnPoints:
   - {fileID: 7772268750256623047}
   - {fileID: 2417091605938125024}

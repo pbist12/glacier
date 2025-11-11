@@ -213,7 +213,7 @@ PrefabInstance:
     - target: {fileID: 3011289463183984026, guid: 692b135e922596a4799e0c7240bfcb65, type: 3}
       propertyPath: skillAction
       value: 
-      objectReference: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+      objectReference: {fileID: -2099379676528639254, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
     - target: {fileID: 5605752690910765413, guid: 692b135e922596a4799e0c7240bfcb65, type: 3}
       propertyPath: shootAction
       value: 

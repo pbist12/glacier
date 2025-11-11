@@ -7,6 +7,7 @@ public class ShopItemInfoUI : MonoBehaviour
 {
     [Header("Refs (자동 바인딩 지원)")]
     public CanvasGroup canvasGroup;
+    public GameObject canvas;
     public Image iconImage;
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI priceText;
@@ -76,6 +77,7 @@ public class ShopItemInfoUI : MonoBehaviour
 
     public void ShowFor(RelicData data, Transform follow = null)
     {
+        canvas.gameObject.SetActive(true);
         ApplyData(data);
         if (follow) { target = follow; }
         SetAlphaTarget(1f);
@@ -85,6 +87,7 @@ public class ShopItemInfoUI : MonoBehaviour
     {
         SetAlphaTarget(0f);
         target = null;
+        canvas.gameObject.SetActive(false);
     }
 
     public void ApplyData(RelicData data)
