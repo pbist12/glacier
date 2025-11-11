@@ -76,7 +76,7 @@ public class BossPatternShooter : MonoBehaviour
             spinModificator = -spinModificator; // 가감속 방향 반전
         }
 
-        startAngle += _spinCurrent * dt;
+        startAngle += _spinCurrent;
         if (startAngle > 360f || startAngle < -360f) startAngle %= 360f;
 
         // 2) 발사 템포: 프레임당 여러 발 허용

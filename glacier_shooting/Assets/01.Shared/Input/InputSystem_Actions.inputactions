@@ -315,8 +315,8 @@
                 },
                 {
                     "name": "",
-                    "id": "dd092307-bd59-4718-8022-0ca5abc41f5b",
-                    "path": "<Keyboard>/escape",
+                    "id": "cf760d6b-71fd-47a4-a88f-7508a3f288ee",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -328,17 +328,6 @@
                     "name": "",
                     "id": "cca8e3eb-2ee8-4691-8d3f-1efa136f180c",
                     "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Quit",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "cf760d6b-71fd-47a4-a88f-7508a3f288ee",
-                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

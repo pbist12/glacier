@@ -27,6 +27,7 @@ public class ShopManager : MonoBehaviour
     {
         if (quitAction.action.WasPressedThisFrame())
         {
+            Debug.Log("상점 나가기");
             GameManager.Instance.ExitShop();
         }
     }
