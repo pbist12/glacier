@@ -16,16 +16,16 @@ MonoBehaviour:
   RelicName: "\uC774\uC911 \uB098\uC774\uD504"
   description: "\uD50C\uB808\uC774\uC5B4\uC758 \uAE30\uBCF8 \uACF5\uACA9\uC744 1
     way\uB9CC\uD07C \uC99D\uAC00\uC2DC\uD0A8\uB2E4."
-  icon: {fileID: 21300000, guid: 7794e7391ecb9c84383fdd75e22620d0, type: 3}
+  icon: {fileID: 21300000, guid: 8a048d901d25a1e4085896979824efae, type: 3}
   rarity: 3
   price: 20
   cooldown: 0
   effects:
-  - rid: 1797607164344270932
+  - rid: 5338797710941618192
   references:
     version: 2
     RefIds:
-    - rid: 1797607164344270932
+    - rid: 5338797710941618192
       type: {class: StatModifierEffect, ns: , asm: Assembly-CSharp}
       data:
         note: 

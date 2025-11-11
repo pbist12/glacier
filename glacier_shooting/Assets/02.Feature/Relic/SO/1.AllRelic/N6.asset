@@ -15,16 +15,16 @@ MonoBehaviour:
   RelicID: N6
   RelicName: N6
   description: "\uC0C1\uC810 \uB4F1\uC7A5\uD655\uB960 \uC99D\uAC00"
-  icon: {fileID: 21300000, guid: 7794e7391ecb9c84383fdd75e22620d0, type: 3}
+  icon: {fileID: 21300000, guid: 0869d51cf845bd04d851bfab6bb848ee, type: 3}
   rarity: 1
   price: 20
   cooldown: 0
   effects:
-  - rid: 1797607164344270924
+  - rid: 5338797710941618184
   references:
     version: 2
     RefIds:
-    - rid: 1797607164344270924
+    - rid: 5338797710941618184
       type: {class: StatModifierEffect, ns: , asm: Assembly-CSharp}
       data:
         note: 

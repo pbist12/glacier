@@ -21,11 +21,11 @@ MonoBehaviour:
   price: 20
   cooldown: 0
   effects:
-  - rid: 1797607164344270928
+  - rid: 5338797710941618188
   references:
     version: 2
     RefIds:
-    - rid: 1797607164344270928
+    - rid: 5338797710941618188
       type: {class: NthAttackStyleAndBuffEffect, ns: , asm: Assembly-CSharp}
       data:
         note: 
