@@ -110,14 +110,11 @@ public class DropItem : MonoBehaviour
             {
                 case UseType.Health:
                     AddHealth();
-                    Debug.Log("È¹µæ");
                     break;
                 case UseType.Score:
-                    Debug.Log("È¹µæ");
                     AddScore();
                     break;
                 case UseType.Money:
-                    Debug.Log("È¹µæ");
                     AddMoney();
                     break;
             }
