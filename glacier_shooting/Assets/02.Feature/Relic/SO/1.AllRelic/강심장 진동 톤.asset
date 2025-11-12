@@ -10,26 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b235dbcae78ef874aa0321336728ad09, type: 3}
-  m_Name: N8
+  m_Name: "\uAC15\uC2EC\uC7A5 \uC9C4\uB3D9 \uD1A4"
   m_EditorClassIdentifier: Assembly-CSharp::RelicData
-  RelicID: N8
-  RelicName: N8
-  description: "\uBAAC\uC2A4\uD130 \uCC98\uCE58\uC2DC \uC77C\uC815 \uD655\uB960\uB85C
-    \uB300\uD615 \uACE8\uB4DC \uC8FC\uBA38\uB2C8 \uB4F1\uC7A5"
-  icon: {fileID: 21300000, guid: 0869d51cf845bd04d851bfab6bb848ee, type: 3}
-  rarity: 3
-  price: 20
+  RelicID: HP_04
+  RelicName: "\uAC15\uC2EC\uC7A5 \uC9C4\uB3D9 \uD1A4"
+  description: "\uC7A5\uCC29 \uC2DC \uC601\uAD6C\uC801\uC73C\uB85C \uCC44\uB825\uC774
+    \uC99D\uAC00\uD55C\uB2E4."
+  icon: {fileID: 0}
+  rarity: 4
+  price: 60
   cooldown: 0
   effects:
-  - rid: 5338797710941618198
+  - rid: 6281243027843055932
   references:
     version: 2
     RefIds:
-    - rid: 5338797710941618198
+    - rid: 6281243027843055932
       type: {class: StatModifierEffect, ns: , asm: Assembly-CSharp}
       data:
         note: 
-        stat: 7
-        flat: 0
-        percent: 0.25
+        stat: 0
+        flat: 3
+        percent: 0
         revertOnRemove: 1

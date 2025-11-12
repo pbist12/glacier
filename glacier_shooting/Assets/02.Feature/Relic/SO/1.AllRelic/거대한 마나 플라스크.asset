@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b235dbcae78ef874aa0321336728ad09, type: 3}
   m_Name: "\uAC70\uB300\uD55C \uB9C8\uB098 \uD50C\uB77C\uC2A4\uD06C"
   m_EditorClassIdentifier: Assembly-CSharp::RelicData
-  RelicID: "\uAC70\uB300\uD55C \uB9C8\uB098 \uD50C\uB77C\uC2A4\uD06C"
+  RelicID: 20002
   RelicName: "\uAC70\uB300\uD55C \uB9C8\uB098 \uD50C\uB77C\uC2A4\uD06C"
-  description: "\uD50C\uB808\uC774\uC5B4\uC758 \uCD5C\uB300 \uB9C8\uB098\uB97C n\uB9CC\uD07C
+  description: "\uD50C\uB808\uC774\uC5B4\uC758 \uCD5C\uB300 \uB9C8\uB098\uB97C 1
     \uC99D\uAC00\uC2DC\uD0A8\uB2E4."
   icon: {fileID: 21300000, guid: 62b188914721ee244a40414a7130d532, type: 3}
   rarity: 1
   price: 20
   cooldown: 0
   effects:
-  - rid: 5338797710941618186
+  - rid: 6281243027843055949
   references:
     version: 2
     RefIds:
-    - rid: 5338797710941618186
+    - rid: 6281243027843055949
       type: {class: StatModifierEffect, ns: , asm: Assembly-CSharp}
       data:
         note: 

@@ -10,22 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b235dbcae78ef874aa0321336728ad09, type: 3}
-  m_Name: N10
+  m_Name: "\uB300\uD615 \uAE08\uD654!!"
   m_EditorClassIdentifier: Assembly-CSharp::RelicData
-  RelicID: N10
-  RelicName: N10
-  description: "\uC774\uBC88 \uC138\uC158\uC5D0 \uCD5C\uC885 \uBCF4\uC2A4\uB97C \uCC98\uCE58\uD55C
-    \uD6C4\uC5D0 \uD788\uB4E0 \uBCF4\uC2A4 \uB8E8\uD2B8\uB97C \uCD94\uAC00\uD55C\uB2E4."
+  RelicID: 20025
+  RelicName: "\uB300\uD615 \uAE08\uD654!!"
+  description: "\uACE8\uB4DC \uB4DC\uB78D \uD655\uB960 \uC99D\uAC00"
   icon: {fileID: 21300000, guid: 0869d51cf845bd04d851bfab6bb848ee, type: 3}
-  rarity: 4
+  rarity: 1
   price: 20
   cooldown: 0
   effects:
-  - rid: 5338797710941618190
+  - rid: 6281243027843055934
   references:
     version: 2
     RefIds:
-    - rid: 5338797710941618190
+    - rid: 6281243027843055934
       type: {class: StatModifierEffect, ns: , asm: Assembly-CSharp}
       data:
         note: 

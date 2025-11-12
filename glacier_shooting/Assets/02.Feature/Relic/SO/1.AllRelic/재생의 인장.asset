@@ -10,25 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b235dbcae78ef874aa0321336728ad09, type: 3}
-  m_Name: N6
+  m_Name: "\uC7AC\uC0DD\uC758 \uC778\uC7A5"
   m_EditorClassIdentifier: Assembly-CSharp::RelicData
-  RelicID: N6
-  RelicName: N6
-  description: "\uC0C1\uC810 \uB4F1\uC7A5\uD655\uB960 \uC99D\uAC00"
-  icon: {fileID: 21300000, guid: 0869d51cf845bd04d851bfab6bb848ee, type: 3}
-  rarity: 1
-  price: 20
+  RelicID: HP_06
+  RelicName: "\uC7AC\uC0DD\uC758 \uC778\uC7A5"
+  description: "\uC7A5\uCC29 \uC989\uC2DC \uCCB4\uB825 +2 \uD68C\uBCF5(\uD55C \uBC88),
+    \uCD5C\uB300 HP +2."
+  icon: {fileID: 0}
+  rarity: 3
+  price: 30
   cooldown: 0
   effects:
-  - rid: 5338797710941618184
+  - rid: 6281243027843055937
   references:
     version: 2
     RefIds:
-    - rid: 5338797710941618184
+    - rid: 6281243027843055937
       type: {class: StatModifierEffect, ns: , asm: Assembly-CSharp}
       data:
         note: 
-        stat: 7
-        flat: 0
-        percent: 0.25
+        stat: 0
+        flat: 2
+        percent: 0
         revertOnRemove: 1

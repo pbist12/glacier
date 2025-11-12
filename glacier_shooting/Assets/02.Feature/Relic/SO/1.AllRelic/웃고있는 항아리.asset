@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b235dbcae78ef874aa0321336728ad09, type: 3}
   m_Name: "\uC6C3\uACE0\uC788\uB294 \uD56D\uC544\uB9AC"
   m_EditorClassIdentifier: Assembly-CSharp::RelicData
-  RelicID: "\uC6C3\uACE0\uC788\uB294 \uD56D\uC544\uB9AC"
+  RelicID: 20017
   RelicName: "\uC6C3\uACE0\uC788\uB294 \uD56D\uC544\uB9AC"
-  description: "\uC810\uC218\uAC00 100000\uB9CC\uC774 \uB420 \uB54C\uB9C8\uB2E4 \uB9C8\uB098\uB97C
-    \uD55C \uAC1C \uC5BB\uB294\uB2E4."
+  description: "\uC810\uC218\uAC00 100000\uC758 \uBC30\uC218\uAC00 \uB420 \uB54C\uB9C8\uB2E4
+    \uB9C8\uB098\uB97C \uD55C \uAC1C \uC5BB\uB294\uB2E4."
   icon: {fileID: 21300000, guid: 71fd89cafda710045ace733fd62b7474, type: 3}
   rarity: 3
-  price: 20
+  price: 40
   cooldown: 0
   effects:
-  - rid: 5338797710941618187
+  - rid: 6281243027843055948
   references:
     version: 2
     RefIds:
-    - rid: 5338797710941618187
+    - rid: 6281243027843055948
       type: {class: StatModifierEffect, ns: , asm: Assembly-CSharp}
       data:
         note: 

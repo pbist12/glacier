@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b235dbcae78ef874aa0321336728ad09, type: 3}
-  m_Name: NM9
+  m_Name: $%^&$#
   m_EditorClassIdentifier: Assembly-CSharp::RelicData
-  RelicID: NM9
-  RelicName: NM9
-  description: "\uBAAC\uC2A4\uD130 \uCC98\uCE58\uC2DC \uB300\uD615 \uB9C8\uB098 \uC2A4\uD1A4
-    \uC8FC\uBA38\uB2C8 \uB4F1\uC7A5"
+  RelicID: 20030
+  RelicName: $%^&$#
+  description: "\uC774\uBC88 \uC138\uC158\uC5D0 \uCD5C\uC885 \uBCF4\uC2A4\uB97C \uCC98\uCE58\uD55C
+    \uD6C4\uC5D0 \uD788\uB4E0 \uBCF4\uC2A4 \uB8E8\uD2B8\uB97C \uCD94\uAC00\uD55C\uB2E4."
   icon: {fileID: 21300000, guid: 0869d51cf845bd04d851bfab6bb848ee, type: 3}
-  rarity: 3
-  price: 20
+  rarity: 4
+  price: 60
   cooldown: 0
   effects:
-  - rid: 5338797710941618194
+  - rid: 6281243027843055960
   references:
     version: 2
     RefIds:
-    - rid: 5338797710941618194
+    - rid: 6281243027843055960
       type: {class: StatModifierEffect, ns: , asm: Assembly-CSharp}
       data:
         note: 

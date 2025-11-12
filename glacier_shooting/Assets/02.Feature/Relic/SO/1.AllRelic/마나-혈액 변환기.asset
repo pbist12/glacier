@@ -10,25 +10,35 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b235dbcae78ef874aa0321336728ad09, type: 3}
-  m_Name: "\uAC70\uB300\uD55C \uD558\uD2B8 \uD50C\uB77C\uC2A4\uD06C"
+  m_Name: "\uB9C8\uB098-\uD608\uC561 \uBCC0\uD658\uAE30"
   m_EditorClassIdentifier: Assembly-CSharp::RelicData
-  RelicID: HP_01
-  RelicName: "\uAC70\uB300\uD55C \uD558\uD2B8 \uD50C\uB77C\uC2A4\uD06C"
-  description: "\uD50C\uB808\uC774\uC5B4\uC758 \uCD5C\uB300 \uCCB4\uB825\uC744 \uC99D\uAC00\uC2DC\uD0A8\uB2E4."
-  icon: {fileID: 21300000, guid: 0869d51cf845bd04d851bfab6bb848ee, type: 3}
-  rarity: 1
-  price: 20
+  RelicID: HP_03
+  RelicName: "\uB9C8\uB098-\uD608\uC561 \uBCC0\uD658\uAE30"
+  description: "\uB9C8\uB098\uB97C \uC18C\uBAA8\uD574 \uC0C1\uCC98\uB97C \uBD09\uD569\uD558\uB294
+    \uBCC0\uD658 \uC7A5\uCE58."
+  icon: {fileID: 0}
+  rarity: 3
+  price: 40
   cooldown: 0
   effects:
-  - rid: 6281243027843055930
+  - rid: 6281243027843055944
+  - rid: 6281243027843055945
   references:
     version: 2
     RefIds:
-    - rid: 6281243027843055930
+    - rid: 6281243027843055944
       type: {class: StatModifierEffect, ns: , asm: Assembly-CSharp}
       data:
         note: 
         stat: 0
         flat: 2
+        percent: 0
+        revertOnRemove: 1
+    - rid: 6281243027843055945
+      type: {class: StatModifierEffect, ns: , asm: Assembly-CSharp}
+      data:
+        note: 
+        stat: 1
+        flat: -2
         percent: 0
         revertOnRemove: 1

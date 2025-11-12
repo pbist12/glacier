@@ -10,23 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b235dbcae78ef874aa0321336728ad09, type: 3}
-  m_Name: N4
+  m_Name: "\uD070 \uB9C8\uB098\uC2A4\uD1A4"
   m_EditorClassIdentifier: Assembly-CSharp::RelicData
-  RelicID: N4
-  RelicName: N4
-  description: "\uD50C\uB808\uC774\uC5B4\uC758 \uC8FC\uBCC0\uC744 \uACF5\uC804\uD558\uB294
-    \uBC29\uD328\uB97C \uC18C\uD658\uD55C\uB2E4. \uBC29\uD328\uB294 \uCD1D\uC54C\uC744
-    \uB9C9\uC544\uC900\uB2E4."
-  icon: {fileID: 21300000, guid: 7794e7391ecb9c84383fdd75e22620d0, type: 3}
+  RelicID: 20029
+  RelicName: "\uD070 \uB9C8\uB098\uC2A4\uD1A4"
+  description: "\uBAAC\uC2A4\uD130 \uCC98\uCE58\uC2DC \uB300\uD615 \uB9C8\uB098 \uC2A4\uD1A4
+    \uC8FC\uBA38\uB2C8 \uB4F1\uC7A5"
+  icon: {fileID: 21300000, guid: 0869d51cf845bd04d851bfab6bb848ee, type: 3}
   rarity: 3
-  price: 20
+  price: 40
   cooldown: 0
   effects:
-  - rid: 1797607164344270935
+  - rid: 6281243027843055957
   references:
     version: 2
     RefIds:
-    - rid: 1797607164344270935
+    - rid: 6281243027843055957
       type: {class: StatModifierEffect, ns: , asm: Assembly-CSharp}
       data:
         note: 

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b235dbcae78ef874aa0321336728ad09, type: 3}
   m_Name: "\uC11C\uBD80 \uB300\uB959 \uBD80\uCE20"
   m_EditorClassIdentifier: Assembly-CSharp::RelicData
-  RelicID: "\uC11C\uBD80 \uB300\uB959 \uBD80\uCE20"
+  RelicID: 20024
   RelicName: "\uC11C\uBD80 \uB300\uB959 \uBD80\uCE20"
   description: "\uB300\uC2DC\uB97C \uD558\uBA74 \uC804\uBC29\uD5A5\uC73C\uB85C \uAE30\uBCF8
     \uACF5\uACA9 \uD0C4\uB9C9\uC744 \uBC1C\uC0AC\uD55C\uB2E4."
@@ -21,11 +21,11 @@ MonoBehaviour:
   price: 20
   cooldown: 0
   effects:
-  - rid: 5338797710941618179
+  - rid: 6281243027843055935
   references:
     version: 2
     RefIds:
-    - rid: 5338797710941618179
+    - rid: 6281243027843055935
       type: {class: StatModifierEffect, ns: , asm: Assembly-CSharp}
       data:
         note: 

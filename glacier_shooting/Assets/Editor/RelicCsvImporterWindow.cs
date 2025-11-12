@@ -147,7 +147,8 @@ public class RelicCsvImporterWindow : EditorWindow
     {
         string Get(string k) => row.TryGetValue(k, out var v) ? v?.Trim() : null;
 
-        var id = Get("RelicName");
+        var id = Get("RelicID");
+        var relicName = Get("RelicName");
         if (string.IsNullOrWhiteSpace(id))
         {
             _skipped++;
@@ -156,7 +157,7 @@ public class RelicCsvImporterWindow : EditorWindow
         }
 
         // 존재 확인 or 생성
-        var assetPath = $"{targetFolder}/{SanitizeFileName(id)}.asset";
+        var assetPath = $"{targetFolder}/{SanitizeFileName(relicName)}.asset";
         var item = AssetDatabase.LoadAssetAtPath<RelicData>(assetPath);
         bool isNew = false;
         if (item == null)
